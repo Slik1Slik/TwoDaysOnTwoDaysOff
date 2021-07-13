@@ -3,16 +3,55 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A311D72848089E06551AB2D /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */; };
+		4B28B6D41B5E3F75E41E4C76 /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */; };
 		567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */; };
 		567EB17A268A127500313D03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB179268A127500313D03 /* ContentView.swift */; };
 		567EB17C268A127800313D03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB17B268A127800313D03 /* Assets.xcassets */; };
 		567EB17F268A127800313D03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB17E268A127800313D03 /* Preview Assets.xcassets */; };
 		567EB18A268A127800313D03 /* TwoDaysOnTwoDaysOffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB189268A127800313D03 /* TwoDaysOnTwoDaysOffTests.swift */; };
 		567EB195268A127800313D03 /* TwoDaysOnTwoDaysOffUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB194268A127800313D03 /* TwoDaysOnTwoDaysOffUITests.swift */; };
+		567EB1A3268A14AD00313D03 /* VPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1A2268A14AD00313D03 /* VPager.swift */; };
+		567EB1A4268A14AD00313D03 /* VPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1A2268A14AD00313D03 /* VPager.swift */; };
+		567EB1A6268A14C500313D03 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1A5268A14C500313D03 /* TabBarView.swift */; };
+		567EB1A7268A14C500313D03 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1A5268A14C500313D03 /* TabBarView.swift */; };
+		567EB1AA268A150400313D03 /* DaysDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1A9268A150400313D03 /* DaysDataStorageManager.swift */; };
+		567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1AB268A151600313D03 /* ExceptionsDataStorageManager.swift */; };
+		567EB1AF268A157E00313D03 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1AE268A157E00313D03 /* JSONManager.swift */; };
+		567EB1B2268A15A000313D03 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1B1268A15A000313D03 /* Day.swift */; };
+		567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1B4268A15BD00313D03 /* DayViewModel.swift */; };
+		567EB1B8268A15DD00313D03 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1B7268A15DD00313D03 /* DateView.swift */; };
+		567EB1BA268A15F700313D03 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1B9268A15F700313D03 /* MonthView.swift */; };
+		567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1BB268A160400313D03 /* MonthCalendarView.swift */; };
+		567EB1BE268A161400313D03 /* MonthAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1BD268A161400313D03 /* MonthAccessoryView.swift */; };
+		567EB1C2268A164900313D03 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C1268A164900313D03 /* Exception.swift */; };
+		567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */; };
+		567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */; };
+		567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C9268A169600313D03 /* ExceptionsListView.swift */; };
+		567EB1CE268A16D900313D03 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1CD268A16D900313D03 /* UserSettings.swift */; };
+		567EB1D0268A16ED00313D03 /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1CF268A16ED00313D03 /* UserSettingsViewModel.swift */; };
+		567EB1D4268A171D00313D03 /* DaysCountPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1D3268A171D00313D03 /* DaysCountPicker.swift */; };
+		567EB1D6268A173600313D03 /* DaysColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1D5268A173600313D03 /* DaysColorsView.swift */; };
+		567EB1D8268A175000313D03 /* StartScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1D7268A175000313D03 /* StartScreenView.swift */; };
+		567EB1DA268A180E00313D03 /* ScheduleMakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1D9268A180E00313D03 /* ScheduleMakerView.swift */; };
+		567EB1DF268A186700313D03 /* Array + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1DE268A186700313D03 /* Array + Extensions.swift */; };
+		567EB1E1268A187700313D03 /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1E0268A187700313D03 /* Date + Extensions.swift */; };
+		567EB1E3268A188800313D03 /* DateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1E2268A188800313D03 /* DateConstants.swift */; };
+		567EB1E7268A18CB00313D03 /* CalendarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1E6268A18CB00313D03 /* CalendarConstants.swift */; };
+		567EB1E9268A19A000313D03 /* AppDirectoryURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1E8268A19A000313D03 /* AppDirectoryURLs.swift */; };
+		567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EA268A19B400313D03 /* AppFileManager.swift */; };
+		567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */; };
+		567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */; };
+		56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */; };
+		56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */; };
+		56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B64269301F600A8A2BC /* TabBarElementItem.swift */; };
+		56C73B6926934B7800A8A2BC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6826934B7800A8A2BC /* TabBarController.swift */; };
+		56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */; };
+		FD899368B9502FD5D5F6CF1A /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +72,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; sourceTree = "<group>"; };
+		456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; sourceTree = "<group>"; };
 		567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoDaysOnTwoDaysOff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDaysOnTwoDaysOffApp.swift; sourceTree = "<group>"; };
 		567EB179268A127500313D03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +87,46 @@
 		567EB190268A127800313D03 /* TwoDaysOnTwoDaysOffUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoDaysOnTwoDaysOffUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB194268A127800313D03 /* TwoDaysOnTwoDaysOffUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDaysOnTwoDaysOffUITests.swift; sourceTree = "<group>"; };
 		567EB196268A127800313D03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		567EB1A2268A14AD00313D03 /* VPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPager.swift; sourceTree = "<group>"; };
+		567EB1A5268A14C500313D03 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		567EB1A9268A150400313D03 /* DaysDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysDataStorageManager.swift; sourceTree = "<group>"; };
+		567EB1AB268A151600313D03 /* ExceptionsDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsDataStorageManager.swift; sourceTree = "<group>"; };
+		567EB1AE268A157E00313D03 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
+		567EB1B1268A15A000313D03 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		567EB1B4268A15BD00313D03 /* DayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModel.swift; sourceTree = "<group>"; };
+		567EB1B7268A15DD00313D03 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
+		567EB1B9268A15F700313D03 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
+		567EB1BB268A160400313D03 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
+		567EB1BD268A161400313D03 /* MonthAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthAccessoryView.swift; sourceTree = "<group>"; };
+		567EB1C1268A164900313D03 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
+		567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionListViewModel.swift; sourceTree = "<group>"; };
+		567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionDetailsView.swift; sourceTree = "<group>"; };
+		567EB1C9268A169600313D03 /* ExceptionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsListView.swift; sourceTree = "<group>"; };
+		567EB1CD268A16D900313D03 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		567EB1CF268A16ED00313D03 /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
+		567EB1D3268A171D00313D03 /* DaysCountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCountPicker.swift; sourceTree = "<group>"; };
+		567EB1D5268A173600313D03 /* DaysColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysColorsView.swift; sourceTree = "<group>"; };
+		567EB1D7268A175000313D03 /* StartScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenView.swift; sourceTree = "<group>"; };
+		567EB1D9268A180E00313D03 /* ScheduleMakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMakerView.swift; sourceTree = "<group>"; };
+		567EB1DE268A186700313D03 /* Array + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + Extensions.swift"; sourceTree = "<group>"; };
+		567EB1E0268A187700313D03 /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
+		567EB1E2268A188800313D03 /* DateConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConstants.swift; sourceTree = "<group>"; };
+		567EB1E6268A18CB00313D03 /* CalendarConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarConstants.swift; sourceTree = "<group>"; };
+		567EB1E8268A19A000313D03 /* AppDirectoryURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDirectoryURLs.swift; sourceTree = "<group>"; };
+		567EB1EA268A19B400313D03 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
+		567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileStatusChecker.swift; sourceTree = "<group>"; };
+		567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DaysColors.xcassets; sourceTree = "<group>"; };
+		56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConstants.swift; sourceTree = "<group>"; };
+		56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerWrapper.swift; sourceTree = "<group>"; };
+		56C73B64269301F600A8A2BC /* TabBarElementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarElementItem.swift; sourceTree = "<group>"; };
+		56C73B6826934B7800A8A2BC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPager.swift; sourceTree = "<group>"; };
+		59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; sourceTree = "<group>"; };
+		A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOffTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1E323A8251EBC19436EF8EA /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE90513A8B1633A8340A4F45 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD899368B9502FD5D5F6CF1A /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B28B6D41B5E3F75E41E4C76 /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +150,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A311D72848089E06551AB2D /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2961C9E41A555D2EA3BBCD95 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */,
+				EE90513A8B1633A8340A4F45 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */,
+				C1E323A8251EBC19436EF8EA /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */,
+				2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */,
+				08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */,
+				456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		51433F45DE618C1863F88571 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */,
+				A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */,
+				B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		567EB16B268A127400313D03 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +187,8 @@
 				567EB188268A127800313D03 /* TwoDaysOnTwoDaysOffTests */,
 				567EB193268A127800313D03 /* TwoDaysOnTwoDaysOffUITests */,
 				567EB175268A127500313D03 /* Products */,
+				2961C9E41A555D2EA3BBCD95 /* Pods */,
+				51433F45DE618C1863F88571 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +210,16 @@
 				567EB17B268A127800313D03 /* Assets.xcassets */,
 				567EB180268A127800313D03 /* Info.plist */,
 				567EB17D268A127800313D03 /* Preview Content */,
+				567EB1A8268A14CC00313D03 /* Reusable Views */,
+				567EB1AD268A152100313D03 /* DataStorageManagers */,
+				567EB1B0268A158100313D03 /* JSON */,
+				567EB1C0268A162B00313D03 /* Calendar */,
+				567EB1CC268A16B600313D03 /* Exceptions */,
+				567EB1DD268A183400313D03 /* Set up Calendar */,
+				567EB1E4268A189200313D03 /* Extensions */,
+				567EB1E5268A189E00313D03 /* Constants */,
+				567EB1EE268A19EE00313D03 /* AppFileManager */,
+				567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */,
 			);
 			path = TwoDaysOnTwoDaysOff;
 			sourceTree = "<group>";
@@ -130,6 +250,174 @@
 			path = TwoDaysOnTwoDaysOffUITests;
 			sourceTree = "<group>";
 		};
+		567EB1A8268A14CC00313D03 /* Reusable Views */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1A2268A14AD00313D03 /* VPager.swift */,
+				567EB1A5268A14C500313D03 /* TabBarView.swift */,
+				56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */,
+				56C73B64269301F600A8A2BC /* TabBarElementItem.swift */,
+				56C73B6826934B7800A8A2BC /* TabBarController.swift */,
+				56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */,
+			);
+			path = "Reusable Views";
+			sourceTree = "<group>";
+		};
+		567EB1AD268A152100313D03 /* DataStorageManagers */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1A9268A150400313D03 /* DaysDataStorageManager.swift */,
+				567EB1AB268A151600313D03 /* ExceptionsDataStorageManager.swift */,
+			);
+			path = DataStorageManagers;
+			sourceTree = "<group>";
+		};
+		567EB1B0268A158100313D03 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1AE268A157E00313D03 /* JSONManager.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		567EB1B3268A15A500313D03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1B1268A15A000313D03 /* Day.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		567EB1B6268A15C100313D03 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1B4268A15BD00313D03 /* DayViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		567EB1BF268A161B00313D03 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1B7268A15DD00313D03 /* DateView.swift */,
+				567EB1B9268A15F700313D03 /* MonthView.swift */,
+				567EB1BB268A160400313D03 /* MonthCalendarView.swift */,
+				567EB1BD268A161400313D03 /* MonthAccessoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		567EB1C0268A162B00313D03 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1B3268A15A500313D03 /* Model */,
+				567EB1BF268A161B00313D03 /* View */,
+				567EB1B6268A15C100313D03 /* ViewModel */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		567EB1C3268A165000313D03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1C1268A164900313D03 /* Exception.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		567EB1C6268A167200313D03 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		567EB1CB268A16A600313D03 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */,
+				567EB1C9268A169600313D03 /* ExceptionsListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		567EB1CC268A16B600313D03 /* Exceptions */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1C3268A165000313D03 /* Model */,
+				567EB1CB268A16A600313D03 /* View */,
+				567EB1C6268A167200313D03 /* ViewModel */,
+			);
+			path = Exceptions;
+			sourceTree = "<group>";
+		};
+		567EB1D1268A16F800313D03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1CD268A16D900313D03 /* UserSettings.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		567EB1D2268A16FE00313D03 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1CF268A16ED00313D03 /* UserSettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		567EB1DC268A182900313D03 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1D3268A171D00313D03 /* DaysCountPicker.swift */,
+				567EB1D5268A173600313D03 /* DaysColorsView.swift */,
+				567EB1D7268A175000313D03 /* StartScreenView.swift */,
+				567EB1D9268A180E00313D03 /* ScheduleMakerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		567EB1DD268A183400313D03 /* Set up Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1D1268A16F800313D03 /* Model */,
+				567EB1DC268A182900313D03 /* View */,
+				567EB1D2268A16FE00313D03 /* ViewModel */,
+			);
+			path = "Set up Calendar";
+			sourceTree = "<group>";
+		};
+		567EB1E4268A189200313D03 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1DE268A186700313D03 /* Array + Extensions.swift */,
+				567EB1E0268A187700313D03 /* Date + Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		567EB1E5268A189E00313D03 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1E2268A188800313D03 /* DateConstants.swift */,
+				567EB1E6268A18CB00313D03 /* CalendarConstants.swift */,
+				56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		567EB1EE268A19EE00313D03 /* AppFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				567EB1E8268A19A000313D03 /* AppDirectoryURLs.swift */,
+				567EB1EA268A19B400313D03 /* AppFileManager.swift */,
+				567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */,
+			);
+			path = AppFileManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,9 +425,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB199268A127800313D03 /* Build configuration list for PBXNativeTarget "TwoDaysOnTwoDaysOff" */;
 			buildPhases = (
+				C6FFCC78F48357EDF064437C /* [CP] Check Pods Manifest.lock */,
 				567EB170268A127500313D03 /* Sources */,
 				567EB171268A127500313D03 /* Frameworks */,
 				567EB172268A127500313D03 /* Resources */,
+				29DF1161D45B509C81298D71 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,9 +444,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB19C268A127800313D03 /* Build configuration list for PBXNativeTarget "TwoDaysOnTwoDaysOffTests" */;
 			buildPhases = (
+				3599C73CD50D6E6416C03BDA /* [CP] Check Pods Manifest.lock */,
 				567EB181268A127800313D03 /* Sources */,
 				567EB182268A127800313D03 /* Frameworks */,
 				567EB183268A127800313D03 /* Resources */,
+				C93A3BA5E79A7ACAEC46C5C7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -172,9 +464,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB19F268A127800313D03 /* Build configuration list for PBXNativeTarget "TwoDaysOnTwoDaysOffUITests" */;
 			buildPhases = (
+				256789E476AD4E90D1228B69 /* [CP] Check Pods Manifest.lock */,
 				567EB18C268A127800313D03 /* Sources */,
 				567EB18D268A127800313D03 /* Frameworks */,
 				567EB18E268A127800313D03 /* Resources */,
+				525BA074169F2DCA27BB24B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -235,6 +529,7 @@
 			files = (
 				567EB17F268A127800313D03 /* Preview Assets.xcassets in Resources */,
 				567EB17C268A127800313D03 /* Assets.xcassets in Resources */,
+				567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,13 +549,166 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		256789E476AD4E90D1228B69 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29DF1161D45B509C81298D71 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3599C73CD50D6E6416C03BDA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwoDaysOnTwoDaysOffTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		525BA074169F2DCA27BB24B7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6FFCC78F48357EDF064437C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwoDaysOnTwoDaysOff-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C93A3BA5E79A7ACAEC46C5C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		567EB170268A127500313D03 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
+				56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */,
+				567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */,
+				567EB1E7268A18CB00313D03 /* CalendarConstants.swift in Sources */,
+				567EB1B8268A15DD00313D03 /* DateView.swift in Sources */,
+				567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */,
 				567EB17A268A127500313D03 /* ContentView.swift in Sources */,
+				567EB1AF268A157E00313D03 /* JSONManager.swift in Sources */,
+				567EB1D6268A173600313D03 /* DaysColorsView.swift in Sources */,
+				567EB1E1268A187700313D03 /* Date + Extensions.swift in Sources */,
+				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
+				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
+				567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */,
+				567EB1B2268A15A000313D03 /* Day.swift in Sources */,
+				567EB1D8268A175000313D03 /* StartScreenView.swift in Sources */,
+				56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */,
+				567EB1A3268A14AD00313D03 /* VPager.swift in Sources */,
+				567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */,
+				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
+				56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */,
+				567EB1DF268A186700313D03 /* Array + Extensions.swift in Sources */,
+				567EB1AA268A150400313D03 /* DaysDataStorageManager.swift in Sources */,
+				567EB1BE268A161400313D03 /* MonthAccessoryView.swift in Sources */,
+				567EB1DA268A180E00313D03 /* ScheduleMakerView.swift in Sources */,
+				56C73B6926934B7800A8A2BC /* TabBarController.swift in Sources */,
+				567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */,
+				567EB1CE268A16D900313D03 /* UserSettings.swift in Sources */,
+				567EB1E9268A19A000313D03 /* AppDirectoryURLs.swift in Sources */,
+				567EB1D0268A16ED00313D03 /* UserSettingsViewModel.swift in Sources */,
+				567EB1A6268A14C500313D03 /* TabBarView.swift in Sources */,
+				567EB1D4268A171D00313D03 /* DaysCountPicker.swift in Sources */,
 				567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */,
+				56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */,
+				567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */,
+				567EB1C2268A164900313D03 /* Exception.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +724,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				567EB1A4268A14AD00313D03 /* VPager.swift in Sources */,
+				567EB1A7268A14C500313D03 /* TabBarView.swift in Sources */,
 				567EB195268A127800313D03 /* TwoDaysOnTwoDaysOffUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,11 +864,13 @@
 		};
 		567EB19A268A127800313D03 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TwoDaysOnTwoDaysOff/Preview Content\"";
+				DEVELOPMENT_TEAM = 236B3R3Z3Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TwoDaysOnTwoDaysOff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -429,17 +881,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = slik.TwoDaysOnTwoDaysOff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		567EB19B268A127800313D03 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE90513A8B1633A8340A4F45 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TwoDaysOnTwoDaysOff/Preview Content\"";
+				DEVELOPMENT_TEAM = 236B3R3Z3Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TwoDaysOnTwoDaysOff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -450,12 +904,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = slik.TwoDaysOnTwoDaysOff;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		567EB19D268A127800313D03 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -477,6 +932,7 @@
 		};
 		567EB19E268A127800313D03 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -498,6 +954,7 @@
 		};
 		567EB1A0268A127800313D03 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1E323A8251EBC19436EF8EA /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -517,6 +974,7 @@
 		};
 		567EB1A1268A127800313D03 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
