@@ -65,7 +65,7 @@ struct MonthPage: View, Identifiable {
             MonthHeader(month: id)
                 .padding(.bottom, 5)
                 .padding(.top, 16)
-            MonthView(month: id)
+            MonthView(month: id, calendar: DateConstants.calendar, dateViewType: DateView.self)
                 .padding(.bottom, 16)
             MonthAccessoryView(month: id)
                 .padding(.leading, 16)

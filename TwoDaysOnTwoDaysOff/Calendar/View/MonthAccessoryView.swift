@@ -62,27 +62,7 @@ struct MonthAccessoryView: View {
         }
         let predicate = NSPredicate(format: "from >= %@ AND to <= %@",
                                     argumentArray: [interval.start, interval.end])
-        do {
-            return try ExceptionsDataStorageManager.filtred(by: predicate)
-        } catch {
-            return []
-        }
-    }
-    
-    func getExceptions() {
-        let calendar = DateConstants.calendar
-        guard let interval = calendar.dateInterval(of: .month, for: month) else {
-            return
-        }
-        let predicate = NSPredicate(format: "from >= %@ AND to <= %@",
-                                    argumentArray: [interval.start, interval.end])
-        do {
-            let exceptions1 = try ExceptionsDataStorageManager.filtred(by: predicate)
-            print(exceptions1.count)
-            print(type(of: exceptions1))
-        } catch {
-            return
-        }
+        return ExceptionsDataStorageManager.filtred(by: predicate)
     }
     
     init(month: Date) {

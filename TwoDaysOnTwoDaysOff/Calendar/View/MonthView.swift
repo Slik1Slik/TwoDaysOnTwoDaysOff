@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct MonthView: View
+struct MonthView<DateView: DateViewProtocol>: View
 {
     var calendar: Calendar
     let month: Date
+    var dateViewType: DateView.Type
     
     @State var isPresented: Bool = false
     
-    init(month: Date) {
+    init(month: Date, calendar: Calendar, dateViewType: DateView.Type) {
         self.month = month
-        self.calendar = DateConstants.calendar
+        self.calendar = calendar
+        self.dateViewType = dateViewType
     }
     
     var body: some View {
@@ -27,10 +29,10 @@ struct MonthView: View
                     HStack(spacing: ExpandedMonthCalendarConstants.minimumInteritemSpacing) {
                         ForEach(week, id: \.self) { day in
                             if calendar.isDate(day, equalTo: month, toGranularity: .month) {
-                                DateView(date: day)
+                                dateViewType.init(date: day)
                             }
                             else {
-                                DateView(date: day).hidden()
+                                dateViewType.init(date: day).hidden()
                             }
                         }
                     }
@@ -86,8 +88,13 @@ struct MonthView: View
     }
 }
 
+protocol DateViewProtocol: View {
+    var date: Date { get set }
+    init(date: Date)
+}
+
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        MonthView(month: Date())
+        MonthView(month: Date(), calendar: DateConstants.calendar, dateViewType: DateView.self)
     }
 }

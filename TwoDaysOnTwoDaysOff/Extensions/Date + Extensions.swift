@@ -14,6 +14,12 @@ extension Date {
         let dateFormatter = DateConstants.dateFormatter
         return dateFormatter.string(from: self)
     }
+    
+    func string(format: String) -> String {
+        let dateFormatter = DateConstants.dateFormatter
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
 }
 
 extension Date {

@@ -14,15 +14,16 @@ class ExceptionsDataStorageManager
 {
     static func save(_ exception: Exception) throws
     {
-        guard !conflicts(exception) else {
-            throw ExceptionsDataStorageManagerErrors.AppendingExceptionConflictsWithCurrent
-        }
-        try! realm.write {
-            realm.add(exception)
+        do {
+            try realm.write {
+                    realm.add(exception)
+                }
+        } catch {
+            throw ExceptionsDataStorageManagerErrors.AttemptToWriteWasFailure
         }
     }
     
-    private static func conflicts(_ exception: Exception) -> Bool
+    static func conflicts(_ exception: Exception) -> Bool
     {
         let query = "(from <= %@ AND to >= %@) OR (from <= %@ AND to >= %@)"
         guard let _ = realm.objects(Exception.self).filter(query,
@@ -34,7 +35,7 @@ class ExceptionsDataStorageManager
         return true
     }
     
-    private static func conflicts(exception: Exception, excluding excludedException: Exception) -> Bool
+    static func conflicts(exception: Exception, excluding excludedException: Exception) -> Bool
     {
         let objects = realm.objects(Exception.self).filter {
             !($0.from == excludedException.from && $0.to == excludedException.to)
@@ -57,33 +58,28 @@ class ExceptionsDataStorageManager
     
     static func update(_ exception: inout Exception, with newException: Exception) throws
     {
-        guard !conflicts(exception: newException, excluding: exception) else {
-            throw ExceptionsDataStorageManagerErrors.AppendingExceptionConflictsWithCurrent
-        }
-        try! realm.write {
-            exception.from = newException.from
-            exception.to = newException.to
-            exception.isWorking = newException.isWorking
-            exception.name = newException.name
-            exception.details = newException.details
+        do {
+            try realm.write {
+                exception.from = newException.from
+                exception.to = newException.to
+                exception.isWorking = newException.isWorking
+                exception.name = newException.name
+                exception.details = newException.details
+            }
+        } catch {
+            throw ExceptionsDataStorageManagerErrors.AttemptToWriteWasFailure
         }
     }
     
-    static func find(by date: Date) throws -> Exception
+    static func find(by date: Date) -> Exception?
     {
         let results = realm.objects(Exception.self).filter("from <= %@ AND to >= %@", date, date)
-        guard let exception = results.first else {
-            throw ExceptionsDataStorageManagerErrors.NoResultForQuery
-        }
-        return exception
+        return results.first
     }
     
-    static func filtred(by predicate: NSPredicate) throws -> [Exception]
+    static func filtred(by predicate: NSPredicate) -> [Exception]
     {
         let results = realm.objects(Exception.self).filter(predicate).map{ $0 }
-        guard !results.isEmpty else {
-            throw ExceptionsDataStorageManagerErrors.NoResultForQuery
-        }
         return Array(results)
     }
     
@@ -114,6 +110,14 @@ class ExceptionsDataStorageManager
 enum ExceptionsDataStorageManagerErrors: Error
 {
     case AttemptToWriteWasFailure
-    case NoResultForQuery
     case AppendingExceptionConflictsWithCurrent
+    
+    public var localizedDescription: String {
+        switch self {
+        case .AttemptToWriteWasFailure:
+            return "Ошибка при записи исключения. Пожалуйста, попробуйте еще раз."
+        case .AppendingExceptionConflictsWithCurrent:
+            return "На выбранный период уже назначено исключение."
+        }
+    }
 }

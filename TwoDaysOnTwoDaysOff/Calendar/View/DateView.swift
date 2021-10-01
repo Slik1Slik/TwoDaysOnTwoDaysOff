@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct DateView: View {
+struct DateView: DateViewProtocol {
     
-    private var date: Date
+    var date: Date
     @ObservedObject private var dayViewModel = DayViewModel()
     
     private let itemHeight: CGFloat = ExpandedMonthCalendarConstants.itemWidth
