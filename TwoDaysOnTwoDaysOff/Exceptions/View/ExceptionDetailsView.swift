@@ -11,7 +11,7 @@ struct ExceptionDetailsView: View {
     @ObservedObject private var viewModel = ExceptionViewModel()
     @State private var isAlertPresented = false
     @State private var caller = DatePickerCaller.from
-    
+    @State private var brightness: Double = 0
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -38,13 +38,27 @@ struct ExceptionDetailsView: View {
                         Divider()
                         Toggle("Period", isOn: $viewModel.isPeriod)
                     }
-                    .animation(.linear(duration: 0.3))
+                    .animation(.linear(duration: 0.2))
+                }
+                Section(header: header("Day kind")) {
+                    Toggle("Is working", isOn: $viewModel.isWorking)
+                }
+                Section(header: header("Icon")) {
+                    ExceptionIconPicker(selection: $viewModel.icon, isWorking: viewModel.isWorking)
+                }
+                Section(header: header("Details"), footer: detailsFooter()) {
+                    TextField("", text: $viewModel.details)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(5)
+                        .lineSpacing(1)
                 }
             }
             .padding()
-            .blur(radius: isAlertPresented ? 3 : 0)
+            
         }
         .background(Color(.systemGray6))
+        .brightness(brightness)
+        .disabled(isAlertPresented)
         .overlay(
             WheelDatePickerAlert(
                 isPresented: $isAlertPresented,
@@ -52,6 +66,25 @@ struct ExceptionDetailsView: View {
                 range: caller == .from ? Date()...UserSettings.finalDate : viewModel.from...UserSettings.finalDate
             )
         )
+        .onChange(of: isAlertPresented) { value in
+            if value {
+                self.darken()
+            } else {
+                self.illuminate()
+            }
+        }
+    }
+    
+    private func darken() {
+        withAnimation(.easeOut) {
+            self.brightness = -0.5
+        }
+    }
+    
+    private func illuminate() {
+        withAnimation(.easeOut(duration: 0.05)) {
+            self.brightness = 0
+        }
     }
 }
 

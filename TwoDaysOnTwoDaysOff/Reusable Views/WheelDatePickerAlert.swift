@@ -13,7 +13,6 @@ struct WheelDatePickerAlert: View {
     
     @State private var yPoint: CGFloat = UIScreen.main.bounds.height
     @State private var scaleEffect: CGFloat = 0
-    @State private var opacity: Double = 1
     
     var range: ClosedRange<Date>
     

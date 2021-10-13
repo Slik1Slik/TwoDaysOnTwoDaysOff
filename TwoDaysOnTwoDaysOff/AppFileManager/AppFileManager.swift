@@ -17,6 +17,14 @@ class AppFileManager {
         return FileManager.default.contents(atPath: url.path)!
     }
     
+    func readFileIfExists(at url: URL) throws -> Data
+    {
+        if !AppFileStatusChecker().exists(file: url) {
+            throw FileManagerError.fileNotFound(name: url.lastPathComponent)
+        }
+        return FileManager.default.contents(atPath: url.path)!
+    }
+    
     func writeFile(to url: URL, with data: Data) -> Bool
     {
         return FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
@@ -33,5 +41,28 @@ class AppFileManager {
     {
         try! FileManager.default.copyItem(at: url, to: destinationURL)
         return true
+    }
+    
+    func createFolder(at url: URL, with data: Data) -> Bool {
+        guard ((try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)) != nil) else {
+            return false
+        }
+        return true
+    }
+    
+    func loadBundledContent(fromFileNamed name: String, withExtension fileExtension: String) throws -> Data {
+        guard let url = Bundle.main.url(
+            forResource: name,
+            withExtension: fileExtension
+        ) else {
+            throw FileManagerError.fileNotFound(name: name)
+        }
+        return readFile(at: url)
+    }
+    
+    enum FileManagerError: Error {
+        case fileNotFound(name: String)
+        case fileReadingFailed(name: String)
+        case fileWritingFailed(name: String)
     }
 }

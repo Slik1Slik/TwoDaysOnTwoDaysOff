@@ -15,6 +15,16 @@ extension Binding {
         return BindingPublisher(value: self.wrappedValue)
     }
     
+    var initialValue: AnyPublisher<Value, Never> {
+        return
+            self.publisher()
+            .scan(self.wrappedValue) { value, _ in
+                return value
+            }
+            .first()
+            .eraseToAnyPublisher()
+    }
+    
     struct BindingPublisher: Publisher {
         
         typealias Output = Value

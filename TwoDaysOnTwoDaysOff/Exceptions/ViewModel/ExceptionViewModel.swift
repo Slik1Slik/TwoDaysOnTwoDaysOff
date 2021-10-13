@@ -13,7 +13,7 @@ class ExceptionViewModel: ObservableObject {
     @Published var to: Date = Date()
     @Published var name: String = ""
     @Published var details: String = ""
-    @Published var icon: UIImage = UIImage()
+    @Published var icon: ExceptionIcon = ExceptionIconsDataStorageManager.shared.first()
     @Published var isWorking: Bool = false
     
     @Published var isPeriod: Bool = false
@@ -174,7 +174,7 @@ class ExceptionViewModel: ObservableObject {
             to: to,
             name: name,
             details: details,
-            icon: icon.pngData()!,
+            icon: icon,
             isWorking: true
         )
     }

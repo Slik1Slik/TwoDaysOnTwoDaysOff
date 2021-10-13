@@ -14,10 +14,10 @@ class Exception: Object
     @objc dynamic var to: Date = Date.init(timeIntervalSince1970: 0)
     @objc dynamic var name: String = ""
     @objc dynamic var details: String?
-    @objc dynamic var icon: Data? = nil
+    @objc dynamic var icon: ExceptionIcon?
     @objc dynamic var isWorking: Bool = false
     
-    convenience init(from: Date, to: Date, name: String, details: String?, icon: Data, isWorking: Bool)
+    convenience init(from: Date, to: Date, name: String, details: String?, icon: ExceptionIcon?, isWorking: Bool)
     {
         self.init()
         

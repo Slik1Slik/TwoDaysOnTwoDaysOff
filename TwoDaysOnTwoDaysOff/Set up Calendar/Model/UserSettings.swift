@@ -36,6 +36,7 @@ final class UserSettings
         case countOfRestDays
         
         case wasApplicationEverLaunched
+        case countOfAppLaunches
         case isCalendarFormed
         
         case restDayCellColor
@@ -86,6 +87,8 @@ final class UserSettings
     
     @Defaults<Bool>(key: "wasApplicationEverLaunched") static var wasApplicationEverLaunched
     
+    @Defaults<Int>(key: "countOfAppLaunches") static var countOfAppLaunches
+    
     @Defaults<String>(key: "restDayCellColor") static var restDayCellColor
     
     @Defaults<String>(key: "workingDayCellColor") static var workingDayCellColor
@@ -106,6 +109,8 @@ final class UserSettings
         
         userDefaults.register(defaults: [SettingsKeys.wasApplicationEverLaunched.rawValue : true])
         userDefaults.register(defaults: [SettingsKeys.isCalendarFormed.rawValue : false])
+        
+        userDefaults.register(defaults: [SettingsKeys.countOfAppLaunches.rawValue : 1])
     }
 }
 

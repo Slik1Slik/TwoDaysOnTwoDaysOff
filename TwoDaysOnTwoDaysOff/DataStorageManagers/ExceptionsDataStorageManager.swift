@@ -79,7 +79,7 @@ class ExceptionsDataStorageManager
     
     static func filtred(by predicate: NSPredicate) -> [Exception]
     {
-        let results = realm.objects(Exception.self).filter(predicate).map{ $0 }
+        let results = realm.objects(Exception.self).filter(predicate)
         return Array(results)
     }
     

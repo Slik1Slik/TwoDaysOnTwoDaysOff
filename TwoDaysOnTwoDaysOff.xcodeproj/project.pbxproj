@@ -9,9 +9,14 @@
 /* Begin PBXBuildFile section */
 		4A311D72848089E06551AB2D /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */; };
 		4B28B6D41B5E3F75E41E4C76 /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */; };
+		5637685A2716AF7500B4BB56 /* defaultIcons.json in Resources */ = {isa = PBXBuildFile; fileRef = 563768592716AF7500B4BB56 /* defaultIcons.json */; };
 		5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63927020C780092EA6E /* CustomFormSection.swift */; };
 		5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */; };
 		5659E63E27075C6E0092EA6E /* Other Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63D27075C6E0092EA6E /* Other Extensions.swift */; };
+		5659E645270DD0A60092EA6E /* ExceptionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E644270DD0A60092EA6E /* ExceptionIcon.swift */; };
+		5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */; };
+		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
+		5659E64F270E0C980092EA6E /* ExceptionIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E64E270E0C980092EA6E /* ExceptionIconViewModel.swift */; };
 		5670199926F8C968009A065C /* ExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5670199826F8C968009A065C /* ExceptionViewModel.swift */; };
 		567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */; };
 		567EB17A268A127500313D03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB179268A127500313D03 /* ContentView.swift */; };
@@ -55,6 +60,8 @@
 		56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B64269301F600A8A2BC /* TabBarElementItem.swift */; };
 		56C73B6926934B7800A8A2BC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6826934B7800A8A2BC /* TabBarController.swift */; };
 		56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */; };
+		56CDA64627120135006D3964 /* Placeholders.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56CDA64527120135006D3964 /* Placeholders.xcassets */; };
+		56CDA6482712D732006D3964 /* ExceptionIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CDA6472712D732006D3964 /* ExceptionIconPicker.swift */; };
 		FD899368B9502FD5D5F6CF1A /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,9 +86,14 @@
 		08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; sourceTree = "<group>"; };
 		456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; sourceTree = "<group>"; };
+		563768592716AF7500B4BB56 /* defaultIcons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultIcons.json; path = ../../../../../Downloads/defaultIcons.json; sourceTree = "<group>"; };
 		5659E63927020C780092EA6E /* CustomFormSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormSection.swift; sourceTree = "<group>"; };
 		5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelDatePickerAlert.swift; sourceTree = "<group>"; };
 		5659E63D27075C6E0092EA6E /* Other Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Other Extensions.swift"; sourceTree = "<group>"; };
+		5659E644270DD0A60092EA6E /* ExceptionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIcon.swift; sourceTree = "<group>"; };
+		5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconsDataStorageManager.swift; sourceTree = "<group>"; };
+		5659E648270E087E0092EA6E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		5659E64E270E0C980092EA6E /* ExceptionIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconViewModel.swift; sourceTree = "<group>"; };
 		5670199826F8C968009A065C /* ExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModel.swift; sourceTree = "<group>"; };
 		567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoDaysOnTwoDaysOff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDaysOnTwoDaysOffApp.swift; sourceTree = "<group>"; };
@@ -129,6 +141,8 @@
 		56C73B64269301F600A8A2BC /* TabBarElementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarElementItem.swift; sourceTree = "<group>"; };
 		56C73B6826934B7800A8A2BC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPager.swift; sourceTree = "<group>"; };
+		56CDA64527120135006D3964 /* Placeholders.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Placeholders.xcassets; sourceTree = "<group>"; };
+		56CDA6472712D732006D3964 /* ExceptionIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconPicker.swift; sourceTree = "<group>"; };
 		59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; sourceTree = "<group>"; };
 		A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOffTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +202,48 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		563768562712F57100B4BB56 /* DefaultIcons */ = {
+			isa = PBXGroup;
+			children = (
+				563768592716AF7500B4BB56 /* defaultIcons.json */,
+			);
+			path = DefaultIcons;
+			sourceTree = "<group>";
+		};
+		5659E64A270E0C140092EA6E /* Exception Icon */ = {
+			isa = PBXGroup;
+			children = (
+				5659E64D270E0C560092EA6E /* Model */,
+				5659E64C270E0C510092EA6E /* View */,
+				5659E64B270E0C480092EA6E /* ViewModel */,
+			);
+			path = "Exception Icon";
+			sourceTree = "<group>";
+		};
+		5659E64B270E0C480092EA6E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5659E64E270E0C980092EA6E /* ExceptionIconViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5659E64C270E0C510092EA6E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				56CDA6472712D732006D3964 /* ExceptionIconPicker.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5659E64D270E0C560092EA6E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5659E644270DD0A60092EA6E /* ExceptionIcon.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		567EB16B268A127400313D03 = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +284,8 @@
 				567EB1E5268A189E00313D03 /* Constants */,
 				567EB1EE268A19EE00313D03 /* AppFileManager */,
 				567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */,
+				5659E648270E087E0092EA6E /* RealmManager.swift */,
+				56CDA64527120135006D3964 /* Placeholders.xcassets */,
 			);
 			path = TwoDaysOnTwoDaysOff;
 			sourceTree = "<group>";
@@ -278,6 +336,7 @@
 			children = (
 				567EB1A9268A150400313D03 /* DaysDataStorageManager.swift */,
 				567EB1AB268A151600313D03 /* ExceptionsDataStorageManager.swift */,
+				5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */,
 			);
 			path = DataStorageManagers;
 			sourceTree = "<group>";
@@ -359,6 +418,8 @@
 				567EB1C3268A165000313D03 /* Model */,
 				567EB1CB268A16A600313D03 /* View */,
 				567EB1C6268A167200313D03 /* ViewModel */,
+				5659E64A270E0C140092EA6E /* Exception Icon */,
+				563768562712F57100B4BB56 /* DefaultIcons */,
 			);
 			path = Exceptions;
 			sourceTree = "<group>";
@@ -541,7 +602,9 @@
 			files = (
 				567EB17F268A127800313D03 /* Preview Assets.xcassets in Resources */,
 				567EB17C268A127800313D03 /* Assets.xcassets in Resources */,
+				5637685A2716AF7500B4BB56 /* defaultIcons.json in Resources */,
 				567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */,
+				56CDA64627120135006D3964 /* Placeholders.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,12 +756,14 @@
 				567EB1E7268A18CB00313D03 /* CalendarConstants.swift in Sources */,
 				567EB1B8268A15DD00313D03 /* DateView.swift in Sources */,
 				567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */,
+				5659E64F270E0C980092EA6E /* ExceptionIconViewModel.swift in Sources */,
 				567EB17A268A127500313D03 /* ContentView.swift in Sources */,
 				567EB1AF268A157E00313D03 /* JSONManager.swift in Sources */,
 				567EB1D6268A173600313D03 /* DaysColorsView.swift in Sources */,
 				567EB1E1268A187700313D03 /* Date + Extensions.swift in Sources */,
 				5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */,
 				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
+				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
 				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
 				567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */,
 				567EB1B2268A15A000313D03 /* Day.swift in Sources */,
@@ -706,11 +771,14 @@
 				56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */,
 				567EB1A3268A14AD00313D03 /* VPager.swift in Sources */,
 				567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */,
+				56CDA6482712D732006D3964 /* ExceptionIconPicker.swift in Sources */,
 				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
+				5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */,
 				5659E63E27075C6E0092EA6E /* Other Extensions.swift in Sources */,
 				56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */,
 				567EB1DF268A186700313D03 /* Array + Extensions.swift in Sources */,
 				567EB1AA268A150400313D03 /* DaysDataStorageManager.swift in Sources */,
+				5659E645270DD0A60092EA6E /* ExceptionIcon.swift in Sources */,
 				567EB1BE268A161400313D03 /* MonthAccessoryView.swift in Sources */,
 				567EB1DA268A180E00313D03 /* ScheduleMakerView.swift in Sources */,
 				56C73B6926934B7800A8A2BC /* TabBarController.swift in Sources */,
@@ -816,6 +884,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -871,6 +940,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

@@ -9,26 +9,31 @@ import Foundation
 
 class JSONManager {
     
-    static func read<T>(for type: T.Type, from url: URL) -> T? where T: Decodable
+    class var shared: JSONManager {
+        get {
+            return JSONManager()
+        }
+    }
+    
+    func read<T>(for type: T.Type, from url: URL) throws -> T where T: Decodable
     {
         let decoder = JSONDecoder()
         let formatter = DateConstants.dateFormatter
-        var data = Data()
         
-        do {
-            try data = Data(contentsOf: url)
-        } catch {
-            print(error)
+        guard let data = try? AppFileManager().readFileIfExists(at: url) else {
+            throw AppFileManager.FileManagerError.fileReadingFailed(name: url.lastPathComponent)
         }
         
         decoder.dateDecodingStrategy = .formatted(formatter)
         
-        let result: T? = try? decoder.decode(T.self, from: data)
-        
-        return result
+        do {
+             return try decoder.decode(T.self, from: data)
+        } catch {
+            throw JSONManagerError.fileReadingFailed
+        }
     }
     
-    static func write<T>(_ object: T, to url: URL) -> Bool where T: Encodable
+    func write<T>(_ object: T, to url: URL) -> Bool where T: Encodable
     {
         let encoder = JSONEncoder()
         let formatter = DateConstants.dateFormatter
@@ -40,15 +45,23 @@ class JSONManager {
         return AppFileManager().writeFile(to: url, with: data)
     }
     
-    static func read<T>(for type: T.Type, from data: Data) -> T? where T: Decodable
+    func read<T>(for type: T.Type, from data: Data) throws -> T where T: Decodable
     {
         let decoder = JSONDecoder()
         let formatter = DateConstants.dateFormatter
         
         decoder.dateDecodingStrategy = .formatted(formatter)
+        decoder.dataDecodingStrategy = .base64
         
-        let result: T? = try? decoder.decode(T.self, from: data)
-        
-        return result
+        do {
+             return try decoder.decode(T.self, from: data)
+        } catch let error {
+            throw error
+        }
+    }
+    
+    enum JSONManagerError: Error {
+        case fileReadingFailed
+        case fileWritingFailed
     }
 }
