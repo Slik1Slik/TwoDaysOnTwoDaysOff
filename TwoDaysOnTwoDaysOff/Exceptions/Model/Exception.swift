@@ -10,12 +10,12 @@ import RealmSwift
 
 class Exception: Object
 {
-    @objc dynamic var from: Date = Date.init(timeIntervalSince1970: 0)
-    @objc dynamic var to: Date = Date.init(timeIntervalSince1970: 0)
-    @objc dynamic var name: String = ""
-    @objc dynamic var details: String?
-    @objc dynamic var icon: ExceptionIcon?
-    @objc dynamic var isWorking: Bool = false
+    @Persisted var from: Date = Date.init(timeIntervalSince1970: 0)
+    @Persisted var to: Date = Date.init(timeIntervalSince1970: 0)
+    @Persisted var name: String = ""
+    @Persisted var details: String?
+    @Persisted var icon: ExceptionIcon?
+    @Persisted var isWorking: Bool = false
     
     convenience init(from: Date, to: Date, name: String, details: String?, icon: ExceptionIcon?, isWorking: Bool)
     {

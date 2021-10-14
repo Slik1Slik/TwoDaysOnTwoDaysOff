@@ -13,7 +13,7 @@ class ExceptionViewModel: ObservableObject {
     @Published var to: Date = Date()
     @Published var name: String = ""
     @Published var details: String = ""
-    @Published var icon: ExceptionIcon = ExceptionIconsDataStorageManager.shared.first()
+    @Published var icon: ExceptionIcon = ExceptionIcon()
     @Published var isWorking: Bool = false
     
     @Published var isPeriod: Bool = false
@@ -29,10 +29,10 @@ class ExceptionViewModel: ObservableObject {
     @Published var isSuccessful: Bool = true
     @Published var errorMessage: String = ""
     
-    private var isNameEmpty: AnyPublisher<Bool, Never> {
+    private var isNameFilled: AnyPublisher<Bool, Never> {
         $name
             .map { string in
-                return string.isEmpty
+                return !string.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -51,7 +51,7 @@ class ExceptionViewModel: ObservableObject {
     }
     
     private var isNameValid: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest(isNameEmpty, isNameSymbolsCountCorrect)
+        Publishers.CombineLatest(isNameFilled, isNameSymbolsCountCorrect)
             .map { a, b in
                 return a == true && b == true
             }
@@ -97,10 +97,18 @@ class ExceptionViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
+    private var isIconChosen: AnyPublisher<Bool, Never> {
+        $icon
+            .map { icon in
+                return !icon.isPlaceholder
+            }
+            .eraseToAnyPublisher()
+    }
+    
     private var isExceptionValid: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest3(isNameValid, isDetailsSymbolsCountCorrect, areDatesAvailabe)
-            .map { a, b, c in
-                return a && b && c
+        Publishers.CombineLatest4(isNameValid, isDetailsSymbolsCountCorrect, areDatesAvailabe, isIconChosen)
+            .map { a, b, c, d in
+                return a && b && c && d
             }
             .eraseToAnyPublisher()
     }
@@ -130,6 +138,15 @@ class ExceptionViewModel: ObservableObject {
                 return self!.from
             }
             .assign(to: \.to, on: self)
+            .store(in: &cancellableSet)
+        
+        $isWorking
+            .map { value in
+                let icon = ExceptionIcon()
+                icon.isWorking = value
+                return icon
+            }
+            .assign(to: \.icon, on: self)
             .store(in: &cancellableSet)
         
         isExceptionValid

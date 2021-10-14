@@ -73,7 +73,6 @@ struct MonthPage: View, Identifiable {
             Spacer()
         }
         .frame(height: UIScreen.main.bounds.height)
-        //.padding()
     }
     init(month: Date) {
         self.id = month

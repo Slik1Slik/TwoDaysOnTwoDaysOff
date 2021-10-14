@@ -14,7 +14,6 @@ struct DateView: DateViewProtocol {
     
     private let itemHeight: CGFloat = ExpandedMonthCalendarConstants.itemWidth
     @State private var isSelected: Bool = false
-    @GestureState private var gestureState = TapInfo.inactive
     @State private var opacity: Double = 1
     
     var body: some View {
@@ -30,9 +29,9 @@ struct DateView: DateViewProtocol {
                 .onAppear(perform: {
                     self.dayViewModel.date = date
                 })
-                .sheet(isPresented: $isSelected) {
+                .sheet(isPresented: $isSelected, content: {
                     ExceptionDetailsView()
-                }
+                })
                 .onTapGesture {
                     self.isSelected = true
                     self.onTapGestureAction()

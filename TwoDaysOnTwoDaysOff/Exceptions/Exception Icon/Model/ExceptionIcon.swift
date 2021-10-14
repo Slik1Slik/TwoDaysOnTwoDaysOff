@@ -9,10 +9,10 @@ import UIKit
 import RealmSwift
 
 class ExceptionIcon: Object, Codable {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var image: Data = Data()
-    @objc dynamic var label: String = ""
-    @objc dynamic var isWorking: Bool = false
+    @Persisted var id: Int = -1
+    @Persisted var image: Data = UIImage(named: "exceptionIconPlaceholder")!.pngData()!
+    @Persisted var label: String = ""
+    @Persisted var isWorking: Bool = false
     
     convenience init(id: Int, image: Data, label: String, isWorking: Bool) {
         self.init()
@@ -28,6 +28,12 @@ class ExceptionIcon: Object, Codable {
         case image
         case label
         case isWorking
+    }
+}
+
+extension ExceptionIcon {
+    var isPlaceholder: Bool {
+        return self.id < 0
     }
 }
 

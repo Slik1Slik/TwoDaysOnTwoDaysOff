@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A311D72848089E06551AB2D /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */; };
-		4B28B6D41B5E3F75E41E4C76 /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */; };
+		32CED32854565B094D76ADE8 /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28FEB83D11D287291690AA /* Pods_TwoDaysOnTwoDaysOff.framework */; };
+		4850FF866ABCEECA67D9E7EE /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096A2FC18545F4E431F10F7A /* Pods_TwoDaysOnTwoDaysOffTests.framework */; };
+		563148A1271824320020A8E7 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A0271824320020A8E7 /* TextView.swift */; };
 		5637685A2716AF7500B4BB56 /* defaultIcons.json in Resources */ = {isa = PBXBuildFile; fileRef = 563768592716AF7500B4BB56 /* defaultIcons.json */; };
 		5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63927020C780092EA6E /* CustomFormSection.swift */; };
 		5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */; };
@@ -17,6 +18,8 @@
 		5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */; };
 		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
 		5659E64F270E0C980092EA6E /* ExceptionIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E64E270E0C980092EA6E /* ExceptionIconViewModel.swift */; };
+		5661AA9F2716CFBD00B8C4B2 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AA9E2716CFBD00B8C4B2 /* Realm */; };
+		5661AAA12716CFBD00B8C4B2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AAA02716CFBD00B8C4B2 /* RealmSwift */; };
 		5670199926F8C968009A065C /* ExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5670199826F8C968009A065C /* ExceptionViewModel.swift */; };
 		567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */; };
 		567EB17A268A127500313D03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB179268A127500313D03 /* ContentView.swift */; };
@@ -62,7 +65,7 @@
 		56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */; };
 		56CDA64627120135006D3964 /* Placeholders.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56CDA64527120135006D3964 /* Placeholders.xcassets */; };
 		56CDA6482712D732006D3964 /* ExceptionIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CDA6472712D732006D3964 /* ExceptionIconPicker.swift */; };
-		FD899368B9502FD5D5F6CF1A /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */; };
+		79A8D3CB87DEE41140E2BFB0 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49CA7981B54DAEA37F3914A /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,9 +86,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; sourceTree = "<group>"; };
-		456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; sourceTree = "<group>"; };
+		096A2FC18545F4E431F10F7A /* Pods_TwoDaysOnTwoDaysOffTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOffTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41E066FACED08CD4A908066C /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4445414EBAD31B971EB017C2 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; sourceTree = "<group>"; };
+		563148A0271824320020A8E7 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		563768592716AF7500B4BB56 /* defaultIcons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultIcons.json; path = ../../../../../Downloads/defaultIcons.json; sourceTree = "<group>"; };
 		5659E63927020C780092EA6E /* CustomFormSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormSection.swift; sourceTree = "<group>"; };
 		5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelDatePickerAlert.swift; sourceTree = "<group>"; };
@@ -143,12 +147,12 @@
 		56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPager.swift; sourceTree = "<group>"; };
 		56CDA64527120135006D3964 /* Placeholders.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Placeholders.xcassets; sourceTree = "<group>"; };
 		56CDA6472712D732006D3964 /* ExceptionIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconPicker.swift; sourceTree = "<group>"; };
-		59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; sourceTree = "<group>"; };
-		A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOffTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1E323A8251EBC19436EF8EA /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE90513A8B1633A8340A4F45 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; sourceTree = "<group>"; };
+		85AAE656378DE0AE3120A514 /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; sourceTree = "<group>"; };
+		8925D81D5B0022A19D8B7DE1 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; sourceTree = "<group>"; };
+		936E66EE5441552D7CFCE054 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; sourceTree = "<group>"; };
+		96C5D08C4AEA540088B21AA0 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C49CA7981B54DAEA37F3914A /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB28FEB83D11D287291690AA /* Pods_TwoDaysOnTwoDaysOff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoDaysOnTwoDaysOff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +160,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD899368B9502FD5D5F6CF1A /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */,
+				5661AAA12716CFBD00B8C4B2 /* RealmSwift in Frameworks */,
+				5661AA9F2716CFBD00B8C4B2 /* Realm in Frameworks */,
+				32CED32854565B094D76ADE8 /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B28B6D41B5E3F75E41E4C76 /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */,
+				4850FF866ABCEECA67D9E7EE /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A311D72848089E06551AB2D /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */,
+				79A8D3CB87DEE41140E2BFB0 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,24 +188,14 @@
 		2961C9E41A555D2EA3BBCD95 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */,
-				EE90513A8B1633A8340A4F45 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */,
-				C1E323A8251EBC19436EF8EA /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */,
-				2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */,
-				08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */,
-				456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */,
+				85AAE656378DE0AE3120A514 /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */,
+				936E66EE5441552D7CFCE054 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */,
+				96C5D08C4AEA540088B21AA0 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */,
+				8925D81D5B0022A19D8B7DE1 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */,
+				41E066FACED08CD4A908066C /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */,
+				4445414EBAD31B971EB017C2 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		51433F45DE618C1863F88571 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C7718CA2BAA56E52A260D161 /* Pods_TwoDaysOnTwoDaysOff.framework */,
-				A3D60683FD233CA4E322FD19 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */,
-				B1FBCCCF7C9FB4EF71634457 /* Pods_TwoDaysOnTwoDaysOffTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		563768562712F57100B4BB56 /* DefaultIcons */ = {
@@ -252,7 +248,7 @@
 				567EB193268A127800313D03 /* TwoDaysOnTwoDaysOffUITests */,
 				567EB175268A127500313D03 /* Products */,
 				2961C9E41A555D2EA3BBCD95 /* Pods */,
-				51433F45DE618C1863F88571 /* Frameworks */,
+				C35B3A15CB65070EA3D67D09 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -327,6 +323,7 @@
 				56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */,
 				5659E63927020C780092EA6E /* CustomFormSection.swift */,
 				5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */,
+				563148A0271824320020A8E7 /* TextView.swift */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -491,6 +488,16 @@
 			path = AppFileManager;
 			sourceTree = "<group>";
 		};
+		C35B3A15CB65070EA3D67D09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB28FEB83D11D287291690AA /* Pods_TwoDaysOnTwoDaysOff.framework */,
+				C49CA7981B54DAEA37F3914A /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */,
+				096A2FC18545F4E431F10F7A /* Pods_TwoDaysOnTwoDaysOffTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -498,17 +505,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB199268A127800313D03 /* Build configuration list for PBXNativeTarget "TwoDaysOnTwoDaysOff" */;
 			buildPhases = (
-				C6FFCC78F48357EDF064437C /* [CP] Check Pods Manifest.lock */,
+				C1A51B4B7477F15D4C31E27B /* [CP] Check Pods Manifest.lock */,
 				567EB170268A127500313D03 /* Sources */,
 				567EB171268A127500313D03 /* Frameworks */,
 				567EB172268A127500313D03 /* Resources */,
-				29DF1161D45B509C81298D71 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TwoDaysOnTwoDaysOff;
+			packageProductDependencies = (
+				5661AA9E2716CFBD00B8C4B2 /* Realm */,
+				5661AAA02716CFBD00B8C4B2 /* RealmSwift */,
+			);
 			productName = TwoDaysOnTwoDaysOff;
 			productReference = 567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */;
 			productType = "com.apple.product-type.application";
@@ -517,11 +527,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB19C268A127800313D03 /* Build configuration list for PBXNativeTarget "TwoDaysOnTwoDaysOffTests" */;
 			buildPhases = (
-				3599C73CD50D6E6416C03BDA /* [CP] Check Pods Manifest.lock */,
+				9E97C32337109036AD91568C /* [CP] Check Pods Manifest.lock */,
 				567EB181268A127800313D03 /* Sources */,
 				567EB182268A127800313D03 /* Frameworks */,
 				567EB183268A127800313D03 /* Resources */,
-				C93A3BA5E79A7ACAEC46C5C7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -537,11 +546,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 567EB19F268A127800313D03 /* Build configuration list for PBXNativeTarget "TwoDaysOnTwoDaysOffUITests" */;
 			buildPhases = (
-				256789E476AD4E90D1228B69 /* [CP] Check Pods Manifest.lock */,
+				9D9DC7990CC4C3A8A306FBBF /* [CP] Check Pods Manifest.lock */,
 				567EB18C268A127800313D03 /* Sources */,
 				567EB18D268A127800313D03 /* Frameworks */,
 				567EB18E268A127800313D03 /* Resources */,
-				525BA074169F2DCA27BB24B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -584,6 +592,9 @@
 				Base,
 			);
 			mainGroup = 567EB16B268A127400313D03;
+			packageReferences = (
+				5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = 567EB175268A127500313D03 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -625,7 +636,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		256789E476AD4E90D1228B69 /* [CP] Check Pods Manifest.lock */ = {
+		9D9DC7990CC4C3A8A306FBBF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -647,24 +658,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		29DF1161D45B509C81298D71 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3599C73CD50D6E6416C03BDA /* [CP] Check Pods Manifest.lock */ = {
+		9E97C32337109036AD91568C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -686,24 +680,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		525BA074169F2DCA27BB24B7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C6FFCC78F48357EDF064437C /* [CP] Check Pods Manifest.lock */ = {
+		C1A51B4B7477F15D4C31E27B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -723,23 +700,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C93A3BA5E79A7ACAEC46C5C7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -773,6 +733,7 @@
 				567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */,
 				56CDA6482712D732006D3964 /* ExceptionIconPicker.swift in Sources */,
 				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
+				563148A1271824320020A8E7 /* TextView.swift in Sources */,
 				5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */,
 				5659E63E27075C6E0092EA6E /* Other Extensions.swift in Sources */,
 				56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */,
@@ -950,7 +911,7 @@
 		};
 		567EB19A268A127800313D03 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59C3579E1CA6D1432BD9BB8A /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */;
+			baseConfigurationReference = 85AAE656378DE0AE3120A514 /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -959,7 +920,7 @@
 				DEVELOPMENT_TEAM = 236B3R3Z3Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TwoDaysOnTwoDaysOff/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -973,7 +934,7 @@
 		};
 		567EB19B268A127800313D03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE90513A8B1633A8340A4F45 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */;
+			baseConfigurationReference = 936E66EE5441552D7CFCE054 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -982,7 +943,7 @@
 				DEVELOPMENT_TEAM = 236B3R3Z3Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TwoDaysOnTwoDaysOff/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -996,13 +957,13 @@
 		};
 		567EB19D268A127800313D03 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08DA2492C5D58D24E0965B08 /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */;
+			baseConfigurationReference = 41E066FACED08CD4A908066C /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TwoDaysOnTwoDaysOffTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1018,13 +979,13 @@
 		};
 		567EB19E268A127800313D03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 456A0C6CCD336327DF87A950 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */;
+			baseConfigurationReference = 4445414EBAD31B971EB017C2 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TwoDaysOnTwoDaysOffTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1040,7 +1001,7 @@
 		};
 		567EB1A0268A127800313D03 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1E323A8251EBC19436EF8EA /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */;
+			baseConfigurationReference = 96C5D08C4AEA540088B21AA0 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1060,7 +1021,7 @@
 		};
 		567EB1A1268A127800313D03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2CC3FAFEE6E1EA86FD437048 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */;
+			baseConfigurationReference = 8925D81D5B0022A19D8B7DE1 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1118,6 +1079,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.17.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5661AA9E2716CFBD00B8C4B2 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		5661AAA02716CFBD00B8C4B2 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 567EB16C268A127400313D03 /* Project object */;
 }

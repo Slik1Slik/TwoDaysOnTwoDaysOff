@@ -20,8 +20,9 @@ class ExceptionIconsDataStorageManager {
     }
     
     func icon(id: Int) -> ExceptionIcon? {
-        let results = realm.objects(ExceptionIcon.self).filter("id = %@", id)
-        return results.first
+        return realm.objects(ExceptionIcon.self).filter { icon in
+            return icon.id == id
+        }.first
     }
     
     func readAll() -> [ExceptionIcon] {
@@ -29,10 +30,10 @@ class ExceptionIconsDataStorageManager {
         return Array(results)
     }
     
-    func icons(_ type: IconType) -> [ExceptionIcon] {
-        let isWorking = type == .working
-        let predicate = NSPredicate(format: "isWorking = %@", isWorking)
-        return filtred(by: predicate)
+    func icons(isWorking: Bool) -> [ExceptionIcon] {
+        return realm.objects(ExceptionIcon.self).filter { icon in
+            return icon.isWorking == isWorking
+        }
     }
     
     func filtred(by predicate: NSPredicate) -> [ExceptionIcon]
@@ -87,11 +88,6 @@ class ExceptionIconsDataStorageManager {
                 throw ExceptionIconsDataStorageManagerErrors.AttemptToWriteWasFailure
             }
         }
-    }
-    
-    enum IconType {
-        case working
-        case nonWorking
     }
     
     enum ExceptionIconsDataStorageManagerErrors: Error

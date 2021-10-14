@@ -6,57 +6,68 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ExceptionDetailsView: View {
     @ObservedObject private var viewModel = ExceptionViewModel()
     @State private var isAlertPresented = false
     @State private var caller = DatePickerCaller.from
     @State private var brightness: Double = 0
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                Section(header: header("Name"), footer: footer(viewModel.nameErrorMessage)) {
-                    TextField("Name", text: $viewModel.name)
-                }
-                Section(header: header("Period"), footer: footer(viewModel.datesErrorMessage)) {
-                    VStack(spacing: 5) {
-                        dateRow(
-                            title: viewModel.isPeriod ? "From" : "Date",
-                            selection: $viewModel.from) {
-                            self.isAlertPresented = true
-                            self.caller = .from
-                        }
-                        if viewModel.isPeriod {
-                            dateRow(
-                                title: "To",
-                                selection: $viewModel.to) {
-                                self.isAlertPresented = true
-                                self.caller = .to
-                            }
-                            .animation(.easeOut(duration: 0.3))
-                        }
-                        Divider()
-                        Toggle("Period", isOn: $viewModel.isPeriod)
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 16) {
+                    Section(header: header("Name"), footer: footer(viewModel.nameErrorMessage)) {
+                        TextField("Name", text: $viewModel.name, onCommit: {
+                            endEditing()
+                        })
                     }
-                    .animation(.linear(duration: 0.2))
+                    Section(header: header("Period"), footer: footer(viewModel.datesErrorMessage)) {
+                        VStack(spacing: 5) {
+                            dateRow(
+                                title: viewModel.isPeriod ? "From" : "Date",
+                                selection: $viewModel.from) {
+                                self.isAlertPresented = true
+                                self.caller = .from
+                            }
+                            if viewModel.isPeriod {
+                                dateRow(
+                                    title: "To",
+                                    selection: $viewModel.to) {
+                                    self.isAlertPresented = true
+                                    self.caller = .to
+                                }
+                                .animation(.easeOut(duration: 0.3))
+                            }
+                            Divider()
+                            Toggle("Period", isOn: $viewModel.isPeriod)
+                        }
+                        .animation(.linear(duration: 0.2))
+                    }
+                    Section(header: header("Day kind")) {
+                        Toggle("Is working", isOn: $viewModel.isWorking)
+                    }
+                    Section(header: header("Icon")) {
+                        ExceptionIconPicker(selection: $viewModel.icon)
+                    }
+                    Section(header: header("Details"), footer: detailsFooter()) {
+                        TextEditor(text: $viewModel.details)
+                            .autocapitalization(.sentences)
+                    }
                 }
-                Section(header: header("Day kind")) {
-                    Toggle("Is working", isOn: $viewModel.isWorking)
-                }
-                Section(header: header("Icon")) {
-                    ExceptionIconPicker(selection: $viewModel.icon, isWorking: viewModel.isWorking)
-                }
-                Section(header: header("Details"), footer: detailsFooter()) {
-                    TextField("", text: $viewModel.details)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(5)
-                        .lineSpacing(1)
-                }
+                .padding()
             }
-            .padding()
-            
+            .background(Color(.systemGray6))
+            .navigationBarItems(
+                trailing:
+                    Button("Done", action: {
+                        print("")
+                    })
+                    .disabled(!viewModel.isValid)
+            )
+            .navigationBarTitle("Exception", displayMode: .inline)
         }
-        .background(Color(.systemGray6))
         .brightness(brightness)
         .disabled(isAlertPresented)
         .overlay(
@@ -73,7 +84,18 @@ struct ExceptionDetailsView: View {
                 self.illuminate()
             }
         }
+        .onTapGesture {
+            guard !isAlertPresented else {
+                return
+            }
+            endEditing()
+        }
     }
+    
+//    Button("Done", action: {
+//        print("")
+//    })
+//    .disabled(!viewModel.isValid)
     
     private func darken() {
         withAnimation(.easeOut) {
@@ -85,6 +107,10 @@ struct ExceptionDetailsView: View {
         withAnimation(.easeOut(duration: 0.05)) {
             self.brightness = 0
         }
+    }
+    
+    private func endEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

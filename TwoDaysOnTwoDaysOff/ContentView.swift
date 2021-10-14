@@ -13,25 +13,10 @@ struct ContentView: View {
     var body: some View
     {
         if isCalendarFormed {
-            ZStack {
-                MonthCalendarView(interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
-                    .hidden(!(selection == 0))
-                ExceptionsListView()
-                    .hidden(!(selection == 1))
-                Text("hi")
-                    .hidden(!(selection == 2))
-                VStack {
-                    Spacer()
-                    TabBarView(selection: $selection)
-                        .background(Color.white)
-                        .clipped()
-                }
-                .frame(
-                    width: UIScreen.main.bounds.width,
-                    height: UIScreen.main.bounds.height
-                )
-            }
+            MonthCalendarView(interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
             
+        } else {
+            ScheduleMakerView()
         }
     }
 }
