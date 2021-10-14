@@ -67,6 +67,7 @@ struct ExceptionDetailsView: View {
                     .disabled(!viewModel.isValid)
             )
             .navigationBarTitle("Exception", displayMode: .inline)
+            .ignoresSafeArea(.container, edges: .bottom)
         }
         .brightness(brightness)
         .disabled(isAlertPresented)
