@@ -10,6 +10,8 @@
 		32CED32854565B094D76ADE8 /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB28FEB83D11D287291690AA /* Pods_TwoDaysOnTwoDaysOff.framework */; };
 		4850FF866ABCEECA67D9E7EE /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096A2FC18545F4E431F10F7A /* Pods_TwoDaysOnTwoDaysOffTests.framework */; };
 		563148A1271824320020A8E7 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A0271824320020A8E7 /* TextView.swift */; };
+		563148A427188A950020A8E7 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A327188A950020A8E7 /* Environments.swift */; };
+		563148A7271D41170020A8E7 /* MonthCalendarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A6271D41170020A8E7 /* MonthCalendarConfiguration.swift */; };
 		5637685A2716AF7500B4BB56 /* defaultIcons.json in Resources */ = {isa = PBXBuildFile; fileRef = 563768592716AF7500B4BB56 /* defaultIcons.json */; };
 		5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63927020C780092EA6E /* CustomFormSection.swift */; };
 		5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */; };
@@ -90,6 +92,8 @@
 		41E066FACED08CD4A908066C /* Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4445414EBAD31B971EB017C2 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; sourceTree = "<group>"; };
 		563148A0271824320020A8E7 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		563148A327188A950020A8E7 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		563148A6271D41170020A8E7 /* MonthCalendarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarConfiguration.swift; sourceTree = "<group>"; };
 		563768592716AF7500B4BB56 /* defaultIcons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultIcons.json; path = ../../../../../Downloads/defaultIcons.json; sourceTree = "<group>"; };
 		5659E63927020C780092EA6E /* CustomFormSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormSection.swift; sourceTree = "<group>"; };
 		5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelDatePickerAlert.swift; sourceTree = "<group>"; };
@@ -198,6 +202,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		563148A227188A480020A8E7 /* Environments */ = {
+			isa = PBXGroup;
+			children = (
+				563148A327188A950020A8E7 /* Environments.swift */,
+			);
+			path = Environments;
+			sourceTree = "<group>";
+		};
+		563148A5271D40E40020A8E7 /* Calendar Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				563148A6271D41170020A8E7 /* MonthCalendarConfiguration.swift */,
+			);
+			path = "Calendar Configuration";
+			sourceTree = "<group>";
+		};
 		563768562712F57100B4BB56 /* DefaultIcons */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +297,7 @@
 				567EB1CC268A16B600313D03 /* Exceptions */,
 				567EB1DD268A183400313D03 /* Set up Calendar */,
 				567EB1E4268A189200313D03 /* Extensions */,
+				563148A227188A480020A8E7 /* Environments */,
 				567EB1E5268A189E00313D03 /* Constants */,
 				567EB1EE268A19EE00313D03 /* AppFileManager */,
 				567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */,
@@ -379,6 +400,7 @@
 				567EB1B3268A15A500313D03 /* Model */,
 				567EB1BF268A161B00313D03 /* View */,
 				567EB1B6268A15C100313D03 /* ViewModel */,
+				563148A5271D40E40020A8E7 /* Calendar Configuration */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -710,6 +732,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */,
+				563148A7271D41170020A8E7 /* MonthCalendarConfiguration.swift in Sources */,
 				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
 				56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */,
 				567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */,
@@ -754,6 +777,7 @@
 				56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */,
 				567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */,
 				567EB1C2268A164900313D03 /* Exception.swift in Sources */,
+				563148A427188A950020A8E7 /* Environments.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

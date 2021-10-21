@@ -85,3 +85,9 @@ struct DateView_Previews: PreviewProvider {
         DateView(date: Date())
     }
 }
+
+extension Int {
+    func isIn(_ range: ClosedRange<Int>) -> Bool {
+        return range.contains(self)
+    }
+}

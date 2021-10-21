@@ -17,7 +17,7 @@ struct WheelDatePickerAlert: View {
     var range: ClosedRange<Date>
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             DatePicker(
                 "",
                 selection: $selection,

@@ -7,26 +7,36 @@
 
 import SwiftUI
 
-struct MonthView<DateView: DateViewProtocol>: View
+struct MonthView<DateView: DateViewProtocol, Header: View>: View
 {
-    var calendar: Calendar
     let month: Date
+    var calendar: Calendar
     var dateViewType: DateView.Type
     
-    @State var isPresented: Bool = false
+    var configuration = { (configuration: MonthCalendarConfiguration) in }
+    private var _configuration: MonthCalendarConfiguration = MonthCalendarConfiguration()
     
-    init(month: Date, calendar: Calendar, dateViewType: DateView.Type) {
-        self.month = month
-        self.calendar = calendar
-        self.dateViewType = dateViewType
+    var header: (Date) -> Header = { date in
+        HStack {
+            Text(date.monthSymbolAndYear())
+                .bold()
+            Spacer()
+        } as! Header
     }
     
+    @State private var isPresented: Bool = false
+    
+    @Environment(\.locale) var locale
+    
     var body: some View {
-        VStack(spacing: ExpandedMonthCalendarConstants.sectionInsets.bottom) {
+        VStack(spacing: _configuration.weekdaysRow.topInset) {
+            header(month)
+                .padding(.horizontal, _configuration.paddingRight)
             weeksSymbolsHeader
-            VStack(spacing: ExpandedMonthCalendarConstants.minimumLineSpacing) {
+                .padding(.horizontal, _configuration.paddingRight)
+            VStack(spacing: _configuration.lineSpacing) {
                 ForEach(weeks(for: month), id: \.self) { week in
-                    HStack(spacing: ExpandedMonthCalendarConstants.minimumInteritemSpacing) {
+                    HStack(spacing: _configuration.interitemSpacing) {
                         ForEach(week, id: \.self) { day in
                             if calendar.isDate(day, equalTo: month, toGranularity: .month) {
                                 dateViewType.init(date: day)
@@ -38,8 +48,11 @@ struct MonthView<DateView: DateViewProtocol>: View
                     }
                 }
             }
+            .padding(.horizontal, _configuration.paddingRight)
         }
-        .frame(width: BasicCalendarConstants.maximumCalendarWidth)
+        .frame(width: _configuration.width)
+        .padding(.top, _configuration.paddingTop)
+        .padding(.bottom, _configuration.paddingBottom)
     }
     
     private func weeks(for month: Date) -> [[Date]] {
@@ -74,17 +87,82 @@ struct MonthView<DateView: DateViewProtocol>: View
     
     private var weeksSymbolsHeader: some View {
         let shortWeekdaySymbols = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
-        return HStack(spacing: ExpandedMonthCalendarConstants.minimumInteritemSpacing) {
+        return HStack(spacing: _configuration.interitemSpacing) {
             ForEach(shortWeekdaySymbols, id: \.self) { symbol in
                 Text(symbol)
                     .bold()
                     .foregroundColor(Color(.gray))
                     .frame(
-                        width: ExpandedMonthCalendarConstants.itemWidth,
-                        height: ExpandedMonthCalendarConstants.itemWidth
+                        width: _configuration.item.sideLength,
+                        height: _configuration.item.sideLength,
+                        alignment: .center
                     )
             }
         }
+    }
+    
+    private var defaultHeader: (Date) -> Header = { date in
+        HStack {
+            Text(date.monthSymbolAndYear())
+                .bold()
+            Spacer()
+        } as! Header
+    }
+}
+
+extension MonthView {
+    init(month: Date,
+         calendar: Calendar,
+         dateViewType: DateView.Type,
+         configuration: @escaping (MonthCalendarConfiguration) -> (),
+         header: @escaping (Date) -> Header
+    ) {
+        self.month = month
+        self.calendar = calendar
+        self.dateViewType = dateViewType
+        self.configuration = configuration
+        configuration(_configuration)
+        self.header = header
+    }
+    
+    init(month: Date,
+         dateViewType: DateView.Type,
+         configuration: @escaping (MonthCalendarConfiguration) -> ()
+    ) {
+        self.month = month
+        self.dateViewType = dateViewType
+        self.configuration = configuration
+        configuration(_configuration)
+        
+        self.calendar = Calendar(identifier: .gregorian)
+        self.calendar.locale = self.locale
+    }
+    
+    init(month: Date,
+         calendar: Calendar,
+         dateViewType: DateView.Type,
+         configuration: CalendarConfiguration,
+         header: @escaping (Date) -> Header
+    ) {
+        self.month = month
+        self.calendar = calendar
+        self.dateViewType = dateViewType
+        
+        if configuration == .expanded {
+            self._configuration = MonthCalendarConfiguration(width: UIScreen.main.bounds.width)
+        } else {
+            self._configuration = MonthCalendarConfiguration(width: UIScreen.main.bounds.width / 3)
+        }
+        
+        self.header = header
+    }
+    
+    init(month: Date,
+         calendar: Calendar,
+         dateViewType: DateView.Type,
+         header: @escaping (Date) -> Header
+    ) {
+        self.init(month: month, calendar: calendar, dateViewType: dateViewType, configuration: .expanded, header: header)
     }
 }
 
@@ -93,8 +171,23 @@ protocol DateViewProtocol: View {
     init(date: Date)
 }
 
-struct CalendarView_Previews: PreviewProvider {
+extension MonthView {
+    enum CalendarConfiguration {
+        case expanded
+        case alert
+    }
+}
+
+struct MonthView_Previews: PreviewProvider {
     static var previews: some View {
-        MonthView(month: Date(), calendar: DateConstants.calendar, dateViewType: DateView.self)
+        MonthView(month: Date(), calendar: Calendar(identifier: .gregorian), dateViewType: DateView.self) { config in
+            config.width = 400
+        } header: { date in
+            HStack {
+                Text(date.monthSymbolAndYear())
+                    .bold()
+                Spacer()
+            }
+        }
     }
 }

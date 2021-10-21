@@ -37,6 +37,7 @@ struct TwoDaysOnTwoDaysOffApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .isAlertPresented(false)
         }
     }
 }

@@ -62,11 +62,12 @@ struct MonthPage: View, Identifiable {
     var id: Date
     var body: some View {
         VStack {
-            MonthHeader(month: id)
-                .padding(.bottom, 5)
-                .padding(.top, 16)
-            MonthView(month: id, calendar: DateConstants.calendar, dateViewType: DateView.self)
-                .padding(.bottom, 16)
+            MonthView(month: id, calendar: DateConstants.calendar, dateViewType: DateView.self) { config in
+                config.item.sideLength += 12
+            } header: { date in
+                MonthHeader(month: date)
+            }
+
             MonthAccessoryView(month: id)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
@@ -97,7 +98,6 @@ struct MonthHeader: View {
                 .bold()
             Spacer()
         }
-        .frame(width: BasicCalendarConstants.maximumCalendarWidth)
     }
     
     init(month: Date) {

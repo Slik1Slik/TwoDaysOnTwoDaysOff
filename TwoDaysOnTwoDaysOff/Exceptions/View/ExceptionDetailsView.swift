@@ -93,11 +93,6 @@ struct ExceptionDetailsView: View {
         }
     }
     
-//    Button("Done", action: {
-//        print("")
-//    })
-//    .disabled(!viewModel.isValid)
-    
     private func darken() {
         withAnimation(.easeOut) {
             self.brightness = -0.5

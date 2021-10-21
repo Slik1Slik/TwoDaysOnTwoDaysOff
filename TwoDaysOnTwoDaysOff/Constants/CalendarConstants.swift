@@ -32,6 +32,11 @@ struct ExpandedMonthCalendarConstants
     
     static let headerWidth = BasicCalendarConstants.maximumCalendarWidth
     static let headerHeight = itemWidth
+    
+    static let pageHeight = UIScreen.main.bounds.height
+    static let pageWidth = UIScreen.main.bounds.width
+    
+    static let paddingTop = pageHeight * 0.078
 
     static let maximumCalendarHeight: CGFloat =
     {
