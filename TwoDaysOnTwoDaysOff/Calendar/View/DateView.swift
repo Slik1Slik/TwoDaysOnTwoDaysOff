@@ -17,12 +17,12 @@ struct DateView: DateViewProtocol {
     @State private var opacity: Double = 1
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(spacing: 2) {
             Text(String(date.day!))
                 .font(.title3)
                 .foregroundColor(textColor())
-                .frame(width: ExpandedMonthCalendarConstants.itemWidth,
-                       height: ExpandedMonthCalendarConstants.itemWidth)
+                .frame(width: MonthCalendarConfiguration(width: UIScreen.main.bounds.width).item.width,
+                       height: MonthCalendarConfiguration(width: UIScreen.main.bounds.width).item.width)
                 .background(backgroundColor())
                 .clipShape(Circle())
                 .opacity(opacity)
@@ -36,6 +36,13 @@ struct DateView: DateViewProtocol {
                     self.isSelected = true
                     self.onTapGestureAction()
                 }
+            if date.day!.isIn(7...14) {
+                Color(.gray)
+                    .frame(width: 7, height: 7)
+                    .clipShape(Circle())
+            } else {
+                Spacer()
+            }
         }
     }
     

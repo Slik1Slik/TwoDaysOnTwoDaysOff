@@ -35,25 +35,26 @@ class MonthCalendarConfiguration {
     }
     
     private func cofigureItem() {
-        item.sideLength = (width - paddingLeft - paddingRight - (interitemSpacing/8))/8
+        item.width = (width - paddingLeft - paddingRight - (interitemSpacing/8))/8
+        item.height = item.width
     }
     
     private func configureHeader() {
-        header.height = item.sideLength
+        header.height = item.width
         
         header.topInset = self.lineSpacing
         header.bottomInset = self.lineSpacing
     }
     
     private func configureWeekdaysRow() {
-        weekdaysRow.height = item.sideLength
+        weekdaysRow.height = item.width
         
         weekdaysRow.topInset = self.lineSpacing
         weekdaysRow.bottomInset = self.lineSpacing
     }
     
     private func configureHeight() {
-        let rowHeight = item.sideLength + lineSpacing
+        let rowHeight = item.height + lineSpacing
         height = (rowHeight * 7) + header.height + lineSpacing
     }
     
@@ -70,7 +71,8 @@ class MonthCalendarConfiguration {
     }
     
     class Item {
-        var sideLength: CGFloat = CGFloat()
+        var width: CGFloat = CGFloat()
+        var height: CGFloat = CGFloat()
         
         var topInset: CGFloat = CGFloat()
         var bottomInset: CGFloat = CGFloat()

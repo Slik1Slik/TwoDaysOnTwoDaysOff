@@ -63,7 +63,8 @@ struct MonthPage: View, Identifiable {
     var body: some View {
         VStack {
             MonthView(month: id, calendar: DateConstants.calendar, dateViewType: DateView.self) { config in
-                config.item.sideLength += 12
+                config.item.height += 9
+                config.lineSpacing = 5
             } header: { date in
                 MonthHeader(month: date)
             }
