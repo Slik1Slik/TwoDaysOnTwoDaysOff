@@ -35,6 +35,13 @@ class DaysDataStorageManager
         return day.first
     }
     
+    static func find(interval: DateInterval) -> [Day] {
+        storage
+            .filter { day in
+                interval.contains(day.date)
+            }
+    }
+    
     static private func getParsedDays() -> [Day]
     {
         let days = getDays()

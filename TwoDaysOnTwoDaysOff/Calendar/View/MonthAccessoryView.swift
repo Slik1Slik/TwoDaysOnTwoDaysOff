@@ -11,59 +11,13 @@ struct MonthAccessoryView: View {
     private var month: Date
     @State private var isPresented = false
     var body: some View {
-        if exceptions.count > 0 {
-            Divider()
-            VStack {
-                HStack {
-                    Text("Исключения")
-                        .font(.title3)
-                        .bold()
-                    Spacer()
-                }
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        ForEach(exceptions, id: \.self) { exception in
-                            Button(action: {
-                                self.isPresented = true
-                            },
-                            label: {
-                                HStack {
-                                    Circle()
-                                        .foregroundColor(exception.isWorking ? Color(UserSettings.workingDayCellColor!) : Color(UserSettings.restDayCellColor!))
-                                        .frame(width: 10, height: 10, alignment: .center)
-                                    Text(exception.name)
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                }
-                                .padding(.top, 10)
-                                .padding(.leading, 10)
-                            })
-                            .sheet(isPresented: $isPresented) {
-                                ExceptionDetailsView()
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        Text("")
     }
     private var header: some View {
         Text("Исключения")
             .font(.title3)
     }
-    private var footer: some View {
-        NavigationLink("Добавить исключение", destination: ExceptionDetailsView())
-    }
     
-    private var exceptions: [Exception] {
-        let calendar = DateConstants.calendar
-        guard let interval = calendar.dateInterval(of: .month, for: month) else {
-            return []
-        }
-        let predicate = NSPredicate(format: "from >= %@ AND to <= %@",
-                                    argumentArray: [interval.start, interval.end])
-        return ExceptionsDataStorageManager.filtred(by: predicate)
-    }
     
     init(month: Date) {
         self.month = month

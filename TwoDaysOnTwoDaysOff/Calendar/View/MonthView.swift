@@ -40,11 +40,17 @@ struct MonthView<DateView: DateViewProtocol, Header: View>: View
                         ForEach(week, id: \.self) { day in
                             if calendar.isDate(day, equalTo: month, toGranularity: .month) {
                                 dateViewType.init(date: day)
-                                    .frame(width: _configuration.item.width, height: _configuration.item.height)
+                                    .frame(
+                                        width: _configuration.item.width,
+                                        height: _configuration.item.height
+                                    )
                             }
                             else {
                                 dateViewType.init(date: day).hidden()
-                                    .frame(width: _configuration.item.width, height: _configuration.item.height)
+                                    .frame(
+                                        width: _configuration.item.width,
+                                        height: _configuration.item.height
+                                    )
                             }
                         }
                     }

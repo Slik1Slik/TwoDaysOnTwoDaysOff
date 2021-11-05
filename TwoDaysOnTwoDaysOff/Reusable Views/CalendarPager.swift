@@ -6,17 +6,21 @@
 //
 
 import SwiftUI
-
-import SwiftUI
+import Combine
 
 struct CalendarPager<Content: View>: View {
     let screen = UIScreen.main.bounds.size
+    @ObservedObject var applicationObserver = ApplicationObserver()
+    
     @State private var yPoint: CGFloat = UIScreen.main.bounds.size.height
     @State private var previousYPoint: CGFloat = UIScreen.main.bounds.size.height
     @Binding var selection: Int
     @State private var scrollDirection = ScrollDirection.forward
     @State private var swipeType = SwipeType.short
     @State private var isGestureActive = false
+    @GestureState private var gestureState: DragGestureState = .inactive
+    @State private var isDisabled = false
+    //@State var gestureValue: DragGesture.Value?
     
     var pages: [Content]
     
@@ -26,12 +30,22 @@ struct CalendarPager<Content: View>: View {
                 pages[page]
             }
         }
-        .offset(y: isGestureActive ? yPoint : turnedPageYPoint())
+        .offset(y: gestureState.isActive ? yPoint : turnedPageYPoint())
         .contentShape(Rectangle())
         .simultaneousGesture(
             DragGesture()
+                .updating($gestureState, body: { value, state, transaction in
+                    guard transaction.isContinuous else {
+                        state = .inactive
+                        return
+                    }
+                    state = .dragging(value: value)
+                })
                 .onChanged { value in
                     isGestureActive = true
+                    guard applicationObserver.appIsActive else {
+                        return
+                    }
             withAnimation {
                 self.yPoint = turnedPageYPoint() + value.translation.height
                 if value.translation.height < 0 {
@@ -80,6 +94,7 @@ struct CalendarPager<Content: View>: View {
                 yPoint = turnedPageYPoint()
             }
         }
+        .disabled(isDisabled)
     }
     private func turnedPageYPoint() -> CGFloat {
         return firstPageYPoint() - CGFloat(selection) * screen.height
@@ -128,4 +143,50 @@ extension CalendarPager {
         case short
         case sufficient
     }
+}
+
+extension CalendarPager {
+    private enum DragGestureState {
+        case active
+        case inactive
+        case dragging(value: DragGesture.Value)
+        
+        var value: DragGesture.Value? {
+            switch self {
+            case .inactive, .active:
+                return nil
+            case .dragging(let value):
+                return value
+            }
+        }
+        
+        var isActive: Bool {
+            switch self {
+            case .active, .dragging:
+                return true
+            case .inactive:
+                return false
+            }
+        }
+    }
+//    private func gestureStartsInBottomSafeArea() -> Bool {
+//        guard let yPoint = gestureValue?.startLocation.y else {
+//            return false
+//        }
+//        let isCurrentPageFirst = self.selection == pages.count / 2 || self.selection == pages.count / 2 + 1 || self.selection == pages.count / 2 - 1
+//        let lowestYPoint = screen.height / 2
+//        let window = UIApplication.shared.windows.first!
+//        let safeFrame = window.safeAreaLayoutGuide.layoutFrame
+//        let bottomSafeAreaHeight = window.frame.maxY - safeFrame.maxY
+//        let safeAreaSpaceBottom = lowestYPoint..<lowestYPoint + bottomSafeAreaHeight
+//        return safeAreaSpaceBottom.contains(isCurrentPageFirst ? yPoint : yPoint / screen.height)
+//    }
+//
+//    private func gestureStartsInTopSafeArea(y: CGFloat) -> Bool {
+//        let highestYPoint = UIScreen.main.bounds.height
+//        let window = UIApplication.shared.windows.first!
+//        let topSafeAreaHeight = window.frame.minY
+//        let safeAreaSpaceTop = highestYPoint..<highestYPoint + topSafeAreaHeight
+//        return safeAreaSpaceTop.contains(y)
+//    }
 }

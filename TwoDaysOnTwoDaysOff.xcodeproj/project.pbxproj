@@ -16,9 +16,15 @@
 		563148C22721DA1E0020A8E7 /* ExceptionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C12721DA1E0020A8E7 /* ExceptionIcon.swift */; };
 		563148C42721DA330020A8E7 /* ExceptionIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C32721DA330020A8E7 /* ExceptionIconPicker.swift */; };
 		563148C82721DA5D0020A8E7 /* ExceptionIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C72721DA5D0020A8E7 /* ExceptionIconViewModel.swift */; };
+		563148CD2722D4CF0020A8E7 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */; };
+		563148CF2722DAF00020A8E7 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */; };
+		563148D3272C3F9E0020A8E7 /* AddExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */; };
+		563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */; };
+		563148D7272C48840020A8E7 /* UpdateExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */; };
+		563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */; };
 		5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63927020C780092EA6E /* CustomFormSection.swift */; };
 		5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */; };
-		5659E63E27075C6E0092EA6E /* Other Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63D27075C6E0092EA6E /* Other Extensions.swift */; };
+		5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63D27075C6E0092EA6E /* View Extensions.swift */; };
 		5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */; };
 		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
 		5661AA9F2716CFBD00B8C4B2 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AA9E2716CFBD00B8C4B2 /* Realm */; };
@@ -97,9 +103,15 @@
 		563148C12721DA1E0020A8E7 /* ExceptionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIcon.swift; sourceTree = "<group>"; };
 		563148C32721DA330020A8E7 /* ExceptionIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconPicker.swift; sourceTree = "<group>"; };
 		563148C72721DA5D0020A8E7 /* ExceptionIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconViewModel.swift; sourceTree = "<group>"; };
+		563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
+		563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExceptionViewModel.swift; sourceTree = "<group>"; };
+		563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelProtocol.swift; sourceTree = "<group>"; };
+		563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExceptionViewModel.swift; sourceTree = "<group>"; };
+		563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelFactory.swift; sourceTree = "<group>"; };
 		5659E63927020C780092EA6E /* CustomFormSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormSection.swift; sourceTree = "<group>"; };
 		5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelDatePickerAlert.swift; sourceTree = "<group>"; };
-		5659E63D27075C6E0092EA6E /* Other Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Other Extensions.swift"; sourceTree = "<group>"; };
+		5659E63D27075C6E0092EA6E /* View Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View Extensions.swift"; sourceTree = "<group>"; };
 		5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconsDataStorageManager.swift; sourceTree = "<group>"; };
 		5659E648270E087E0092EA6E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		5670199826F8C968009A065C /* ExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModel.swift; sourceTree = "<group>"; };
@@ -234,6 +246,15 @@
 			path = ExceptionIcon;
 			sourceTree = "<group>";
 		};
+		563148CB2722D4A70020A8E7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */,
+				563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		567EB16B268A127400313D03 = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +293,7 @@
 				567EB1DD268A183400313D03 /* Set up Calendar */,
 				567EB1E4268A189200313D03 /* Extensions */,
 				563148A227188A480020A8E7 /* Environments */,
+				563148CB2722D4A70020A8E7 /* Helpers */,
 				567EB1E5268A189E00313D03 /* Constants */,
 				567EB1EE268A19EE00313D03 /* AppFileManager */,
 				567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */,
@@ -384,6 +406,10 @@
 			children = (
 				567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */,
 				5670199826F8C968009A065C /* ExceptionViewModel.swift */,
+				563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */,
+				563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */,
+				563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */,
+				563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -450,7 +476,7 @@
 			children = (
 				567EB1DE268A186700313D03 /* Array + Extensions.swift */,
 				567EB1E0268A187700313D03 /* Date + Extensions.swift */,
-				5659E63D27075C6E0092EA6E /* Other Extensions.swift */,
+				5659E63D27075C6E0092EA6E /* View Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -705,12 +731,15 @@
 				567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */,
 				567EB17A268A127500313D03 /* ContentView.swift in Sources */,
 				567EB1AF268A157E00313D03 /* JSONManager.swift in Sources */,
+				563148CD2722D4CF0020A8E7 /* KeyboardObserver.swift in Sources */,
+				563148D7272C48840020A8E7 /* UpdateExceptionViewModel.swift in Sources */,
 				567EB1D6268A173600313D03 /* DaysColorsView.swift in Sources */,
 				563148C82721DA5D0020A8E7 /* ExceptionIconViewModel.swift in Sources */,
 				567EB1E1268A187700313D03 /* Date + Extensions.swift in Sources */,
 				5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */,
 				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
 				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
+				563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */,
 				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
 				567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */,
 				563148C22721DA1E0020A8E7 /* ExceptionIcon.swift in Sources */,
@@ -722,8 +751,10 @@
 				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
 				563148A1271824320020A8E7 /* TextView.swift in Sources */,
 				5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */,
+				563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */,
 				563148C42721DA330020A8E7 /* ExceptionIconPicker.swift in Sources */,
-				5659E63E27075C6E0092EA6E /* Other Extensions.swift in Sources */,
+				5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */,
+				563148D3272C3F9E0020A8E7 /* AddExceptionViewModel.swift in Sources */,
 				56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */,
 				567EB1DF268A186700313D03 /* Array + Extensions.swift in Sources */,
 				567EB1AA268A150400313D03 /* DaysDataStorageManager.swift in Sources */,
@@ -737,6 +768,7 @@
 				567EB1D0268A16ED00313D03 /* UserSettingsViewModel.swift in Sources */,
 				567EB1A6268A14C500313D03 /* TabBarView.swift in Sources */,
 				5670199926F8C968009A065C /* ExceptionViewModel.swift in Sources */,
+				563148CF2722DAF00020A8E7 /* ApplicationObserver.swift in Sources */,
 				567EB1D4268A171D00313D03 /* DaysCountPicker.swift in Sources */,
 				567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */,
 				56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */,

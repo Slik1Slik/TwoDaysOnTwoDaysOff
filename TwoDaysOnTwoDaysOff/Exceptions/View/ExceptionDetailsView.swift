@@ -7,12 +7,16 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 struct ExceptionDetailsView: View {
-    @ObservedObject private var viewModel = ExceptionViewModel()
+    @ObservedObject private var viewModel: ExceptionViewModel
     @State private var isAlertPresented = false
     @State private var caller = DatePickerCaller.from
     @State private var brightness: Double = 0
+    @State private var animation: Animation? = .none
+    
+    @ObservedObject private var keyboardObserver = KeyboardObserver()
     
     var body: some View {
         NavigationView {
@@ -32,37 +36,45 @@ struct ExceptionDetailsView: View {
                                 self.caller = .from
                             }
                             if viewModel.isPeriod {
-                                dateRow(
-                                    title: "To",
-                                    selection: $viewModel.to) {
-                                    self.isAlertPresented = true
-                                    self.caller = .to
+                                withAnimation(.easeOut(duration: 0.3)) {
+                                    dateRow(
+                                        title: "To",
+                                        selection: $viewModel.to) {
+                                        self.isAlertPresented = true
+                                        self.caller = .to
+                                    }
                                 }
-                                .animation(.easeOut(duration: 0.3))
                             }
                             Divider()
                             Toggle("Period", isOn: $viewModel.isPeriod)
                         }
-                        .animation(.linear(duration: 0.2))
                     }
                     Section(header: header("Day kind")) {
                         Toggle("Is working", isOn: $viewModel.isWorking)
-                    }
-                    Section(header: header("Icon")) {
-                        ExceptionIconPicker(selection: $viewModel.icon)
+                            .disabled(!viewModel.isDayKindChangable)
+                            .onChange(of: viewModel.isPeriod, perform: { _ in
+                                self.animation = .linear
+                            })
                     }
                     Section(header: header("Details"), footer: detailsFooter()) {
                         TextEditor(text: $viewModel.details)
                             .autocapitalization(.sentences)
+                            .onReceive(Just(viewModel.details)) { _ in
+                                if viewModel.details.count > 400 {
+                                    viewModel.details = String(viewModel.details.prefix(400))
+                                }
+                            }
+                            .lineLimit(5)
                     }
                 }
                 .padding()
+                .animation(animation)
             }
             .background(Color(.systemGray6))
             .navigationBarItems(
                 trailing:
                     Button("Done", action: {
-                        print("")
+                        viewModel.save()
                     })
                     .disabled(!viewModel.isValid)
             )
@@ -71,13 +83,6 @@ struct ExceptionDetailsView: View {
         }
         .brightness(brightness)
         .disabled(isAlertPresented)
-        .overlay(
-            WheelDatePickerAlert(
-                isPresented: $isAlertPresented,
-                selection: caller == .from ? $viewModel.from : $viewModel.to,
-                range: caller == .from ? Date()...UserSettings.finalDate : viewModel.from...UserSettings.finalDate
-            )
-        )
         .onChange(of: isAlertPresented) { value in
             if value {
                 self.darken()
@@ -91,6 +96,9 @@ struct ExceptionDetailsView: View {
             }
             endEditing()
         }
+        .overlay(
+            currentDatePicker()
+        )
     }
     
     private func darken() {
@@ -137,8 +145,6 @@ extension ExceptionDetailsView {
             HStack {
                 Text(viewModel.details.count.description + "/" + "400")
                     .font(.caption)
-                    .foregroundColor(viewModel.details.count < 400 ? Color(.label) : Color(.systemRed))
-                    .lineLimit(1)
             }
         }
     }
@@ -164,10 +170,66 @@ extension ExceptionDetailsView {
             
         }
     }
+    
+    private func currentDatePicker() -> WheelDatePickerAlert {
+        return caller == .from ? datePickerFrom() : datePickerTo()
+    }
+    
+    private func datePickerFrom() -> WheelDatePickerAlert {
+        let upperBound = viewModel.isPeriod ? viewModel.to : UserSettings.finalDate
+        let lowerBound = UserSettings.startDate
+        return WheelDatePickerAlert(
+            isPresented: $isAlertPresented,
+            selection: $viewModel.from,
+            range: lowerBound...upperBound
+        )
+    }
+    
+    private func datePickerTo() -> WheelDatePickerAlert {
+        return WheelDatePickerAlert(
+            isPresented: $isAlertPresented,
+            selection: $viewModel.to,
+            range: viewModel.from...UserSettings.finalDate
+        )
+    }
+}
+
+extension ExceptionDetailsView {
+    struct DayKindPicker: View {
+        @Binding var selection: Bool
+        @State private var dayKind: DayKind
+        var body: some View {
+            Picker("", selection: $dayKind) {
+                ForEach(ExceptionDetailsView.DayKind.allCases, id: \.self) {
+                    Text($0.rawValue)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .onChange(of: dayKind) { kind in
+                selection = kind == .working
+            }
+        }
+        init(selection: Binding<Bool>) {
+            self._selection = selection
+            self.dayKind = selection.wrappedValue ? .working : .dayOff
+            
+        }
+    }
+    
+    enum DayKind: String, CaseIterable {
+        case working = "Working"
+        case dayOff = "Day off"
+    }
 }
 
 extension ExceptionDetailsView {
     typealias Section = CustomSection
+}
+
+extension ExceptionDetailsView {
+    init(date: Date) {
+        self.viewModel = ExceptionViewModelFactory(date: date).viewModel()
+    }
 }
 
 extension ExceptionDetailsView {
@@ -179,6 +241,6 @@ extension ExceptionDetailsView {
 
 struct ExceptionDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ExceptionDetailsView()
+        ExceptionDetailsView(date: Date())
     }
 }

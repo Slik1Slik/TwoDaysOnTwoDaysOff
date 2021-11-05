@@ -13,12 +13,10 @@ class ExceptionViewModel: ObservableObject {
     @Published var to: Date = Date()
     @Published var name: String = ""
     @Published var details: String = ""
-    @Published var icon: ExceptionIcon = ExceptionIcon()
     @Published var isWorking: Bool = false
     
     @Published var isPeriod: Bool = false
-    
-    private var exception: Exception?
+    @Published var isDayKindChangable = false
     
     @Published var isValid: Bool = false
     
@@ -29,7 +27,7 @@ class ExceptionViewModel: ObservableObject {
     @Published var isSuccessful: Bool = true
     @Published var errorMessage: String = ""
     
-    private var isNameFilled: AnyPublisher<Bool, Never> {
+    internal var isNameFilled: AnyPublisher<Bool, Never> {
         $name
             .map { string in
                 return !string.isEmpty
@@ -37,7 +35,7 @@ class ExceptionViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private var isNameSymbolsCountCorrect: AnyPublisher<Bool, Never> {
+    internal var isNameSymbolsCountCorrect: AnyPublisher<Bool, Never> {
         $name
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
@@ -50,7 +48,7 @@ class ExceptionViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private var isNameValid: AnyPublisher<Bool, Never> {
+    internal var isNameValid: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest(isNameFilled, isNameSymbolsCountCorrect)
             .map { a, b in
                 return a == true && b == true
@@ -58,62 +56,43 @@ class ExceptionViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private var isDetailsSymbolsCountCorrect: AnyPublisher<Bool, Never> {
+    internal var isDetailsSymbolsCountCorrect: AnyPublisher<Bool, Never> {
         $details
-            .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { text in
                 return text.trimmingCharacters(in: .whitespaces)
             }
             .map { string in
-                return string.count < 399
+                return string.count <= 400
             }
             .eraseToAnyPublisher()
     }
     
-    private var isDateFromAvailabe: AnyPublisher<Bool, Never> {
+    internal var areDatesAvailable: AnyPublisher<Bool, Never> {
         $from
+            .combineLatest($to)
             .debounce(for: 0.8, scheduler: RunLoop.main)
-            .map { date in
-                return ExceptionsDataStorageManager.find(by: date) == nil
+            .map { [weak self] from, to in
+                guard ExceptionsDataStorageManager.find(by: from) == nil else {
+                    return false
+                }
+                guard self!.isPeriod else {
+                    return true
+                }
+                return ExceptionsDataStorageManager.find(by: to) == nil
             }
             .eraseToAnyPublisher()
     }
     
-    private var isDateToAvailabe: AnyPublisher<Bool, Never> {
-        $to
-            .debounce(for: 0.8, scheduler: RunLoop.main)
-            .map { date in
-                return ExceptionsDataStorageManager.find(by: date) == nil
+    internal var isExceptionValid: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest3(isNameValid, isDetailsSymbolsCountCorrect, areDatesAvailable)
+            .map { a, b, c in
+                return a && b && c
             }
             .eraseToAnyPublisher()
     }
     
-    private var areDatesAvailabe: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest(isDateFromAvailabe, isDateToAvailabe)
-            .map { a, b in
-                return a && b
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private var isIconChosen: AnyPublisher<Bool, Never> {
-        $icon
-            .map { icon in
-                return !icon.isPlaceholder
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private var isExceptionValid: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest4(isNameValid, isDetailsSymbolsCountCorrect, areDatesAvailabe, isIconChosen)
-            .map { a, b, c, d in
-                return a && b && c && d
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private var cancellableSet: Set<AnyCancellable> = []
+    internal var cancellableSet: Set<AnyCancellable> = []
     
     init() {
         isNameSymbolsCountCorrect
@@ -124,7 +103,7 @@ class ExceptionViewModel: ObservableObject {
             .assign(to: \.nameErrorMessage, on: self)
             .store(in: &cancellableSet)
         
-        areDatesAvailabe
+        areDatesAvailable
             .receive(on: RunLoop.main)
             .map { availabe in
                 return availabe ? " " : "На выбранный период уже назначено исключение."
@@ -132,21 +111,53 @@ class ExceptionViewModel: ObservableObject {
             .assign(to: \.datesErrorMessage, on: self)
             .store(in: &cancellableSet)
         
+        //in case if user want to specify the period and then change their mind then the "to" value drops to be equal to "from" value
         $isPeriod
+            .combineLatest($from)
             .receive(on: RunLoop.main)
-            .map { [weak self] period in
-                return self!.from
+            .map { _, dateFrom in
+                return dateFrom
             }
             .assign(to: \.to, on: self)
             .store(in: &cancellableSet)
         
-        $isWorking
-            .map { value in
-                let icon = ExceptionIcon()
-                icon.isWorking = value
-                return icon
+        //if user change the "from" value then the "to" value becomes equal to the "from" value so in case if they want to specify the period, the "to" value wouldn't be earlier then "from" value
+        $from
+            .combineLatest($isPeriod)
+            .receive(on: RunLoop.main)
+            .sink { dateFrom, isPeriod in
+                if !isPeriod {
+                    self.to = dateFrom
+                }
             }
-            .assign(to: \.icon, on: self)
+            .store(in: &cancellableSet)
+        
+        //if user add an one-day exception or days from the period have the same kind (working or non-working) then user wouldn't be able to choose the day kind
+        Publishers.CombineLatest3($isPeriod, $from, $to)
+            .receive(on: RunLoop.main)
+            .sink { isPeriod, dateFrom, dateTo in
+                guard isPeriod else {
+                    self.isWorking = !DaysDataStorageManager.find(by: dateFrom)!.isWorking
+                    self.isDayKindChangable = false
+                    return
+                }
+                
+                let daysForInterval = DaysDataStorageManager.find(interval: DateInterval(start: dateFrom, end: dateTo))
+                let uniqueElements = daysForInterval
+                    .map { day in
+                        return day.isWorking
+                    }
+                    .unique
+                
+                let areDaysKindsForGivenPeriodEqual = uniqueElements.count == 1
+                
+                if areDaysKindsForGivenPeriodEqual {
+                    self.isWorking = !daysForInterval.first!.isWorking
+                    self.isDayKindChangable = false
+                } else {
+                    self.isDayKindChangable = true
+                }
+            }
             .store(in: &cancellableSet)
         
         isExceptionValid
@@ -155,19 +166,11 @@ class ExceptionViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
     
-    init(exception: Exception) {
-        self.exception = exception
+    init(data: Data) {
+        
     }
     
     func save() {
-        if let _ = exception {
-            update()
-        } else {
-            add()
-        }
-    }
-    
-    private func add() {
         do {
             try ExceptionsDataStorageManager.save(newException)
         } catch let error {
@@ -176,22 +179,12 @@ class ExceptionViewModel: ObservableObject {
         }
     }
     
-    private func update() {
-        do {
-            try ExceptionsDataStorageManager.update(&exception!, with: newException)
-        } catch let error {
-            self.errorMessage = (error as! ExceptionsDataStorageManagerErrors).localizedDescription
-            self.isSuccessful = false
-        }
-    }
-    
-    private var newException: Exception {
+    internal var newException: Exception {
         Exception(
             from: from,
             to: to,
             name: name,
             details: details,
-            icon: icon,
             isWorking: true
         )
     }

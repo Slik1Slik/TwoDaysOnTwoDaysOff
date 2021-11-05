@@ -23,7 +23,7 @@ class ExceptionsDataStorageManager
         }
     }
     
-    static func conflicts(_ exception: Exception) -> Bool
+    static func exists(_ exception: Exception) -> Bool
     {
         let query = "(from <= %@ AND to >= %@) OR (from <= %@ AND to >= %@)"
         guard let _ = realm.objects(Exception.self).filter(query,
@@ -35,7 +35,7 @@ class ExceptionsDataStorageManager
         return true
     }
     
-    static func conflicts(exception: Exception, excluding excludedException: Exception) -> Bool
+    static func exists(exception: Exception, excluding excludedException: Exception) -> Bool
     {
         let objects = realm.objects(Exception.self).filter {
             !($0.from == excludedException.from && $0.to == excludedException.to)
@@ -48,6 +48,13 @@ class ExceptionsDataStorageManager
             return false
         }
         return true
+    }
+    
+    static func exists(date: Date) -> Bool
+    {
+        Array(realm.objects(Exception.self)).contains { exception in
+            (exception.from...exception.to).contains(date)
+        }
     }
     
     static func readAll() throws -> [Exception]

@@ -10,7 +10,6 @@ import Foundation
 extension Date {
     
     func string() -> String {
-        
         let dateFormatter = DateConstants.dateFormatter
         return dateFormatter.string(from: self)
     }
@@ -162,5 +161,37 @@ extension Date
         let range = fromDate...toDate
         
         return range.contains(self)
+    }
+}
+
+extension Date
+{
+    func compare(other: Date) -> DateComparisonResult {
+        return DateComparisonResult(a: self, b: other)
+    }
+    
+    struct DateComparisonResult {
+        var a: Date
+        var b: Date
+        
+        var older: Bool {
+            a > b
+        }
+        
+        var earliest: Date {
+            if a > b {
+                return a
+            } else {
+                return b
+            }
+        }
+        
+        var oldest: Date {
+            if b > a {
+                return b
+            } else {
+                return a
+            }
+        }
     }
 }

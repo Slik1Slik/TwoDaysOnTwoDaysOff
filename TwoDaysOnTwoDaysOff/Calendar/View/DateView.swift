@@ -20,23 +20,23 @@ struct DateView: DateViewProtocol {
         VStack(spacing: 2) {
             Text(String(date.day!))
                 .font(.title3)
-                .foregroundColor(textColor())
+                .foregroundColor(textColor)
                 .frame(width: MonthCalendarConfiguration(width: UIScreen.main.bounds.width).item.width,
                        height: MonthCalendarConfiguration(width: UIScreen.main.bounds.width).item.width)
-                .background(backgroundColor())
+                .background(backgroundColor)
                 .clipShape(Circle())
                 .opacity(opacity)
                 .onAppear(perform: {
                     self.dayViewModel.date = date
                 })
                 .sheet(isPresented: $isSelected, content: {
-                    ExceptionDetailsView()
+                    ExceptionDetailsView(date: date)
                 })
                 .onTapGesture {
                     self.isSelected = true
                     self.onTapGestureAction()
                 }
-            if date.day!.isIn(7...14) {
+            if let day = dayViewModel.day, let _ = day.exception  {
                 Color(.gray)
                     .frame(width: 7, height: 7)
                     .clipShape(Circle())
@@ -44,20 +44,25 @@ struct DateView: DateViewProtocol {
                 Spacer()
             }
         }
+        .disabled(isDisabled)
     }
     
-    private func backgroundColor() -> Color {
+    private var backgroundColor: Color {
         guard let day = dayViewModel.day else {
             return .clear
         }
         return day.isWorking ? Color(UserSettings.workingDayCellColor!) : Color(UserSettings.restDayCellColor!)
     }
     
-    private func textColor() -> Color {
+    private var textColor: Color {
         guard let day = dayViewModel.day else {
             return Color(.lightGray)
         }
         return day.isWorking ? Color.black : Color.white
+    }
+    
+    private var isDisabled: Bool {
+        return dayViewModel.day == nil
     }
     
     private func onTapGestureAction() {

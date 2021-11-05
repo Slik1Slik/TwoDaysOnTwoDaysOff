@@ -26,6 +26,8 @@ struct WheelDatePickerAlert: View {
             )
             .datePickerStyle(WheelDatePickerStyle())
             .environment(\.locale, Locale(identifier: "ru_RU"))
+            .environment(\.calendar, DateConstants.calendar)
+            .environment(\.timeZone, DateConstants.timeZone)
             Divider()
             HStack {
                 Button {

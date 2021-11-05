@@ -76,3 +76,9 @@ extension View {
               .overlay(roundedRect.strokeBorder(content, lineWidth: width))
      }
  }
+
+extension View {
+    func overlay<Content: View>(content: @escaping () -> Content) -> some View {
+        return self.overlay(content())
+    }
+}
