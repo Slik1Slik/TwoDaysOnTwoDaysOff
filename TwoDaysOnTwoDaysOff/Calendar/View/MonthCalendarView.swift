@@ -63,7 +63,9 @@ struct MonthPage: View, Identifiable {
     @ObservedObject private var calendarManager: MonthCalendarManager
     var body: some View {
         VStack {
-            MonthView(calendarManager: calendarManager, dateViewType: DateView.self) { date in
+            MonthView(calendarManager: calendarManager) { date in
+                DateView(date: date)
+            } header: { date in
                 MonthHeader(month: date)
             }
             MonthAccessoryView(month: id)

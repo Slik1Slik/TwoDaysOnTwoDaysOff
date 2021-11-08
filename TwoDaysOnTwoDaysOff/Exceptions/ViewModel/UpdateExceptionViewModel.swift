@@ -30,8 +30,14 @@ class UpdateExceptionViewModel: ExceptionViewModel {
     }
 
     init(date: Date) {
-        super.init()
         exception = ExceptionsDataStorageManager.find(by: date)!
+        super.init()
+        from = exception.from
+        to = exception.to
+        name = exception.name
+        details = exception.details
+        isWorking = exception.isWorking
+        isPeriod = exception.from != exception.to
     }
     
     override func save() {

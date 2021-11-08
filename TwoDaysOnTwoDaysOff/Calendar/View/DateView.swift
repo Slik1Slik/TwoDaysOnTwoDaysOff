@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DateView: DateViewProtocol {
+struct DateView: View {
     
     var date: Date
     @ObservedObject private var dayViewModel = DayViewModel()
@@ -15,8 +15,6 @@ struct DateView: DateViewProtocol {
     private let itemHeight: CGFloat = ExpandedMonthCalendarConstants.itemWidth
     @State private var isSelected: Bool = false
     @State private var opacity: Double = 1
-    
-    var monthCalendarManager: MonthCalendarManager = MonthCalendarManager()
     
     var body: some View {
         VStack(spacing: 2) {
@@ -74,10 +72,9 @@ struct DateView: DateViewProtocol {
         }
     }
     
-    init(date: Date, calendarManager: MonthCalendarManager) {
+    init(date: Date) {
         self.date = date
         self.dayViewModel.date = date
-        self.monthCalendarManager = calendarManager
     }
 }
 
@@ -97,6 +94,6 @@ extension DateView {
 
 struct DateView_Previews: PreviewProvider {
     static var previews: some View {
-        DateView(date: Date(), calendarManager: MonthCalendarManager())
+        DateView(date: Date())
     }
 }

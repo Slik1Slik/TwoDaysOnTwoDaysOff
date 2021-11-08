@@ -52,9 +52,6 @@ struct ExceptionDetailsView: View {
                     Section(header: header("Day kind")) {
                         Toggle("Is working", isOn: $viewModel.isWorking)
                             .disabled(!viewModel.isDayKindChangable)
-                            .onChange(of: viewModel.isPeriod, perform: { _ in
-                                self.animation = .linear
-                            })
                     }
                     Section(header: header("Details"), footer: detailsFooter()) {
                         TextEditor(text: $viewModel.details)
@@ -154,6 +151,7 @@ extension ExceptionDetailsView {
     func dateRow(title: String, selection: Binding<Date>, action: @escaping ()->()) -> some View {
         HStack {
             Text(title)
+                .animation(.easeOut)
             Spacer()
             Button {
                 action()
@@ -165,31 +163,32 @@ extension ExceptionDetailsView {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundColor(Color(.systemGray6))
                     )
-                    .animation(.easeOut)
             }
             
         }
     }
     
-    private func currentDatePicker() -> WheelDatePickerAlert {
+    private func currentDatePicker() -> MonthCalendarDatePickerAlert {
         return caller == .from ? datePickerFrom() : datePickerTo()
     }
     
-    private func datePickerFrom() -> WheelDatePickerAlert {
-        let upperBound = viewModel.isPeriod ? viewModel.to : UserSettings.finalDate
+    private func datePickerFrom() -> MonthCalendarDatePickerAlert {
         let lowerBound = UserSettings.startDate
-        return WheelDatePickerAlert(
-            isPresented: $isAlertPresented,
+        let upperBound = viewModel.isPeriod ? viewModel.to : UserSettings.finalDate
+        return MonthCalendarDatePickerAlert(
             selection: $viewModel.from,
-            range: lowerBound...upperBound
+            range: lowerBound...upperBound,
+            isPresented: $isAlertPresented
         )
     }
     
-    private func datePickerTo() -> WheelDatePickerAlert {
-        return WheelDatePickerAlert(
-            isPresented: $isAlertPresented,
+    private func datePickerTo() -> MonthCalendarDatePickerAlert {
+        let lowerBound = viewModel.from
+        let upperBound = UserSettings.finalDate
+        return MonthCalendarDatePickerAlert(
             selection: $viewModel.to,
-            range: viewModel.from...UserSettings.finalDate
+            range: lowerBound...upperBound,
+            isPresented: $isAlertPresented
         )
     }
 }

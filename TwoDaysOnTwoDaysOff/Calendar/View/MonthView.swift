@@ -7,39 +7,32 @@
 
 import SwiftUI
 
-struct MonthView<DateView: DateViewProtocol, Header: View>: View
+struct MonthView<DateView: View, Header: View>: View
 {
-    var dateViewType: DateView.Type = DateView.self
-    
     @ObservedObject private var calendarManager: MonthCalendarManager = MonthCalendarManager()
     
-    @State private var showsHeader: Bool = true
-    @State private var showsWeekdaysRow: Bool = true
+    private var dateView: (Date) -> DateView
     
     private var header: (Date) -> Header
     
     var body: some View {
         VStack(spacing: calendarManager.layoutConfiguration.lineSpacing) {
-            if showsHeader {
-                header(calendarManager.month)
-                    .padding(.leading, calendarManager.layoutConfiguration.header.paddingLeft)
-                    .padding(.trailing, calendarManager.layoutConfiguration.header.paddingRight)
-                    .padding(.top, calendarManager.layoutConfiguration.header.paddingTop)
-                    .padding(.bottom, calendarManager.layoutConfiguration.header.paddingBottom)
-            }
-            if showsWeekdaysRow {
-                weeksSymbolsHeader
-                    .padding(.leading, calendarManager.layoutConfiguration.weekdaysRow.paddingLeft)
-                    .padding(.trailing, calendarManager.layoutConfiguration.weekdaysRow.paddingRight)
-                    .padding(.top, calendarManager.layoutConfiguration.weekdaysRow.paddingTop)
-                    .padding(.bottom, calendarManager.layoutConfiguration.weekdaysRow.paddingBottom)
-            }
+            header(calendarManager.month)
+                .padding(.leading, calendarManager.layoutConfiguration.header.paddingLeft)
+                .padding(.trailing, calendarManager.layoutConfiguration.header.paddingRight)
+                .padding(.top, calendarManager.layoutConfiguration.header.paddingTop)
+                .padding(.bottom, calendarManager.layoutConfiguration.header.paddingBottom)
+            weeksSymbolsHeader
+                .padding(.leading, calendarManager.layoutConfiguration.weekdaysRow.paddingLeft)
+                .padding(.trailing, calendarManager.layoutConfiguration.weekdaysRow.paddingRight)
+                .padding(.top, calendarManager.layoutConfiguration.weekdaysRow.paddingTop)
+                .padding(.bottom, calendarManager.layoutConfiguration.weekdaysRow.paddingBottom)
             VStack(spacing: calendarManager.layoutConfiguration.lineSpacing) {
                 ForEach(calendarManager.calendarConfiguration.weeks(), id: \.self) { week in
                     HStack(spacing: calendarManager.layoutConfiguration.interitemSpacing) {
                         ForEach(week, id: \.self) { day in
                             if calendarManager.calendarConfiguration.calendar.isDate(day, equalTo: calendarManager.month, toGranularity: .month) {
-                                dateViewType.init(date: day, calendarManager: calendarManager)
+                                dateView(day)
                                     .frame(
                                         width: calendarManager.layoutConfiguration.item.width,
                                         height: calendarManager.layoutConfiguration.item.height
@@ -64,33 +57,45 @@ struct MonthView<DateView: DateViewProtocol, Header: View>: View
     }
     
     init(calendarManager: MonthCalendarManager,
-         dateViewType: DateView.Type,
-         showsHeader: Bool = true,
-         showsWeekdays: Bool = true,
+         dateView: @escaping (Date) -> DateView,
          header: @escaping (Date) -> Header
     ) {
         self.calendarManager = calendarManager
-        self.dateViewType = dateViewType
-        
-        self.showsHeader = showsHeader
-        self.showsWeekdaysRow = showsWeekdays
+        self.dateView = dateView
         
         self.header = header
     }
 }
 
-extension MonthView where Header == HStack<TupleView<(Text, Spacer)>> {
+extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>, DateView == Text {
     init(calendarManager: MonthCalendarManager,
-         dateViewType: DateView.Type,
-         showsHeader: Bool = true,
-         showsWeekdays: Bool = true
+         dateView: @escaping (Date) -> DateView
     ) {
-        self.init(calendarManager: calendarManager, dateViewType: dateViewType, showsHeader: showsHeader, showsWeekdays: showsWeekdays) { date in
+        self.init(calendarManager: calendarManager, dateView: dateView) { date in
             HStack {
                 Text(date.monthSymbolAndYear())
                 Spacer()
             }
         }
+    }
+    
+    init(calendarManager: MonthCalendarManager) {
+        self.init(calendarManager: calendarManager) { date in
+            Text(date.day!.description)
+        } header: { date in
+            HStack {
+                Text(date.monthSymbolAndYear())
+                Spacer()
+            }
+        }
+    }
+    
+    init(calendarManager: MonthCalendarManager,
+         header: @escaping (Date) -> Header
+    ) {
+        self.init(calendarManager: calendarManager, dateView: { date in
+            Text(date.day!.description)
+        }, header: header)
     }
 }
 
@@ -113,12 +118,6 @@ extension MonthView {
 
 struct MonthView_Previews: PreviewProvider {
     static var previews: some View {
-        MonthView(calendarManager: MonthCalendarManager(), dateViewType: DateView.self) { date in
-            HStack {
-                Text(date.monthSymbolAndYear())
-                    .bold()
-                Spacer()
-            }
-        }
+        MonthView(calendarManager: MonthCalendarManager())
     }
 }

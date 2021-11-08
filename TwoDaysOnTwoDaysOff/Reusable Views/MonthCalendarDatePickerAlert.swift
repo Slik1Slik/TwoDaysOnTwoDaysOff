@@ -22,10 +22,16 @@ struct MonthCalendarDatePickerAlert: View {
     
     var body: some View {
         VStack {
-            header(date: calendarManager.month)
-                .padding(.vertical, calendarManager.layoutConfiguration.paddingTop)
-                .padding(.horizontal, calendarManager.layoutConfiguration.paddingLeft)
-            MonthView(calendarManager: calendarManager, dateViewType: ItemView.self, showsHeader: false)
+            MonthView(calendarManager: calendarManager) { date in
+                ItemView(date: date, calendarManager: calendarManager)
+                    .disabled(!range.contains(date))
+                    .foregroundColor(range.contains(date) ? .black : Color(.systemGray5))
+            } header: { date in
+                header(date: date)
+                    .padding(.vertical, calendarManager.layoutConfiguration.paddingTop)
+                    .padding(.horizontal, calendarManager.layoutConfiguration.paddingLeft)
+            }
+
             controlBox()
         }
         .background(

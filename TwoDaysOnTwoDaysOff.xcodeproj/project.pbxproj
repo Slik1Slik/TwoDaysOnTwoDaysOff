@@ -11,7 +11,7 @@
 		4850FF866ABCEECA67D9E7EE /* Pods_TwoDaysOnTwoDaysOffTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096A2FC18545F4E431F10F7A /* Pods_TwoDaysOnTwoDaysOffTests.framework */; };
 		563148A1271824320020A8E7 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A0271824320020A8E7 /* TextView.swift */; };
 		563148A427188A950020A8E7 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A327188A950020A8E7 /* Environments.swift */; };
-		563148A7271D41170020A8E7 /* MonthCalendarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A6271D41170020A8E7 /* MonthCalendarConfiguration.swift */; };
+		563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */; };
 		563148B92721CDCB0020A8E7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148B82721CDCB0020A8E7 /* Exception.swift */; };
 		563148C22721DA1E0020A8E7 /* ExceptionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C12721DA1E0020A8E7 /* ExceptionIcon.swift */; };
 		563148C42721DA330020A8E7 /* ExceptionIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C32721DA330020A8E7 /* ExceptionIconPicker.swift */; };
@@ -22,8 +22,12 @@
 		563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */; };
 		563148D7272C48840020A8E7 /* UpdateExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */; };
 		563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */; };
+		563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */; };
+		563148DD2736BF180020A8E7 /* MonthCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DC2736BF180020A8E7 /* MonthCalendarManager.swift */; };
+		563148E02736C5440020A8E7 /* DateViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DF2736C5440020A8E7 /* DateViewProtocol.swift */; };
+		563148E22736C5A30020A8E7 /* MonthCalendarAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148E12736C5A30020A8E7 /* MonthCalendarAccess.swift */; };
 		5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63927020C780092EA6E /* CustomFormSection.swift */; };
-		5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */; };
+		5659E63C2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */; };
 		5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63D27075C6E0092EA6E /* View Extensions.swift */; };
 		5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */; };
 		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
@@ -98,7 +102,7 @@
 		4445414EBAD31B971EB017C2 /* Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOffTests/Pods-TwoDaysOnTwoDaysOffTests.release.xcconfig"; sourceTree = "<group>"; };
 		563148A0271824320020A8E7 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		563148A327188A950020A8E7 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
-		563148A6271D41170020A8E7 /* MonthCalendarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarConfiguration.swift; sourceTree = "<group>"; };
+		563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarLayoutConfiguration.swift; sourceTree = "<group>"; };
 		563148B82721CDCB0020A8E7 /* Exception.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exception.swift; path = ../../../../Exception.swift; sourceTree = "<group>"; };
 		563148C12721DA1E0020A8E7 /* ExceptionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIcon.swift; sourceTree = "<group>"; };
 		563148C32721DA330020A8E7 /* ExceptionIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconPicker.swift; sourceTree = "<group>"; };
@@ -109,8 +113,12 @@
 		563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelProtocol.swift; sourceTree = "<group>"; };
 		563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExceptionViewModel.swift; sourceTree = "<group>"; };
 		563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelFactory.swift; sourceTree = "<group>"; };
+		563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarConfiguration.swift; sourceTree = "<group>"; };
+		563148DC2736BF180020A8E7 /* MonthCalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarManager.swift; sourceTree = "<group>"; };
+		563148DF2736C5440020A8E7 /* DateViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewProtocol.swift; sourceTree = "<group>"; };
+		563148E12736C5A30020A8E7 /* MonthCalendarAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarAccess.swift; sourceTree = "<group>"; };
 		5659E63927020C780092EA6E /* CustomFormSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormSection.swift; sourceTree = "<group>"; };
-		5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelDatePickerAlert.swift; sourceTree = "<group>"; };
+		5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarDatePickerAlert.swift; sourceTree = "<group>"; };
 		5659E63D27075C6E0092EA6E /* View Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View Extensions.swift"; sourceTree = "<group>"; };
 		5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconsDataStorageManager.swift; sourceTree = "<group>"; };
 		5659E648270E087E0092EA6E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -223,7 +231,9 @@
 		563148A5271D40E40020A8E7 /* Calendar Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				563148A6271D41170020A8E7 /* MonthCalendarConfiguration.swift */,
+				563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */,
+				563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */,
+				563148DC2736BF180020A8E7 /* MonthCalendarManager.swift */,
 			);
 			path = "Calendar Configuration";
 			sourceTree = "<group>";
@@ -253,6 +263,15 @@
 				563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		563148DE2736C5220020A8E7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				563148DF2736C5440020A8E7 /* DateViewProtocol.swift */,
+				563148E12736C5A30020A8E7 /* MonthCalendarAccess.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		567EB16B268A127400313D03 = {
@@ -339,7 +358,7 @@
 				56C73B6826934B7800A8A2BC /* TabBarController.swift */,
 				56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */,
 				5659E63927020C780092EA6E /* CustomFormSection.swift */,
-				5659E63B2704847C0092EA6E /* WheelDatePickerAlert.swift */,
+				5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */,
 				563148A0271824320020A8E7 /* TextView.swift */,
 			);
 			path = "Reusable Views";
@@ -397,6 +416,7 @@
 				567EB1BF268A161B00313D03 /* View */,
 				567EB1B6268A15C100313D03 /* ViewModel */,
 				563148A5271D40E40020A8E7 /* Calendar Configuration */,
+				563148DE2736C5220020A8E7 /* Protocols */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -603,6 +623,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 567EB16B268A127400313D03;
 			packageReferences = (
@@ -721,8 +742,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5659E63C2704847C0092EA6E /* WheelDatePickerAlert.swift in Sources */,
-				563148A7271D41170020A8E7 /* MonthCalendarConfiguration.swift in Sources */,
+				5659E63C2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift in Sources */,
+				563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */,
 				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
 				56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */,
 				567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */,
@@ -741,6 +762,7 @@
 				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
 				563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */,
 				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
+				563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */,
 				567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */,
 				563148C22721DA1E0020A8E7 /* ExceptionIcon.swift in Sources */,
 				567EB1B2268A15A000313D03 /* Day.swift in Sources */,
@@ -748,8 +770,10 @@
 				56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */,
 				567EB1A3268A14AD00313D03 /* VPager.swift in Sources */,
 				567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */,
+				563148E22736C5A30020A8E7 /* MonthCalendarAccess.swift in Sources */,
 				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
 				563148A1271824320020A8E7 /* TextView.swift in Sources */,
+				563148DD2736BF180020A8E7 /* MonthCalendarManager.swift in Sources */,
 				5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */,
 				563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */,
 				563148C42721DA330020A8E7 /* ExceptionIconPicker.swift in Sources */,
@@ -771,6 +795,7 @@
 				563148CF2722DAF00020A8E7 /* ApplicationObserver.swift in Sources */,
 				567EB1D4268A171D00313D03 /* DaysCountPicker.swift in Sources */,
 				567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */,
+				563148E02736C5440020A8E7 /* DateViewProtocol.swift in Sources */,
 				56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */,
 				567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */,
 				563148A427188A950020A8E7 /* Environments.swift in Sources */,

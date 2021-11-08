@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 class ExceptionViewModel: ObservableObject {
-    @Published var from: Date = Date()
+    @Published var from: Date = UserSettings.startDate
     @Published var to: Date = Date()
     @Published var name: String = ""
     @Published var details: String = ""

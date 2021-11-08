@@ -2,108 +2,56 @@
 //  MonthCalendarConfiguration.swift
 //  TwoDaysOnTwoDaysOff
 //
-//  Created by Slik on 18.10.2021.
+//  Created by Slik on 06.11.2021.
 //
 
-import UIKit
-import SwiftUI
+import Foundation
 
-class MonthCalendarConfiguration {
-    var width: CGFloat
-    var height: CGFloat = 400
+struct MonthCalendarConfiguration {
+    var calendar: Calendar
+    var month: Date
     
-    var lineSpacing: CGFloat = 10
-    var interitemSpacing: CGFloat = 10
-    
-    var paddingTop: CGFloat = 0
-    var paddingLeft: CGFloat = 0
-    var paddingRight: CGFloat = 0
-    var paddingBottom: CGFloat = 0
-    
-    var header: Header = Header()
-    var item: Item = Item()
-    var weekdaysRow: WeekdaysRow = WeekdaysRow()
-    
-    private func configureSpacing() {
-        interitemSpacing = width * 0.027
-        lineSpacing = interitemSpacing
-    }
-    
-    private func configureHorizontalPadding() {
-        paddingLeft = width * 0.043
-        paddingRight = width * 0.043
-    }
-    
-    private func cofigureItem() {
-        item.width = (width - paddingLeft - paddingRight - (interitemSpacing/8))/8
-        item.height = item.width
-    }
-    
-    private func configureHeader() {
-        header.height = item.width
-        
-        header.topInset = self.lineSpacing
-        header.bottomInset = self.lineSpacing
-    }
-    
-    private func configureWeekdaysRow() {
-        weekdaysRow.height = item.width
-        
-        weekdaysRow.topInset = self.lineSpacing
-        weekdaysRow.bottomInset = self.lineSpacing
-    }
-    
-    private func configureHeight() {
-        let rowHeight = item.height + lineSpacing
-        height = (rowHeight * 7) + header.height + lineSpacing
-    }
-    
-    private func configureVerticalPadding() {
-        paddingTop = height * 0.078
-        paddingBottom = height * 0.078
-    }
-    
-    class Header {
-        var height: CGFloat = CGFloat()
-        
-        var topInset: CGFloat = CGFloat()
-        var bottomInset: CGFloat = CGFloat()
-    }
-    
-    class Item {
-        var width: CGFloat = CGFloat()
-        var height: CGFloat = CGFloat()
-        
-        var topInset: CGFloat = CGFloat()
-        var bottomInset: CGFloat = CGFloat()
-    }
-    
-    class WeekdaysRow {
-        var height: CGFloat = CGFloat()
-        
-        var topInset: CGFloat = CGFloat()
-        var bottomInset: CGFloat = CGFloat()
+    init(calendar: Calendar, month: Date) {
+        self.calendar = calendar
+        self.month = month
     }
     
     init() {
-        width = UIScreen.main.bounds.width
-        
-        configureSpacing()
-        configureHorizontalPadding()
-        cofigureItem()
-        configureHeader()
-        configureHeight()
-        configureVerticalPadding()
+        self.calendar = Calendar(identifier: .gregorian)
+        self.month = Date()
     }
     
-    init(width: CGFloat) {
-        self.width = width
+    func weeks() -> [[Date]] {
+        let daysForMonth = days()
+        let numberOfWeeks = Int(daysForMonth.count / 7)
+        var weeks = [[Date]]()
         
-        configureSpacing()
-        configureHorizontalPadding()
-        cofigureItem()
-        configureHeader()
-        configureHeight()
-        configureVerticalPadding()
+        var day = 0
+        
+        for _ in 0..<numberOfWeeks {
+            var week = [Date]()
+            for _ in 0..<7 {
+                week.append(daysForMonth[day])
+                day += 1
+            }
+            weeks.append(week)
+        }
+        return weeks
+    }
+    
+    func days() -> [Date] {
+        guard
+            let monthInterval = calendar.dateInterval(of: .month, for: month),
+            let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start),
+            let monthLastWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.end)
+        else { return [] }
+        return calendar.generateDates(
+            inside: DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end),
+            matching: DateComponents(hour: 0, minute: 0, second: 0)
+        )
+    }
+    
+    func weekdaySymbols() -> [String] {
+        return calendar.locale?.identifier == "ru_RU" ? ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"] : calendar.shortStandaloneWeekdaySymbols
     }
 }
