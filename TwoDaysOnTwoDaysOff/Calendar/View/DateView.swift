@@ -16,13 +16,15 @@ struct DateView: DateViewProtocol {
     @State private var isSelected: Bool = false
     @State private var opacity: Double = 1
     
+    var monthCalendarManager: MonthCalendarManager = MonthCalendarManager()
+    
     var body: some View {
         VStack(spacing: 2) {
             Text(String(date.day!))
                 .font(.title3)
                 .foregroundColor(textColor)
-                .frame(width: MonthCalendarConfiguration(width: UIScreen.main.bounds.width).item.width,
-                       height: MonthCalendarConfiguration(width: UIScreen.main.bounds.width).item.width)
+                .frame(width: MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width).item.width,
+                       height: MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width).item.width)
                 .background(backgroundColor)
                 .clipShape(Circle())
                 .opacity(opacity)
@@ -72,9 +74,10 @@ struct DateView: DateViewProtocol {
         }
     }
     
-    init(date: Date) {
+    init(date: Date, calendarManager: MonthCalendarManager) {
         self.date = date
         self.dayViewModel.date = date
+        self.monthCalendarManager = calendarManager
     }
 }
 
@@ -94,12 +97,6 @@ extension DateView {
 
 struct DateView_Previews: PreviewProvider {
     static var previews: some View {
-        DateView(date: Date())
-    }
-}
-
-extension Int {
-    func isIn(_ range: ClosedRange<Int>) -> Bool {
-        return range.contains(self)
+        DateView(date: Date(), calendarManager: MonthCalendarManager())
     }
 }

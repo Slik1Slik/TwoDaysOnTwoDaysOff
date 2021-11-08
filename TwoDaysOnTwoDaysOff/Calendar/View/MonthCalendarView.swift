@@ -60,15 +60,12 @@ struct MonthCalendarView: View {
 
 struct MonthPage: View, Identifiable {
     var id: Date
+    @ObservedObject private var calendarManager: MonthCalendarManager
     var body: some View {
         VStack {
-            MonthView(month: id, calendar: DateConstants.calendar, dateViewType: DateView.self) { config in
-                config.item.height += 9
-                config.lineSpacing = 5
-            } header: { date in
+            MonthView(calendarManager: calendarManager, dateViewType: DateView.self) { date in
                 MonthHeader(month: date)
             }
-
             MonthAccessoryView(month: id)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
@@ -78,6 +75,9 @@ struct MonthPage: View, Identifiable {
     }
     init(month: Date) {
         self.id = month
+        self.calendarManager = MonthCalendarManager(initialDate: month,
+                                                    calendar: DateConstants.calendar,
+                                                    layoutConfiguration: .expanded)
     }
     
 }
