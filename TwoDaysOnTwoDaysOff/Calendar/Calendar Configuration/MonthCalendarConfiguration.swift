@@ -5,11 +5,14 @@
 //  Created by Slik on 06.11.2021.
 //
 
+import Combine
 import Foundation
 
-struct MonthCalendarConfiguration {
+class MonthCalendarConfiguration: ObservableObject {
+    
     var calendar: Calendar
-    var month: Date
+    @Published var month: Date = Date()
+    @Published var selectedDate: Date = Date()
     
     init(calendar: Calendar, month: Date) {
         self.calendar = calendar
@@ -19,6 +22,13 @@ struct MonthCalendarConfiguration {
     init() {
         self.calendar = Calendar(identifier: .gregorian)
         self.month = Date()
+    }
+    
+    init(calendar: Calendar, month: Date, initialDate: Date) {
+        self.calendar = calendar
+        self.month = month
+        
+        self.selectedDate = initialDate
     }
     
     func weeks() -> [[Date]] {
@@ -40,15 +50,7 @@ struct MonthCalendarConfiguration {
     }
     
     func days() -> [Date] {
-        guard
-            let monthInterval = calendar.dateInterval(of: .month, for: month),
-            let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start),
-            let monthLastWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.end)
-        else { return [] }
-        return calendar.generateDates(
-            inside: DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end),
-            matching: DateComponents(hour: 0, minute: 0, second: 0)
-        )
+        return calendar.generateDates(of: .month, for: month)
     }
     
     func weekdaySymbols() -> [String] {

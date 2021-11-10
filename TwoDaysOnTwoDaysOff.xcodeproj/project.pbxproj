@@ -33,6 +33,7 @@
 		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
 		5661AA9F2716CFBD00B8C4B2 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AA9E2716CFBD00B8C4B2 /* Realm */; };
 		5661AAA12716CFBD00B8C4B2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AAA02716CFBD00B8C4B2 /* RealmSwift */; };
+		566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C679C273AC86A0056E616 /* Calendar + Extensions.swift */; };
 		5670199926F8C968009A065C /* ExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5670199826F8C968009A065C /* ExceptionViewModel.swift */; };
 		567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */; };
 		567EB17A268A127500313D03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB179268A127500313D03 /* ContentView.swift */; };
@@ -122,6 +123,7 @@
 		5659E63D27075C6E0092EA6E /* View Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View Extensions.swift"; sourceTree = "<group>"; };
 		5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconsDataStorageManager.swift; sourceTree = "<group>"; };
 		5659E648270E087E0092EA6E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		566C679C273AC86A0056E616 /* Calendar + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar + Extensions.swift"; sourceTree = "<group>"; };
 		5670199826F8C968009A065C /* ExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModel.swift; sourceTree = "<group>"; };
 		567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoDaysOnTwoDaysOff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDaysOnTwoDaysOffApp.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				567EB1DE268A186700313D03 /* Array + Extensions.swift */,
 				567EB1E0268A187700313D03 /* Date + Extensions.swift */,
 				5659E63D27075C6E0092EA6E /* View Extensions.swift */,
+				566C679C273AC86A0056E616 /* Calendar + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
 				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
 				563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */,
+				566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */,
 				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
 				563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */,
 				567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */,

@@ -18,8 +18,8 @@ class DayViewModel: ObservableObject {
     
     init() {
         $date
-            .sink { (date) in
-                self.day = DaysDataStorageManager.find(by: date)
+            .sink { [weak self] (date) in
+                self?.day = DaysDataStorageManager.find(by: date)
             }
             .store(in: &cancellableSet)
     }

@@ -16,13 +16,21 @@ struct MonthCalendarView: View {
     init(interval: DateInterval) {
         self.interval = interval
         self.calendar = DateConstants.calendar
+        
+        let months = calendar.generateDates(
+            inside: interval,
+            matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
+        )
+        self.pages = months.map { month in
+            return MonthPage(month: month)
+        }
     }
+    
+    //private var layoutConfiguration = MonthCalendarLayoutConfiguration()
     
     var body: some View {
         ZStack {
-            CalendarPager(selection: $index, pages: self.months.map { month in
-                return MonthPage(month: month)
-            })
+            CalendarPager(selection: $index, pages: pages)
             getOnTopButton
         }
     }
@@ -33,6 +41,8 @@ struct MonthCalendarView: View {
             matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
         )
     }
+    
+    private var pages: [MonthPage]
     
     private var getOnTopButton: some View {
         return Group {
@@ -60,13 +70,13 @@ struct MonthCalendarView: View {
 
 struct MonthPage: View, Identifiable {
     var id: Date
-    @ObservedObject private var calendarManager: MonthCalendarManager
+    private var layoutConfiguration = MonthCalendarLayoutConfiguration()
     var body: some View {
         VStack {
-            MonthView(calendarManager: calendarManager) { date in
+            MonthView(month: id, calendar: DateConstants.calendar, layoutConfiguration: .expanded) { date in
                 DateView(date: date)
             } header: { date in
-                MonthHeader(month: date)
+                header(month: date)
             }
             MonthAccessoryView(month: id)
                 .padding(.leading, 16)
@@ -77,21 +87,14 @@ struct MonthPage: View, Identifiable {
     }
     init(month: Date) {
         self.id = month
-        self.calendarManager = MonthCalendarManager(initialDate: month,
-                                                    calendar: DateConstants.calendar,
-                                                    layoutConfiguration: .expanded)
     }
     
-}
-
-struct MonthHeader: View {
-    private let calendar = DateConstants.calendar
-    private let month: Date
-    private let monthSymbol: String
-    private let yearNumber: Int
-    
-    var body: some View {
-        HStack {
+    private func header(month: Date) -> some View {
+        
+        let monthSymbol = DateConstants.monthSymbols[month.month! - 1]
+        let yearNumber = month.year!
+        
+        return HStack {
             Text(monthSymbol)
                 .font(.title)
                 .bold()
@@ -101,15 +104,6 @@ struct MonthHeader: View {
                 .bold()
             Spacer()
         }
-    }
-    
-    init(month: Date) {
-        self.month = month
-        
-        let monthNumber = calendar.component(.month, from: month)-1
-        
-        self.monthSymbol = calendar.standaloneMonthSymbols[monthNumber].capitalized
-        self.yearNumber = calendar.component(.year, from: month)
     }
 }
 

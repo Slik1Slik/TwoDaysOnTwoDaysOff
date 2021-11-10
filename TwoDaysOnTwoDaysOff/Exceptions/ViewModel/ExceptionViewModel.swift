@@ -105,8 +105,8 @@ class ExceptionViewModel: ObservableObject {
         
         areDatesAvailable
             .receive(on: RunLoop.main)
-            .map { availabe in
-                return availabe ? " " : "На выбранный период уже назначено исключение."
+            .map { available in
+                return available ? " " : "На выбранный период уже назначено исключение."
             }
             .assign(to: \.datesErrorMessage, on: self)
             .store(in: &cancellableSet)
@@ -125,9 +125,9 @@ class ExceptionViewModel: ObservableObject {
         $from
             .combineLatest($isPeriod)
             .receive(on: RunLoop.main)
-            .sink { dateFrom, isPeriod in
+            .sink { [weak self] dateFrom, isPeriod in
                 if !isPeriod {
-                    self.to = dateFrom
+                    self?.to = dateFrom
                 }
             }
             .store(in: &cancellableSet)
@@ -135,10 +135,10 @@ class ExceptionViewModel: ObservableObject {
         //if user add an one-day exception or days from the period have the same kind (working or non-working) then user wouldn't be able to choose the day kind
         Publishers.CombineLatest3($isPeriod, $from, $to)
             .receive(on: RunLoop.main)
-            .sink { isPeriod, dateFrom, dateTo in
+            .sink { [weak self] isPeriod, dateFrom, dateTo in
                 guard isPeriod else {
-                    self.isWorking = !DaysDataStorageManager.find(by: dateFrom)!.isWorking
-                    self.isDayKindChangable = false
+                    self?.isWorking = !DaysDataStorageManager.find(by: dateFrom)!.isWorking
+                    self?.isDayKindChangable = false
                     return
                 }
                 
@@ -152,10 +152,10 @@ class ExceptionViewModel: ObservableObject {
                 let areDaysKindsForGivenPeriodEqual = uniqueElements.count == 1
                 
                 if areDaysKindsForGivenPeriodEqual {
-                    self.isWorking = !daysForInterval.first!.isWorking
-                    self.isDayKindChangable = false
+                    self?.isWorking = !daysForInterval.first!.isWorking
+                    self?.isDayKindChangable = false
                 } else {
-                    self.isDayKindChangable = true
+                    self?.isDayKindChangable = true
                 }
             }
             .store(in: &cancellableSet)

@@ -7,6 +7,29 @@
 
 import UIKit
 
+struct LayoutConstants {
+    static let paddingLeft: CGFloat = 16
+    static let paddingRight: CGFloat = 16
+    static let paddingTop: CGFloat = 16
+    static let paddingBottom: CGFloat = 16
+    
+    private static let screen = UIScreen.main.bounds
+    
+    private static let iPhone8Height: CGFloat = 667.00
+    private static let iPhone8Width: CGFloat = 375.00
+    
+    private static let basicPadding: CGFloat = 16
+    
+    static func perfectPadding(_ input: CGFloat) -> CGFloat {
+        let ratio = input / iPhone8Width
+        return UIScreen.main.bounds.width * ratio
+    }
+    
+    static func defaultPadding() -> CGFloat {
+        return perfectPadding(basicPadding)
+    }
+}
+
 struct BasicCalendarConstants
 {
     static let paddingLeft: CGFloat = 16

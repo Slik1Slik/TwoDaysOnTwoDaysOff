@@ -17,6 +17,9 @@ struct DateConstants {
     static let dateFormatter = getDateFormatter()
     static let date_01_01_1970 = getFirstDate()
     
+    //due to the memory leak caused by using the Calendar.standaloneMonthSymbols array I've decided to store months symbols and provide it like this
+    static let monthSymbols: Array<String> = getMonthSymbols()
+    
     private static func getDateFormatter() -> DateFormatter
     {
         let dateFormatter = DateFormatter()
@@ -45,5 +48,9 @@ struct DateConstants {
         calendar.timeZone = DateConstants.timeZone
         
         return calendar
+    }
+    
+    private static func getMonthSymbols() -> [String] {
+        return ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
     }
 }

@@ -13,7 +13,7 @@ class MonthCalendarManager: ObservableObject {
     var layoutConfiguration: MonthCalendarLayoutConfiguration = MonthCalendarLayoutConfiguration()
     
     @Published var selectedDate: Date?
-    @Published var month: Date = Date()
+    @Published var currentMonth: Date = Date()
     
     private var cancellableSet: Set<AnyCancellable> = []
     
@@ -31,7 +31,7 @@ class MonthCalendarManager: ObservableObject {
         self.selectedDate = initialDate
         self.calendarConfiguration = MonthCalendarConfiguration(calendar: calendar, month: initialDate)
         layoutConfiguration(self.layoutConfiguration)
-        self.month = initialDate
+        self.currentMonth = initialDate
         
         setSubscriptions()
     }
@@ -39,7 +39,7 @@ class MonthCalendarManager: ObservableObject {
     init(initialDate: Date, calendar: Calendar, layoutConfiguration: LayoutConfiguration) {
         self.selectedDate = initialDate
         self.calendarConfiguration = MonthCalendarConfiguration(calendar: calendar, month: initialDate)
-        self.month = initialDate
+        self.currentMonth = initialDate
         
         switch layoutConfiguration {
         case .expanded:
@@ -52,7 +52,7 @@ class MonthCalendarManager: ObservableObject {
     }
     
     private func setSubscriptions() {
-        $month
+        $currentMonth
             .receive(on: RunLoop.main)
             .sink { month in
                 self.calendarConfiguration.month = month

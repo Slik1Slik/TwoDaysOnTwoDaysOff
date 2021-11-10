@@ -54,8 +54,8 @@ class MonthCalendarLayoutConfiguration {
         header.paddingLeft = paddingLeft
         header.paddingRight = paddingRight
         
-        header.paddingTop = height * 0.078
-        header.paddingTop = height * 0.078
+        header.paddingTop = 0
+        header.paddingBottom = paddingLeft
     }
     
     private func configureWeekdaysRow() {
@@ -66,13 +66,14 @@ class MonthCalendarLayoutConfiguration {
     }
     
     private func configureHeight() {
-        let rowHeight = item.height + lineSpacing
-        height = (rowHeight * 6) + weekdaysRow.height
+        let allItems = item.height * 6
+        let allLineSpacings = lineSpacing * 5
+        height = allItems + allLineSpacings + weekdaysRow.height + weekdaysRow.paddingBottom
     }
     
     private func configureVerticalPadding() {
-        paddingTop = height * 0.043
-        paddingBottom = height * 0.043
+        paddingTop = paddingLeft
+        paddingBottom = paddingRight
     }
     
     class Header {
@@ -127,7 +128,8 @@ class MonthCalendarLayoutConfiguration {
 }
 
 extension MonthCalendarLayoutConfiguration {
-    func defaultWidth() -> CGFloat {
-        return UIScreen.main.bounds.width
+    enum LayoutConfiguration {
+        case expanded
+        case alert
     }
 }

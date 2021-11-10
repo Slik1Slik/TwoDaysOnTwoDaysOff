@@ -18,20 +18,21 @@ struct MonthCalendarDatePickerAlert: View {
     
     @ViewBuilder private var range: ClosedRange<Date>
     
-    @ObservedObject private var calendarManager: MonthCalendarManager = MonthCalendarManager()
+    private var calendarLayoutConfiguration = MonthCalendarLayoutConfiguration()
+    @ObservedObject private var calendarConfiguration = MonthCalendarConfiguration()
     
     var body: some View {
         VStack {
-            MonthView(calendarManager: calendarManager) { date in
-                ItemView(date: date, calendarManager: calendarManager)
+            MonthView(calendarConfiguration: calendarConfiguration,
+                      layoutConfiguration: calendarLayoutConfiguration) { date in
+                ItemView(date: date,
+                         calendarConfiguration: calendarConfiguration,
+                         layoutConfiguration: calendarLayoutConfiguration)
                     .disabled(!range.contains(date))
                     .foregroundColor(range.contains(date) ? .black : Color(.systemGray5))
             } header: { date in
                 header(date: date)
-                    .padding(.vertical, calendarManager.layoutConfiguration.paddingTop)
-                    .padding(.horizontal, calendarManager.layoutConfiguration.paddingLeft)
             }
-
             controlBox()
         }
         .background(
@@ -56,7 +57,9 @@ struct MonthCalendarDatePickerAlert: View {
         self.range = range
         self._isPresented = isPresented
         
-        self.calendarManager = MonthCalendarManager(initialDate: selection.wrappedValue, calendar: DateConstants.calendar, layoutConfiguration: .alert)
+        self.calendarLayoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width / 1.2)
+        self.calendarLayoutConfiguration.header.paddingBottom = LayoutConstants.perfectPadding(10)
+        self.calendarConfiguration = MonthCalendarConfiguration(calendar: DateConstants.calendar, month: selection.wrappedValue, initialDate: selection.wrappedValue)
     }
     
     private func show() {
@@ -89,7 +92,7 @@ extension MonthCalendarDatePickerAlert {
     private func header(date: Date) -> some View {
         HStack {
             Button {
-                goToPreviousMonth()
+                changeMonth(to: .previous)
             } label: {
                 Image(systemName: "arrowtriangle.left.fill")
                     .renderingMode(.template)
@@ -97,11 +100,11 @@ extension MonthCalendarDatePickerAlert {
             }
             .disabled(isCurrentMonthFirst())
             Spacer()
-            Text(DateConstants.calendar.standaloneMonthSymbols[date.month! - 1].capitalized)
+            Text(DateConstants.monthSymbols[date.month! - 1])
                 .bold()
             Spacer()
             Button {
-                goToNextMonth()
+                changeMonth(to: .next)
             } label: {
                 Image(systemName: "arrowtriangle.right.fill")
                     .renderingMode(.template)
@@ -113,30 +116,33 @@ extension MonthCalendarDatePickerAlert {
 }
 
 extension MonthCalendarDatePickerAlert {
-    private struct ItemView: DateViewProtocol {
+    private struct ItemView: View {
         var date: Date
-        @ObservedObject var monthCalendarManager: MonthCalendarManager
+        @ObservedObject private var calendarConfiguration = MonthCalendarConfiguration()
+        private var layoutConfiguration = MonthCalendarLayoutConfiguration()
         
         var body: some View {
             Text(date.day!.description)
-                .frame(width: monthCalendarManager.layoutConfiguration.item.width,
-                       height: monthCalendarManager.layoutConfiguration.item.height)
+                .frame(width: layoutConfiguration.item.width, height: layoutConfiguration.item.height)
                 .background(backgroundColor)
                 .clipShape(Circle())
                 .onTapGesture(perform: selectDate)
         }
         
-        init(date: Date, calendarManager: MonthCalendarManager) {
+        init(date: Date,
+             calendarConfiguration: MonthCalendarConfiguration,
+             layoutConfiguration: MonthCalendarLayoutConfiguration) {
             self.date = date
-            self.monthCalendarManager = calendarManager
+            self.calendarConfiguration = calendarConfiguration
+            self.layoutConfiguration = layoutConfiguration
         }
         
         private func selectDate() {
-            self.monthCalendarManager.selectedDate = date
+            self.calendarConfiguration.selectedDate = date
         }
         
         private var backgroundColor: Color {
-            return date == monthCalendarManager.selectedDate ? Color(UserSettings.restDayCellColor!) : Color.clear
+            return date == calendarConfiguration.selectedDate ? Color(UserSettings.restDayCellColor!) : Color.clear
         }
     }
 }
@@ -144,19 +150,19 @@ extension MonthCalendarDatePickerAlert {
 extension MonthCalendarDatePickerAlert {
     
     private func itemSize() -> CGFloat {
-        guard calendarManager.calendarConfiguration.days().count == 42 else {
-            return calendarManager.layoutConfiguration.item.height
+        guard calendarConfiguration.days().count == 42 else {
+            return calendarLayoutConfiguration.item.height
         }
-        var itemSize = calendarManager.layoutConfiguration.item.height
+        var itemSize = calendarLayoutConfiguration.item.height
         itemSize -= itemSize / 6
         return itemSize
     }
     
     private func lineSpacing() -> CGFloat {
-        guard calendarManager.calendarConfiguration.days().count == 42 else {
-            return calendarManager.layoutConfiguration.lineSpacing
+        guard calendarConfiguration.days().count == 42 else {
+            return calendarLayoutConfiguration.lineSpacing
         }
-        var lineSpacing = calendarManager.layoutConfiguration.lineSpacing
+        var lineSpacing = calendarLayoutConfiguration.lineSpacing
         
         lineSpacing -= lineSpacing / 5
         
@@ -165,17 +171,40 @@ extension MonthCalendarDatePickerAlert {
 }
 
 extension MonthCalendarDatePickerAlert {
-    private func goToNextMonth() {
-        calendarManager.month = DateConstants.calendar.date(byAdding: .month, value: 1, to: calendarManager.month)!
-    }
-    private func goToPreviousMonth() {
-        calendarManager.month = DateConstants.calendar.date(byAdding: .month, value: -1, to: calendarManager.month)!
+    private func changeMonth(to state: MonthState) {
+        let increment = state == .next ? 1 : -1
+        
+        let incomingMonth = calendarConfiguration.calendar.date(byAdding: .month, value: increment, to: calendarConfiguration.month)!
+//        let incomingMonthDaysCount = calendarConfiguration.calendar.generateDates(of: .month, for: incomingMonth).count
+//
+//        if incomingMonthDaysCount == 42 && calendarConfiguration.days().count < 42 {
+//            adjustContent(rowsCount: 6)
+//        }
+//        if incomingMonthDaysCount < 42 && calendarConfiguration.days().count == 42 {
+//            adjustContent(rowsCount: 5)
+//        }
+        
+        calendarConfiguration.month = incomingMonth
     }
     private func isCurrentMonthFirst() -> Bool {
-        return (calendarManager.month.month == range.lowerBound.month) && (calendarManager.month.year == range.lowerBound.year)
+        return (calendarConfiguration.month.month == range.lowerBound.month) && (calendarConfiguration.month.year == range.lowerBound.year)
     }
     private func isCurrentMonthLast() -> Bool {
-        return (calendarManager.month.month == range.upperBound.month) && (calendarManager.month.year == range.upperBound.year)
+        return (calendarConfiguration.month.month == range.upperBound.month) && (calendarConfiguration.month.year == range.upperBound.year)
+    }
+    private func adjustContent(rowsCount: Int) {
+        let initialLayoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width / 1.2)
+        
+        let lineSpacingDifference = initialLayoutConfiguration.lineSpacing / 5
+        let itemHeightDifference = initialLayoutConfiguration.item.height / 6
+        
+        calendarLayoutConfiguration.lineSpacing += (rowsCount == 6) ? -lineSpacingDifference : lineSpacingDifference
+        calendarLayoutConfiguration.item.height += (rowsCount == 6) ? -itemHeightDifference : itemHeightDifference
+    }
+    
+    private enum MonthState {
+        case next
+        case previous
     }
 }
 
@@ -186,7 +215,7 @@ extension MonthCalendarDatePickerAlert {
     }
     
     private func acceptAction() {
-        self.selection = calendarManager.selectedDate!
+        self.selection = calendarConfiguration.selectedDate
         self.isPresented = false
     }
     
@@ -208,7 +237,7 @@ extension MonthCalendarDatePickerAlert {
                     .bold()
             }
         }
-        .frame(height: calendarManager.layoutConfiguration.item.height)
+        .frame(height: calendarLayoutConfiguration.item.height)
     }
 }
 
