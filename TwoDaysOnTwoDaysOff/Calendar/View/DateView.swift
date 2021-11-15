@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct DateView: View {
-    
     var date: Date
     @ObservedObject private var dayViewModel = DayViewModel()
     
-    private let itemHeight: CGFloat = ExpandedMonthCalendarConstants.itemWidth
     @State private var isSelected: Bool = false
-    @State private var opacity: Double = 1
+    
+    @ObservedObject private var calendarManager: MonthCalendarManager = MonthCalendarManager()
     
     var body: some View {
         VStack(spacing: 2) {
@@ -25,16 +24,12 @@ struct DateView: View {
                        height: MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width).item.width)
                 .background(backgroundColor)
                 .clipShape(Circle())
-                .opacity(opacity)
+                .opacity(calendarManager.selectedDate == date ? 0.3 : 1)
                 .onAppear(perform: {
                     self.dayViewModel.date = date
                 })
-                .sheet(isPresented: $isSelected, content: {
-                    ExceptionDetailsView(date: date)
-                })
                 .onTapGesture {
-                    self.isSelected = true
-                    self.onTapGestureAction()
+                    self.calendarManager.selectedDate = date
                 }
             if let day = dayViewModel.day, let _ = day.exception  {
                 Color(.gray)
@@ -66,15 +61,13 @@ struct DateView: View {
     }
     
     private func onTapGestureAction() {
-        self.opacity = 0.3
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.opacity = 1
-        }
+        //self.opacity = 0.3
     }
     
-    init(date: Date) {
+    init(date: Date, calendarManager: MonthCalendarManager) {
         self.date = date
         self.dayViewModel.date = date
+        self.calendarManager = calendarManager
     }
 }
 
@@ -94,6 +87,6 @@ extension DateView {
 
 struct DateView_Previews: PreviewProvider {
     static var previews: some View {
-        DateView(date: Date())
+        DateView(date: Date(), calendarManager: MonthCalendarManager())
     }
 }
