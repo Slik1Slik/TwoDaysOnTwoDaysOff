@@ -8,23 +8,9 @@
 import SwiftUI
 
 struct MonthCalendarView: View {
-    
-    var calendar: Calendar
     @State var index = 0
-    let interval: DateInterval
     
-    init(interval: DateInterval) {
-        self.interval = interval
-        self.calendar = DateConstants.calendar
-        
-        let months = calendar.generateDates(
-            inside: interval,
-            matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
-        )
-        self.pages = months.map { month in
-            return MonthPage(month: month)
-        }
-    }
+    @ObservedObject private var calendarManager: MonthCalendarManager
     
     //private var layoutConfiguration = MonthCalendarLayoutConfiguration()
     
@@ -35,14 +21,16 @@ struct MonthCalendarView: View {
         }
     }
     
-    private var months: [Date] {
-        calendar.generateDates(
-            inside: interval,
-            matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
-        )
-    }
+    private var pages: [MonthPage] = []
     
-    private var pages: [MonthPage]
+    init(calendar: Calendar, interval: DateInterval) {
+        self.calendarManager = MonthCalendarManager(calendar: calendar,
+                                                    interval: interval,
+                                                    layoutConfiguration: .expanded)
+        self.pages = calendarManager.months.map { month in
+            return MonthPage(month: month, calendarManager: calendarManager)
+        }
+    }
     
     private var getOnTopButton: some View {
         return Group {
@@ -70,14 +58,16 @@ struct MonthCalendarView: View {
 
 struct MonthPage: View, Identifiable {
     var id: Date
-    private var layoutConfiguration = MonthCalendarLayoutConfiguration()
+    private var calendarManager: MonthCalendarManager
     var body: some View {
         VStack {
-            MonthView(month: id, calendar: DateConstants.calendar, layoutConfiguration: .expanded) { date in
+            MonthView(month: id, calendarManager: calendarManager) { date in
                 DateView(date: date)
             } header: { date in
                 header(month: date)
             }
+            .padding(.horizontal, calendarManager.layoutConfiguration.paddingLeft)
+            .padding(.vertical, calendarManager.layoutConfiguration.paddingTop)
             MonthAccessoryView(month: id)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
@@ -85,8 +75,9 @@ struct MonthPage: View, Identifiable {
         }
         .frame(height: UIScreen.main.bounds.height)
     }
-    init(month: Date) {
+    init(month: Date, calendarManager: MonthCalendarManager) {
         self.id = month
+        self.calendarManager = calendarManager
     }
     
     private func header(month: Date) -> some View {
@@ -109,7 +100,7 @@ struct MonthPage: View, Identifiable {
 
 struct MonthCalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        MonthCalendarView(interval: DateInterval())
+        MonthCalendarView(calendar: DateConstants.calendar, interval: DateInterval())
     }
 }
 

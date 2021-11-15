@@ -8,11 +8,10 @@
 import Combine
 import Foundation
 
-class MonthCalendarConfiguration: ObservableObject {
+class MonthCalendarConfiguration {
     
     var calendar: Calendar
-    @Published var month: Date = Date()
-    @Published var selectedDate: Date = Date()
+    var month: Date = Date()
     
     init(calendar: Calendar, month: Date) {
         self.calendar = calendar
@@ -22,13 +21,6 @@ class MonthCalendarConfiguration: ObservableObject {
     init() {
         self.calendar = Calendar(identifier: .gregorian)
         self.month = Date()
-    }
-    
-    init(calendar: Calendar, month: Date, initialDate: Date) {
-        self.calendar = calendar
-        self.month = month
-        
-        self.selectedDate = initialDate
     }
     
     func weeks() -> [[Date]] {
@@ -54,6 +46,6 @@ class MonthCalendarConfiguration: ObservableObject {
     }
     
     func weekdaySymbols() -> [String] {
-        return calendar.locale?.identifier == "ru_RU" ? ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"] : calendar.shortStandaloneWeekdaySymbols
+        return calendar.locale?.identifier == "ru_RU" ? ["пн", "вт", "ср", "чт", "пт", "сб", "вс"] : calendar.shortStandaloneWeekdaySymbols
     }
 }

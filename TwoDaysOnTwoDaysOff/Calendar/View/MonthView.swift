@@ -9,62 +9,70 @@ import SwiftUI
 
 struct MonthView<DateView: View, Header: View>: View
 {
-    private var layoutConfiguration = MonthCalendarLayoutConfiguration()
-    @ObservedObject private var calendarConfiguration = MonthCalendarConfiguration()
+    @ObservedObject private var calendarManager = MonthCalendarManager()
+    
+    private var calendarConfiguration: MonthCalendarConfiguration
     
     @ViewBuilder private var dateView: (Date) -> DateView
     
     @ViewBuilder private var header: (Date) -> Header
     
     var body: some View {
-        VStack(spacing: layoutConfiguration.lineSpacing) { [calendarConfiguration, layoutConfiguration] in
+        VStack {
             header(calendarConfiguration.month)
-                .padding(.leading, layoutConfiguration.header.paddingLeft)
-                .padding(.trailing, layoutConfiguration.header.paddingRight)
-                .padding(.top, layoutConfiguration.header.paddingTop)
-                .padding(.bottom, layoutConfiguration.header.paddingBottom)
+                .padding(.leading, calendarManager.layoutConfiguration.header.paddingLeft)
+                .padding(.trailing, calendarManager.layoutConfiguration.header.paddingRight)
+                .padding(.top, calendarManager.layoutConfiguration.header.paddingTop)
+                .padding(.bottom, calendarManager.layoutConfiguration.header.paddingBottom)
                 .frame(alignment: .top)
             VStack {
                 weeksSymbolsHeader
-                    .padding(.leading, layoutConfiguration.weekdaysRow.paddingLeft)
-                    .padding(.trailing, layoutConfiguration.weekdaysRow.paddingRight)
-                    .padding(.top, layoutConfiguration.weekdaysRow.paddingTop)
-                    .padding(.bottom, layoutConfiguration.weekdaysRow.paddingBottom)
-                VStack(spacing: layoutConfiguration.lineSpacing) { [self] in
+                    .padding(.leading, calendarManager.layoutConfiguration.weekdaysRow.paddingLeft)
+                    .padding(.trailing, calendarManager.layoutConfiguration.weekdaysRow.paddingRight)
+                    .padding(.top, calendarManager.layoutConfiguration.weekdaysRow.paddingTop)
+                    .padding(.bottom, calendarManager.layoutConfiguration.weekdaysRow.paddingBottom)
+                    .frame(alignment: .top)
+                VStack(spacing: calendarManager.layoutConfiguration.calendarBody.lineSpacing) { [self] in
                     ForEach(calendarConfiguration.weeks(), id: \.self) { week in
-                        HStack(spacing: layoutConfiguration.interitemSpacing) { [self] in
+                        HStack(spacing: calendarManager.layoutConfiguration.calendarBody.interitemSpacing) { [self] in
                             ForEach(week, id: \.self) { day in
                                 if calendarConfiguration.calendar.isDate(day, equalTo: calendarConfiguration.month, toGranularity: .month) {
                                     dateView(day)
                                         .frame(
-                                            width: layoutConfiguration.item.width,
-                                            height: layoutConfiguration.item.height
+                                            width: calendarManager.layoutConfiguration.item.width,
+                                            height: calendarManager.layoutConfiguration.item.height
                                         )
                                 }
                                 else {
-                                    Color.clear
+                                    dateView(day)
                                         .frame(
-                                            width: layoutConfiguration.item.width,
-                                            height: layoutConfiguration.item.height
+                                            width: calendarManager.layoutConfiguration.item.width,
+                                            height: calendarManager.layoutConfiguration.item.height
                                         )
+                                        .hidden()
                                 }
                             }
                         }
                     }
                 }
+                .padding(.leading, calendarManager.layoutConfiguration.calendarBody.paddingLeft)
+                .padding(.trailing, calendarManager.layoutConfiguration.calendarBody.paddingRight)
+                .padding(.top, calendarManager.layoutConfiguration.calendarBody.paddingTop)
+                .padding(.bottom, calendarManager.layoutConfiguration.calendarBody.paddingBottom)
+                //.frame(height: calendarManager.layoutConfiguration.calendarBody.height, alignment: .top)
+                //.overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 0.4))
             }
-            .frame(height: layoutConfiguration.height, alignment: .top)
         }
-        .frame(width: layoutConfiguration.width, alignment: .top)
+        .frame(width: calendarManager.layoutConfiguration.width, alignment: .top)
     }
     
     init(month: Date,
-         calendar: Calendar,
-         layoutConfiguration: @escaping (MonthCalendarLayoutConfiguration) -> (),
+         calendarManager: MonthCalendarManager,
          @ViewBuilder dateView: @escaping (Date) -> DateView,
          @ViewBuilder header: @escaping (Date) -> Header
     ) {
-        self.calendarConfiguration = MonthCalendarConfiguration(calendar: calendar, month: month)
+        self.calendarManager = calendarManager
+        self.calendarConfiguration = calendarManager.calendarConfiguration(for: month)
         
         self.dateView = dateView
         self.header = header
@@ -73,12 +81,10 @@ struct MonthView<DateView: View, Header: View>: View
 
 extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>, DateView == Text {
     init(month: Date,
-         calendar: Calendar,
          calendarManager: MonthCalendarManager,
-         @ViewBuilder layoutConfiguration: @escaping (MonthCalendarLayoutConfiguration) -> (),
          @ViewBuilder dateView: @escaping (Date) -> DateView
     ) {
-        self.init(month: month, calendar: calendar, layoutConfiguration: layoutConfiguration, dateView: dateView) { date in
+        self.init(month: month, calendarManager: calendarManager, dateView: dateView) { date in
             HStack {
                 Text(date.monthSymbolAndYear())
                 Spacer()
@@ -87,60 +93,25 @@ extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>, DateView 
     }
     
     init(month: Date,
-         calendar: Calendar,
          calendarManager: MonthCalendarManager,
-         @ViewBuilder layoutConfiguration: @escaping (MonthCalendarLayoutConfiguration) -> (),
          @ViewBuilder header: @escaping (Date) -> Header
     ) {
-        self.init(month: month, calendar: calendar, layoutConfiguration: layoutConfiguration, dateView: { date in
+        self.init(month: month, calendarManager: calendarManager, dateView: { date in
             Text(date.day!.description)
         }, header: header)
     }
 }
 
 extension MonthView {
-    init(calendarConfiguration: MonthCalendarConfiguration,
-         layoutConfiguration: MonthCalendarLayoutConfiguration,
-         @ViewBuilder dateView: @escaping (Date) -> DateView,
-         @ViewBuilder header: @escaping (Date) -> Header
-    ) {
-        self.calendarConfiguration = calendarConfiguration
-        self.layoutConfiguration = layoutConfiguration
-        
-        self.dateView = dateView
-        self.header = header
-    }
-    
-    init(month: Date,
-         calendar: Calendar,
-         layoutConfiguration: MonthCalendarLayoutConfiguration.LayoutConfiguration,
-         @ViewBuilder dateView: @escaping (Date) -> DateView,
-         @ViewBuilder header: @escaping (Date) -> Header
-    ) {
-        self.calendarConfiguration = MonthCalendarConfiguration(calendar: calendar, month: month)
-        
-        switch layoutConfiguration {
-        case .expanded:
-            self.layoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width)
-        case .alert:
-            self.layoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width / 1.2)
-        }
-        
-        self.dateView = dateView
-        self.header = header
-    }
-}
-
-extension MonthView {
     private var weeksSymbolsHeader: some View {
-        return HStack(spacing: layoutConfiguration.interitemSpacing) {
+        return HStack(spacing: calendarManager.layoutConfiguration.calendarBody.interitemSpacing) {
             ForEach(calendarConfiguration.weekdaySymbols(), id: \.self) { symbol in
                 Text(symbol)
                     .bold()
                     .foregroundColor(Color(.gray))
                     .frame(
-                        width: layoutConfiguration.item.width,
-                        height: layoutConfiguration.item.width,
+                        width: calendarManager.layoutConfiguration.item.width,
+                        height: calendarManager.layoutConfiguration.item.height,
                         alignment: .center
                     )
             }
@@ -148,21 +119,7 @@ extension MonthView {
     }
 }
 
-extension MonthView {
-    enum ContentMode {
-        case none
-        case adjusted
-        case fixed(rowsCount: Int)
-    }
-    
-    func contentMode(_ mode: ContentMode) {
-        
-    }
-    
-    private func setAdjustedContentMode() {
-        
-    }
-}
+
 
 //struct MonthView_Previews: PreviewProvider {
 //    static var previews: some View {

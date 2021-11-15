@@ -11,73 +11,109 @@ import SwiftUI
 class MonthCalendarLayoutConfiguration {
     var width: CGFloat {
         didSet {
-            configureSpacing()
-            configureHorizontalPadding()
-            cofigureItem()
-            configureHeader()
-            configureHeight()
-            configureVerticalPadding()
+            calculateVerticalPadding()
+            calculateHorizontalPadding()
+            
+            calculateCalendarBodySpacing()
+            
+            calculateItemSize()
+            
+            calculateHeaderSize()
+            calculateHeaderPadding()
+            
+            calculateWeekdaysRowSize()
+            calculateWeekdaysRowPadding()
+            
+            calculateCalendarBodySize()
+            calculateCalendarBodyPadding()
         }
     }
     var height: CGFloat = 400
-    
-    var lineSpacing: CGFloat = 10
-    var interitemSpacing: CGFloat = 10
     
     var paddingTop: CGFloat = 0
     var paddingLeft: CGFloat = 0
     var paddingRight: CGFloat = 0
     var paddingBottom: CGFloat = 0
     
+    var calendarBody: CalendarBody = CalendarBody()
     var header: Header = Header()
     var item: Item = Item()
     var weekdaysRow: WeekdaysRow = WeekdaysRow()
     
-    private func configureSpacing() {
-        interitemSpacing = width * 0.027
-        lineSpacing = interitemSpacing
+    private let iPhone8Width: CGFloat = 375.00
+    
+    private let basicPadding: CGFloat = 16
+    
+    private func perfectPadding(_ input: CGFloat) -> CGFloat {
+        let ratio = input / iPhone8Width
+        return width * ratio
     }
     
-    private func configureHorizontalPadding() {
-        paddingLeft = width * 0.043
-        paddingRight = width * 0.043
+    private func defaultPadding() -> CGFloat {
+        return perfectPadding(basicPadding)
     }
     
-    private func cofigureItem() {
-        item.width = (width - paddingLeft - paddingRight - (interitemSpacing/8))/8
+    private func calculateHorizontalPadding() {
+        paddingLeft = perfectPadding(16)
+        paddingRight = perfectPadding(16)
+    }
+    
+    private func calculateVerticalPadding() {
+        paddingTop = perfectPadding(16)
+        paddingBottom = perfectPadding(16)
+    }
+    
+    private func calculateCalendarBodySpacing() {
+        calendarBody.interitemSpacing = perfectPadding(10)
+        calendarBody.lineSpacing = calendarBody.interitemSpacing
+    }
+    
+    private func calculateItemSize() {
+        item.width = (width - paddingLeft - paddingRight - (calendarBody.interitemSpacing/8))/8
         item.height = item.width
     }
     
-    private func configureHeader() {
-        header.height = item.width
-        
-        header.paddingLeft = paddingLeft
-        header.paddingRight = paddingRight
+    private func calculateHeaderPadding() {
+        header.paddingLeft = perfectPadding(16)
+        header.paddingRight = perfectPadding(16)
         
         header.paddingTop = 0
-        header.paddingBottom = paddingLeft
+        header.paddingBottom = 0
     }
     
-    private func configureWeekdaysRow() {
-        weekdaysRow.height = item.width
-        
-        weekdaysRow.paddingLeft = paddingLeft
-        weekdaysRow.paddingRight = paddingRight
+    private func calculateHeaderSize() {
+        header.height = item.height
     }
     
-    private func configureHeight() {
-        let allItems = item.height * 6
-        let allLineSpacings = lineSpacing * 5
-        height = allItems + allLineSpacings + weekdaysRow.height + weekdaysRow.paddingBottom
+    private func calculateWeekdaysRowSize() {
+        weekdaysRow.height = item.height
     }
     
-    private func configureVerticalPadding() {
-        paddingTop = paddingLeft
-        paddingBottom = paddingRight
+    private func calculateWeekdaysRowPadding() {
+        weekdaysRow.paddingLeft = perfectPadding(16)
+        weekdaysRow.paddingRight = perfectPadding(16)
+        weekdaysRow.paddingTop = perfectPadding(16)
+        weekdaysRow.paddingBottom = 0
     }
     
-    class Header {
+    private func calculateCalendarBodyPadding() {
+        calendarBody.paddingTop = perfectPadding(10)
+        calendarBody.paddingBottom = perfectPadding(10)
+        calendarBody.paddingLeft = 0
+        calendarBody.paddingRight = 0
+    }
+    
+    private func calculateCalendarBodySize() {
+        let allItems = item.height * 5
+        let allLineSpacings = calendarBody.lineSpacing * 4
+        calendarBody.height = allItems + allLineSpacings + calendarBody.paddingTop + calendarBody.paddingBottom
+    }
+    
+    class CalendarBody {
         var height: CGFloat = CGFloat()
+        
+        var lineSpacing: CGFloat = 10
+        var interitemSpacing: CGFloat = 10
         
         var paddingTop: CGFloat = 0
         var paddingBottom: CGFloat = 0
@@ -87,6 +123,10 @@ class MonthCalendarLayoutConfiguration {
     
     class Item {
         var width: CGFloat = CGFloat()
+        var height: CGFloat = CGFloat()
+    }
+    
+    class Header {
         var height: CGFloat = CGFloat()
         
         var paddingTop: CGFloat = 0
@@ -107,29 +147,54 @@ class MonthCalendarLayoutConfiguration {
     init() {
         width = UIScreen.main.bounds.width
         
-        configureSpacing()
-        configureHorizontalPadding()
-        cofigureItem()
-        configureHeader()
-        configureHeight()
-        configureVerticalPadding()
+        calculateHorizontalPadding()
+        calculateVerticalPadding()
+        
+        calculateCalendarBodySpacing()
+        
+        calculateItemSize()
+        
+        calculateHeaderSize()
+        calculateHeaderPadding()
+        
+        calculateWeekdaysRowSize()
+        calculateWeekdaysRowPadding()
+        
+        calculateCalendarBodySize()
+        calculateCalendarBodyPadding()
     }
     
     init(width: CGFloat) {
         self.width = width
         
-        configureSpacing()
-        configureHorizontalPadding()
-        cofigureItem()
-        configureHeader()
-        configureHeight()
-        configureVerticalPadding()
+        calculateHorizontalPadding()
+        calculateVerticalPadding()
+        
+        calculateCalendarBodySpacing()
+        
+        calculateItemSize()
+        
+        calculateHeaderSize()
+        calculateHeaderPadding()
+        
+        calculateWeekdaysRowSize()
+        calculateWeekdaysRowPadding()
+        
+        calculateCalendarBodySize()
+        calculateCalendarBodyPadding()
     }
 }
 
 extension MonthCalendarLayoutConfiguration {
-    enum LayoutConfiguration {
+    enum LayoutConfigurationStyle {
         case expanded
         case alert
+    }
+    
+    convenience init(style: LayoutConfigurationStyle) {
+        switch style {
+        case .alert: self.init(width: UIScreen.main.bounds.width / 1.5)
+        case .expanded: self.init(width: UIScreen.main.bounds.width)
+        }
     }
 }

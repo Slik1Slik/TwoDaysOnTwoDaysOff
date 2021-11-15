@@ -9,55 +9,100 @@ import Combine
 import UIKit
 
 class MonthCalendarManager: ObservableObject {
-    var calendarConfiguration: MonthCalendarConfiguration = MonthCalendarConfiguration()
-    var layoutConfiguration: MonthCalendarLayoutConfiguration = MonthCalendarLayoutConfiguration()
     
-    @Published var selectedDate: Date?
+    private(set) var calendar: Calendar
+    private(set) var interval: DateInterval
+    
     @Published var currentMonth: Date = Date()
+    @Published var selectedDate: Date?
+    
+    var layoutConfiguration: MonthCalendarLayoutConfiguration = MonthCalendarLayoutConfiguration()
     
     private var cancellableSet: Set<AnyCancellable> = []
     
-    init() {
-        self.calendarConfiguration = MonthCalendarConfiguration()
-        self.layoutConfiguration = MonthCalendarLayoutConfiguration()
-        
-        setSubscriptions()
+    var months: [Date] {
+        calendar.generateDates(
+            inside: interval,
+            matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
+        )
     }
     
-    init(initialDate: Date,
-         calendar: Calendar,
+    init() {
+        self.calendar = Calendar(identifier: .gregorian)
+        self.interval = DateInterval(start: Date(), end: Date())
+        
+        self.layoutConfiguration = MonthCalendarLayoutConfiguration()
+    }
+    
+    init(calendar: Calendar,
+         interval: DateInterval,
+         currentMonth: Date,
+         initialDate: Date,
          layoutConfiguration: @escaping (MonthCalendarLayoutConfiguration) -> ())
     {
-        self.selectedDate = initialDate
-        self.calendarConfiguration = MonthCalendarConfiguration(calendar: calendar, month: initialDate)
-        layoutConfiguration(self.layoutConfiguration)
-        self.currentMonth = initialDate
+        self.calendar = calendar
+        self.interval = interval
         
-        setSubscriptions()
+        self.currentMonth = currentMonth
+        self.selectedDate = initialDate
+        
+        layoutConfiguration(self.layoutConfiguration)
+        
     }
     
-    init(initialDate: Date, calendar: Calendar, layoutConfiguration: LayoutConfiguration) {
+    init(calendar: Calendar,
+         interval: DateInterval,
+         currentMonth: Date? = nil,
+         initialDate: Date? = nil,
+         layoutConfiguration: @escaping (MonthCalendarLayoutConfiguration) -> ())
+    {
+        self.calendar = calendar
+        self.interval = interval
+        
+        self.currentMonth = interval.start
+        
+        layoutConfiguration(self.layoutConfiguration)
+        
         self.selectedDate = initialDate
-        self.calendarConfiguration = MonthCalendarConfiguration(calendar: calendar, month: initialDate)
-        self.currentMonth = initialDate
+        
+        guard let currentMonth = currentMonth else {
+            self.currentMonth = interval.start
+            return
+        }
+        self.currentMonth = currentMonth
+    }
+    
+    convenience init(calendar: Calendar,
+         interval: DateInterval,
+         currentMonth: Date? = nil,
+         initialDate: Date? = nil,
+         layoutConfiguration: LayoutConfiguration)
+    {
+        var initialWidth: CGFloat
         
         switch layoutConfiguration {
         case .expanded:
-            self.layoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width)
+            initialWidth = UIScreen.main.bounds.width
         case .alert:
-            self.layoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width / 1.2)
+            initialWidth = UIScreen.main.bounds.width / 1.5
         }
         
-        setSubscriptions()
+        self.init(calendar: calendar,
+                  interval: interval,
+                  currentMonth: currentMonth,
+                  initialDate: initialDate) { config in
+            config.width = initialWidth
+        }
+    }
+}
+
+extension MonthCalendarManager {
+    func calendarConfiguration(for month: Date) -> MonthCalendarConfiguration {
+        return MonthCalendarConfiguration(calendar: self.calendar, month: month)
     }
     
-    private func setSubscriptions() {
-        $currentMonth
-            .receive(on: RunLoop.main)
-            .sink { month in
-                self.calendarConfiguration.month = month
-            }
-            .store(in: &cancellableSet)
+    func calendarConfigurationForCurrentMonth() -> MonthCalendarConfiguration {
+        return calendarConfiguration(for: self.currentMonth)
     }
 }
 
