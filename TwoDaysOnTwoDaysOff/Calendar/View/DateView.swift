@@ -12,6 +12,7 @@ struct DateView: View {
     @ObservedObject private var dayViewModel = DayViewModel()
     
     @State private var isSelected: Bool = false
+    @State private var opacity: Double = 1
     
     @ObservedObject private var calendarManager: MonthCalendarManager = MonthCalendarManager()
     
@@ -24,12 +25,11 @@ struct DateView: View {
                        height: MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width).item.width)
                 .background(backgroundColor)
                 .clipShape(Circle())
-                .opacity(calendarManager.selectedDate == date ? 0.3 : 1)
+                .opacity(opacity)
                 .onAppear(perform: {
                     self.dayViewModel.date = date
                 })
                 .onTapGesture {
-                    self.calendarManager.selectedDate = date
                 }
             if let day = dayViewModel.day, let _ = day.exception  {
                 Color(.gray)
@@ -61,7 +61,8 @@ struct DateView: View {
     }
     
     private func onTapGestureAction() {
-        //self.opacity = 0.3
+        self.opacity = 0.3
+        self.calendarManager.selectedDate = date
     }
     
     init(date: Date, calendarManager: MonthCalendarManager) {

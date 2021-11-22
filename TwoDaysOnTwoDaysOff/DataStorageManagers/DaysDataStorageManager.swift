@@ -112,10 +112,13 @@ class DaysDataStorageManager
         {
             guard exceptionIndex < totalExceptionsCount else {return filtredDays}
             let exception = ExceptionsDataStorageManager.find(by: filtredDays[index].date)
-            guard exception != nil else {return filtredDays}
-            filtredDays[index].exception = exception
-            filtredDays[index].isWorking = exception!.isWorking
-            exceptionIndex += 1
+            if let exception = exception {
+                filtredDays[index].exception = exception
+                filtredDays[index].isWorking = exception.isWorking
+                exceptionIndex += 1
+            } else {
+                continue
+            }
         }
         
         return filtredDays

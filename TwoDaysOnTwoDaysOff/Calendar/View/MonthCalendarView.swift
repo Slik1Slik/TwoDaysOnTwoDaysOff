@@ -59,18 +59,18 @@ struct MonthCalendarView: View {
 struct MonthPage: View, Identifiable {
     var id: Date
     private var calendarManager: MonthCalendarManager
+    
     var body: some View {
         VStack {
             MonthView(month: id, calendarManager: calendarManager) { date in
-                DateView(date: date)
+                DateView(date: date, calendarManager: calendarManager)
             } header: { date in
                 header(month: date)
+            } accessoryView: {
+                
             }
             .padding(.horizontal, calendarManager.layoutConfiguration.paddingLeft)
             .padding(.vertical, calendarManager.layoutConfiguration.paddingTop)
-            MonthAccessoryView(month: id)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
             Spacer()
         }
         .frame(height: UIScreen.main.bounds.height)

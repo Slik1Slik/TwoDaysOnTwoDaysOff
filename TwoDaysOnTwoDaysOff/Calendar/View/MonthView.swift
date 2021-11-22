@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MonthView<DateView: View, Header: View>: View
+struct MonthView<DateView: View, Header: View, AccessoryView: View>: View
 {
     @ObservedObject private var calendarManager = MonthCalendarManager()
     
@@ -16,6 +16,8 @@ struct MonthView<DateView: View, Header: View>: View
     @ViewBuilder private var dateView: (Date) -> DateView
     
     @ViewBuilder private var header: (Date) -> Header
+    
+    @ViewBuilder private var accessoryView: () -> AccessoryView
     
     var body: some View {
         VStack {
@@ -62,6 +64,12 @@ struct MonthView<DateView: View, Header: View>: View
                 //.frame(height: calendarManager.layoutConfiguration.calendarBody.height, alignment: .top)
                 //.overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 0.4))
             }
+            accessoryView()
+                .padding(.leading, calendarManager.layoutConfiguration.calendarBody.paddingLeft)
+                .padding(.trailing, calendarManager.layoutConfiguration.calendarBody.paddingRight)
+                .padding(.top, calendarManager.layoutConfiguration.calendarBody.paddingTop)
+                .padding(.bottom, calendarManager.layoutConfiguration.calendarBody.paddingBottom)
+                .frame(alignment: .top)
         }
         .frame(width: calendarManager.layoutConfiguration.width, alignment: .top)
     }
@@ -69,17 +77,21 @@ struct MonthView<DateView: View, Header: View>: View
     init(month: Date,
          calendarManager: MonthCalendarManager,
          @ViewBuilder dateView: @escaping (Date) -> DateView,
-         @ViewBuilder header: @escaping (Date) -> Header
+         @ViewBuilder header: @escaping (Date) -> Header,
+         @ViewBuilder accessoryView: @escaping () -> AccessoryView
     ) {
         self.calendarManager = calendarManager
         self.calendarConfiguration = calendarManager.calendarConfiguration(for: month)
         
         self.dateView = dateView
         self.header = header
+        self.accessoryView = accessoryView
     }
 }
 
-extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>, DateView == Text {
+extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>,
+                          DateView == Text,
+                          AccessoryView == EmptyView {
     init(month: Date,
          calendarManager: MonthCalendarManager,
          @ViewBuilder dateView: @escaping (Date) -> DateView
@@ -89,7 +101,10 @@ extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>, DateView 
                 Text(date.monthSymbolAndYear())
                 Spacer()
             }
+        } accessoryView: {
+            EmptyView()
         }
+
     }
     
     init(month: Date,
@@ -98,7 +113,21 @@ extension MonthView where Header == HStack<TupleView<(Text, Spacer)>>, DateView 
     ) {
         self.init(month: month, calendarManager: calendarManager, dateView: { date in
             Text(date.day!.description)
-        }, header: header)
+        }, header: header) {
+            EmptyView()
+        }
+    }
+}
+
+extension MonthView where AccessoryView == EmptyView {
+    init(month: Date,
+         calendarManager: MonthCalendarManager,
+         @ViewBuilder dateView: @escaping (Date) -> DateView,
+         @ViewBuilder header: @escaping (Date) -> Header
+    ) {
+        self.init(month: month, calendarManager: calendarManager, dateView: dateView, header: header) {
+            EmptyView()
+        }
     }
 }
 

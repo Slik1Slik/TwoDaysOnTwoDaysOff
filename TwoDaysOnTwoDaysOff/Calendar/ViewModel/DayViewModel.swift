@@ -23,4 +23,8 @@ class DayViewModel: ObservableObject {
             }
             .store(in: &cancellableSet)
     }
+    
+    func day(_ date: Date) -> Day? {
+        return DaysDataStorageManager.find(by: date)
+    }
 }

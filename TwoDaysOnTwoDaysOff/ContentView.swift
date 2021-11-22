@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View
     {
         if isCalendarFormed {
-            MonthCalendarView(interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
+            MonthCalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
             
         } else {
             ScheduleMakerView()

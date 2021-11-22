@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MonthAccessoryView: View {
     private var month: Date
-    @State private var isPresented = false
     var body: some View {
         Text("")
     }

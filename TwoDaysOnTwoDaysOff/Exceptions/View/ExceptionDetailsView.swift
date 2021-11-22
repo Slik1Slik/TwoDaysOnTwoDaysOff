@@ -47,6 +47,9 @@ struct ExceptionDetailsView: View {
                             }
                             Divider()
                             Toggle("Period", isOn: $viewModel.isPeriod)
+                                .onChange(of: viewModel.isPeriod) { _ in
+                                    animation = .linear
+                                }
                         }
                     }
                     Section(header: header("Day kind")) {
@@ -88,9 +91,6 @@ struct ExceptionDetailsView: View {
             }
         }
         .onTapGesture {
-            guard !isAlertPresented else {
-                return
-            }
             endEditing()
         }
         .overlay(

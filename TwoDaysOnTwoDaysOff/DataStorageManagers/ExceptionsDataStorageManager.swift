@@ -40,7 +40,6 @@ class ExceptionsDataStorageManager
         let objects = realm.objects(Exception.self).filter {
             !($0.from == excludedException.from && $0.to == excludedException.to)
         }
-        print(objects)
         guard let _ = objects.filter({ (currentException) -> Bool in
             (currentException.from <= exception.from && currentException.to >= exception.from) || (currentException.from <= exception.to && currentException.to >= exception.to)
         }).first else

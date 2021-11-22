@@ -26,6 +26,8 @@ class MonthCalendarLayoutConfiguration {
             
             calculateCalendarBodySize()
             calculateCalendarBodyPadding()
+            
+            calculateAccessoryViewPadding()
         }
     }
     var height: CGFloat = 400
@@ -39,6 +41,7 @@ class MonthCalendarLayoutConfiguration {
     var header: Header = Header()
     var item: Item = Item()
     var weekdaysRow: WeekdaysRow = WeekdaysRow()
+    var accessoryView: AccessoryView = AccessoryView()
     
     private let iPhone8Width: CGFloat = 375.00
     
@@ -109,6 +112,13 @@ class MonthCalendarLayoutConfiguration {
         calendarBody.height = allItems + allLineSpacings + calendarBody.paddingTop + calendarBody.paddingBottom
     }
     
+    private func calculateAccessoryViewPadding() {
+        accessoryView.paddingTop = 0
+        accessoryView.paddingBottom = 0
+        accessoryView.paddingLeft = perfectPadding(16)
+        accessoryView.paddingRight = perfectPadding(16)
+    }
+    
     class CalendarBody {
         var height: CGFloat = CGFloat()
         
@@ -144,6 +154,15 @@ class MonthCalendarLayoutConfiguration {
         var paddingRight: CGFloat = 0
     }
     
+    class AccessoryView {
+        var height: CGFloat = CGFloat()
+        
+        var paddingTop: CGFloat = 0
+        var paddingBottom: CGFloat = 0
+        var paddingLeft: CGFloat = 0
+        var paddingRight: CGFloat = 0
+    }
+    
     init() {
         width = UIScreen.main.bounds.width
         
@@ -162,6 +181,8 @@ class MonthCalendarLayoutConfiguration {
         
         calculateCalendarBodySize()
         calculateCalendarBodyPadding()
+        
+        calculateAccessoryViewPadding()
     }
     
     init(width: CGFloat) {
@@ -182,6 +203,8 @@ class MonthCalendarLayoutConfiguration {
         
         calculateCalendarBodySize()
         calculateCalendarBodyPadding()
+        
+        calculateAccessoryViewPadding()
     }
 }
 

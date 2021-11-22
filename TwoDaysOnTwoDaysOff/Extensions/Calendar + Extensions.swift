@@ -51,8 +51,14 @@ extension Calendar {
             let monthFirstWeek = self.dateInterval(of: .weekOfMonth, for: monthInterval.start),
             let monthLastWeek = self.dateInterval(of: .weekOfMonth, for: monthInterval.end)
         else { return [] }
+        let start = monthFirstWeek.start
+        var end = monthLastWeek.end
+        //if the month ends on Sunday the "monthLastWeek" date interval equals not the last week of the month as it should but the first week of the next month, which causes layout issues, so I've added this if-block to catch such case
+        if monthInterval.end.allComponents().weekday! == 2 {
+            end = monthInterval.end
+        }
         return self.generateDates(
-            inside: DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end),
+            inside: DateInterval(start: start, end: end),
             matching: DateComponents(hour: 0, minute: 0, second: 0)
         )
     }
