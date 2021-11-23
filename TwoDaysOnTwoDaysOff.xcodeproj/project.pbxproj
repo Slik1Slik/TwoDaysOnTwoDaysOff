@@ -71,6 +71,7 @@
 		567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EA268A19B400313D03 /* AppFileManager.swift */; };
 		567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */; };
 		567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */; };
+		56A1B3AA274B8D84005F1B56 /* CalendarPager2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3A9274B8D84005F1B56 /* CalendarPager2.swift */; };
 		56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */; };
 		56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */; };
 		56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B64269301F600A8A2BC /* TabBarElementItem.swift */; };
@@ -165,6 +166,7 @@
 		567EB1EA268A19B400313D03 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileStatusChecker.swift; sourceTree = "<group>"; };
 		567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DaysColors.xcassets; sourceTree = "<group>"; };
+		56A1B3A9274B8D84005F1B56 /* CalendarPager2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPager2.swift; sourceTree = "<group>"; };
 		56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConstants.swift; sourceTree = "<group>"; };
 		56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerWrapper.swift; sourceTree = "<group>"; };
 		56C73B64269301F600A8A2BC /* TabBarElementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarElementItem.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				5659E63927020C780092EA6E /* CustomFormSection.swift */,
 				5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */,
 				563148A0271824320020A8E7 /* TextView.swift */,
+				56A1B3A9274B8D84005F1B56 /* CalendarPager2.swift */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5659E63C2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift in Sources */,
+				56A1B3AA274B8D84005F1B56 /* CalendarPager2.swift in Sources */,
 				563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */,
 				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
 				56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */,
@@ -844,6 +848,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -906,6 +911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

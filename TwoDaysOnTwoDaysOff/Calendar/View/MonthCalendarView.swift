@@ -16,7 +16,7 @@ struct MonthCalendarView: View {
     
     var body: some View {
         ZStack {
-            CalendarPager(selection: $index, pages: pages)
+            CalendarPager2(selection: $index, pages: pages)
             getOnTopButton
         }
     }
@@ -43,7 +43,7 @@ struct MonthCalendarView: View {
                         }
                     }
                 }
-                .padding(BasicCalendarConstants.paddingRight+3)
+                .padding(BasicCalendarConstants.paddingRight)
                 Spacer()
             }
             .frame(
