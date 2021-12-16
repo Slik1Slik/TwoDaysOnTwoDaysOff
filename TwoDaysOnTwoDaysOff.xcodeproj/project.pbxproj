@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,14 +12,12 @@
 		563148A1271824320020A8E7 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A0271824320020A8E7 /* TextView.swift */; };
 		563148A427188A950020A8E7 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A327188A950020A8E7 /* Environments.swift */; };
 		563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */; };
-		563148B92721CDCB0020A8E7 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148B82721CDCB0020A8E7 /* Exception.swift */; };
 		563148C22721DA1E0020A8E7 /* ExceptionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C12721DA1E0020A8E7 /* ExceptionIcon.swift */; };
 		563148C42721DA330020A8E7 /* ExceptionIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C32721DA330020A8E7 /* ExceptionIconPicker.swift */; };
 		563148C82721DA5D0020A8E7 /* ExceptionIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148C72721DA5D0020A8E7 /* ExceptionIconViewModel.swift */; };
 		563148CD2722D4CF0020A8E7 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */; };
 		563148CF2722DAF00020A8E7 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */; };
 		563148D3272C3F9E0020A8E7 /* AddExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */; };
-		563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */; };
 		563148D7272C48840020A8E7 /* UpdateExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */; };
 		563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */; };
 		563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */; };
@@ -31,10 +29,9 @@
 		5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63D27075C6E0092EA6E /* View Extensions.swift */; };
 		5659E647270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E646270DDA600092EA6E /* ExceptionIconsDataStorageManager.swift */; };
 		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
-		5661AA9F2716CFBD00B8C4B2 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AA9E2716CFBD00B8C4B2 /* Realm */; };
-		5661AAA12716CFBD00B8C4B2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5661AAA02716CFBD00B8C4B2 /* RealmSwift */; };
 		566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C679C273AC86A0056E616 /* Calendar + Extensions.swift */; };
 		5670199926F8C968009A065C /* ExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5670199826F8C968009A065C /* ExceptionViewModel.swift */; };
+		56793C57276B84C6007BCB3A /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56793C56276B84C6007BCB3A /* Exception.swift */; };
 		567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */; };
 		567EB17A268A127500313D03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB179268A127500313D03 /* ContentView.swift */; };
 		567EB17C268A127800313D03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB17B268A127800313D03 /* Assets.xcassets */; };
@@ -54,7 +51,7 @@
 		567EB1BA268A15F700313D03 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1B9268A15F700313D03 /* MonthView.swift */; };
 		567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1BB268A160400313D03 /* MonthCalendarView.swift */; };
 		567EB1BE268A161400313D03 /* MonthAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1BD268A161400313D03 /* MonthAccessoryView.swift */; };
-		567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */; };
+		567EB1C5268A166A00313D03 /* ExceptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C4268A166A00313D03 /* ExceptionsViewModel.swift */; };
 		567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */; };
 		567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1C9268A169600313D03 /* ExceptionsListView.swift */; };
 		567EB1CE268A16D900313D03 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1CD268A16D900313D03 /* UserSettings.swift */; };
@@ -71,7 +68,12 @@
 		567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EA268A19B400313D03 /* AppFileManager.swift */; };
 		567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */; };
 		567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */; };
-		56A1B3AA274B8D84005F1B56 /* CalendarPager2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3A9274B8D84005F1B56 /* CalendarPager2.swift */; };
+		56A1B3AA274B8D84005F1B56 /* CalendarPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3A9274B8D84005F1B56 /* CalendarPagerView.swift */; };
+		56A1B3AF275D1ADE005F1B56 /* CalendarPagerViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3AE275D1ADE005F1B56 /* CalendarPagerViewManager.swift */; };
+		56A1B3B127622EF4005F1B56 /* RealmObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B027622EF3005F1B56 /* RealmObserver.swift */; };
+		56A1B3B327623050005F1B56 /* NotificationNameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B227623050005F1B56 /* NotificationNameConstants.swift */; };
+		56A1B3B527662241005F1B56 /* UserDefaultsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B427662241005F1B56 /* UserDefaultsObserver.swift */; };
+		56A1B3B7276767DD005F1B56 /* DetailsTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */; };
 		56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */; };
 		56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */; };
 		56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B64269301F600A8A2BC /* TabBarElementItem.swift */; };
@@ -105,14 +107,12 @@
 		563148A0271824320020A8E7 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		563148A327188A950020A8E7 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
 		563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarLayoutConfiguration.swift; sourceTree = "<group>"; };
-		563148B82721CDCB0020A8E7 /* Exception.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exception.swift; path = ../../../../Exception.swift; sourceTree = "<group>"; };
 		563148C12721DA1E0020A8E7 /* ExceptionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIcon.swift; sourceTree = "<group>"; };
 		563148C32721DA330020A8E7 /* ExceptionIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconPicker.swift; sourceTree = "<group>"; };
 		563148C72721DA5D0020A8E7 /* ExceptionIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionIconViewModel.swift; sourceTree = "<group>"; };
 		563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
 		563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExceptionViewModel.swift; sourceTree = "<group>"; };
-		563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelProtocol.swift; sourceTree = "<group>"; };
 		563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExceptionViewModel.swift; sourceTree = "<group>"; };
 		563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelFactory.swift; sourceTree = "<group>"; };
 		563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarConfiguration.swift; sourceTree = "<group>"; };
@@ -126,6 +126,7 @@
 		5659E648270E087E0092EA6E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		566C679C273AC86A0056E616 /* Calendar + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar + Extensions.swift"; sourceTree = "<group>"; };
 		5670199826F8C968009A065C /* ExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModel.swift; sourceTree = "<group>"; };
+		56793C56276B84C6007BCB3A /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
 		567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoDaysOnTwoDaysOff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDaysOnTwoDaysOffApp.swift; sourceTree = "<group>"; };
 		567EB179268A127500313D03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,7 +150,7 @@
 		567EB1B9268A15F700313D03 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		567EB1BB268A160400313D03 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
 		567EB1BD268A161400313D03 /* MonthAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthAccessoryView.swift; sourceTree = "<group>"; };
-		567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionListViewModel.swift; sourceTree = "<group>"; };
+		567EB1C4268A166A00313D03 /* ExceptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsViewModel.swift; sourceTree = "<group>"; };
 		567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionDetailsView.swift; sourceTree = "<group>"; };
 		567EB1C9268A169600313D03 /* ExceptionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionsListView.swift; sourceTree = "<group>"; };
 		567EB1CD268A16D900313D03 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -166,7 +167,12 @@
 		567EB1EA268A19B400313D03 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileStatusChecker.swift; sourceTree = "<group>"; };
 		567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DaysColors.xcassets; sourceTree = "<group>"; };
-		56A1B3A9274B8D84005F1B56 /* CalendarPager2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPager2.swift; sourceTree = "<group>"; };
+		56A1B3A9274B8D84005F1B56 /* CalendarPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPagerView.swift; sourceTree = "<group>"; };
+		56A1B3AE275D1ADE005F1B56 /* CalendarPagerViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPagerViewManager.swift; sourceTree = "<group>"; };
+		56A1B3B027622EF3005F1B56 /* RealmObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmObserver.swift; sourceTree = "<group>"; };
+		56A1B3B227623050005F1B56 /* NotificationNameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameConstants.swift; sourceTree = "<group>"; };
+		56A1B3B427662241005F1B56 /* UserDefaultsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsObserver.swift; sourceTree = "<group>"; };
+		56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTextView.swift; sourceTree = "<group>"; };
 		56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConstants.swift; sourceTree = "<group>"; };
 		56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerWrapper.swift; sourceTree = "<group>"; };
 		56C73B64269301F600A8A2BC /* TabBarElementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarElementItem.swift; sourceTree = "<group>"; };
@@ -186,8 +192,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5661AAA12716CFBD00B8C4B2 /* RealmSwift in Frameworks */,
-				5661AA9F2716CFBD00B8C4B2 /* Realm in Frameworks */,
 				32CED32854565B094D76ADE8 /* Pods_TwoDaysOnTwoDaysOff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,7 +249,7 @@
 		563148B72721CD680020A8E7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				563148B82721CDCB0020A8E7 /* Exception.swift */,
+				56793C56276B84C6007BCB3A /* Exception.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -260,13 +264,15 @@
 			path = ExceptionIcon;
 			sourceTree = "<group>";
 		};
-		563148CB2722D4A70020A8E7 /* Helpers */ = {
+		563148CB2722D4A70020A8E7 /* Observers */ = {
 			isa = PBXGroup;
 			children = (
 				563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */,
 				563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */,
+				56A1B3B027622EF3005F1B56 /* RealmObserver.swift */,
+				56A1B3B427662241005F1B56 /* UserDefaultsObserver.swift */,
 			);
-			path = Helpers;
+			path = Observers;
 			sourceTree = "<group>";
 		};
 		563148DE2736C5220020A8E7 /* Protocols */ = {
@@ -311,12 +317,13 @@
 				567EB1A8268A14CC00313D03 /* Reusable Views */,
 				567EB1AD268A152100313D03 /* DataStorageManagers */,
 				567EB1B0268A158100313D03 /* JSON */,
+				56A1B3AB275D0363005F1B56 /* CalendarPagerView */,
 				567EB1C0268A162B00313D03 /* Calendar */,
 				567EB1CC268A16B600313D03 /* Exceptions */,
 				567EB1DD268A183400313D03 /* Set up Calendar */,
 				567EB1E4268A189200313D03 /* Extensions */,
 				563148A227188A480020A8E7 /* Environments */,
-				563148CB2722D4A70020A8E7 /* Helpers */,
+				563148CB2722D4A70020A8E7 /* Observers */,
 				567EB1E5268A189E00313D03 /* Constants */,
 				567EB1EE268A19EE00313D03 /* AppFileManager */,
 				567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */,
@@ -364,7 +371,6 @@
 				5659E63927020C780092EA6E /* CustomFormSection.swift */,
 				5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */,
 				563148A0271824320020A8E7 /* TextView.swift */,
-				56A1B3A9274B8D84005F1B56 /* CalendarPager2.swift */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -429,10 +435,9 @@
 		567EB1C6268A167200313D03 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				567EB1C4268A166A00313D03 /* ExceptionListViewModel.swift */,
+				567EB1C4268A166A00313D03 /* ExceptionsViewModel.swift */,
 				5670199826F8C968009A065C /* ExceptionViewModel.swift */,
 				563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */,
-				563148D4272C40C70020A8E7 /* ExceptionViewModelProtocol.swift */,
 				563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */,
 				563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */,
 			);
@@ -444,6 +449,7 @@
 			children = (
 				567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */,
 				567EB1C9268A169600313D03 /* ExceptionsListView.swift */,
+				56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -513,6 +519,7 @@
 				567EB1E2268A188800313D03 /* DateConstants.swift */,
 				567EB1E6268A18CB00313D03 /* CalendarConstants.swift */,
 				56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */,
+				56A1B3B227623050005F1B56 /* NotificationNameConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -525,6 +532,15 @@
 				567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */,
 			);
 			path = AppFileManager;
+			sourceTree = "<group>";
+		};
+		56A1B3AB275D0363005F1B56 /* CalendarPagerView */ = {
+			isa = PBXGroup;
+			children = (
+				56A1B3A9274B8D84005F1B56 /* CalendarPagerView.swift */,
+				56A1B3AE275D1ADE005F1B56 /* CalendarPagerViewManager.swift */,
+			);
+			path = CalendarPagerView;
 			sourceTree = "<group>";
 		};
 		C35B3A15CB65070EA3D67D09 /* Frameworks */ = {
@@ -548,16 +564,13 @@
 				567EB170268A127500313D03 /* Sources */,
 				567EB171268A127500313D03 /* Frameworks */,
 				567EB172268A127500313D03 /* Resources */,
+				39CCD74D8D60610F02461808 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TwoDaysOnTwoDaysOff;
-			packageProductDependencies = (
-				5661AA9E2716CFBD00B8C4B2 /* Realm */,
-				5661AAA02716CFBD00B8C4B2 /* RealmSwift */,
-			);
 			productName = TwoDaysOnTwoDaysOff;
 			productReference = 567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */;
 			productType = "com.apple.product-type.application";
@@ -589,6 +602,7 @@
 				567EB18C268A127800313D03 /* Sources */,
 				567EB18D268A127800313D03 /* Frameworks */,
 				567EB18E268A127800313D03 /* Resources */,
+				3D0D3C5FCFC21EBDB84A3462 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -632,9 +646,6 @@
 				ru,
 			);
 			mainGroup = 567EB16B268A127400313D03;
-			packageReferences = (
-				5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
-			);
 			productRefGroup = 567EB175268A127500313D03 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -675,6 +686,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		39CCD74D8D60610F02461808 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D0D3C5FCFC21EBDB84A3462 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9D9DC7990CC4C3A8A306FBBF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -749,13 +794,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5659E63C2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift in Sources */,
-				56A1B3AA274B8D84005F1B56 /* CalendarPager2.swift in Sources */,
+				56A1B3AA274B8D84005F1B56 /* CalendarPagerView.swift in Sources */,
 				563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */,
 				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
 				56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */,
 				567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */,
 				567EB1E7268A18CB00313D03 /* CalendarConstants.swift in Sources */,
 				567EB1B8268A15DD00313D03 /* DateView.swift in Sources */,
+				56A1B3B527662241005F1B56 /* UserDefaultsObserver.swift in Sources */,
 				567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */,
 				567EB17A268A127500313D03 /* ContentView.swift in Sources */,
 				567EB1AF268A157E00313D03 /* JSONManager.swift in Sources */,
@@ -767,7 +813,6 @@
 				5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */,
 				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
 				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
-				563148D5272C40C70020A8E7 /* ExceptionViewModelProtocol.swift in Sources */,
 				566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */,
 				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
 				563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */,
@@ -777,7 +822,7 @@
 				567EB1D8268A175000313D03 /* StartScreenView.swift in Sources */,
 				56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */,
 				567EB1A3268A14AD00313D03 /* VPager.swift in Sources */,
-				567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */,
+				567EB1C5268A166A00313D03 /* ExceptionsViewModel.swift in Sources */,
 				563148E22736C5A30020A8E7 /* MonthCalendarAccess.swift in Sources */,
 				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
 				563148A1271824320020A8E7 /* TextView.swift in Sources */,
@@ -788,13 +833,15 @@
 				5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */,
 				563148D3272C3F9E0020A8E7 /* AddExceptionViewModel.swift in Sources */,
 				56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */,
+				56A1B3B7276767DD005F1B56 /* DetailsTextView.swift in Sources */,
+				56A1B3B127622EF4005F1B56 /* RealmObserver.swift in Sources */,
 				567EB1DF268A186700313D03 /* Array + Extensions.swift in Sources */,
 				567EB1AA268A150400313D03 /* DaysDataStorageManager.swift in Sources */,
-				563148B92721CDCB0020A8E7 /* Exception.swift in Sources */,
 				567EB1BE268A161400313D03 /* MonthAccessoryView.swift in Sources */,
 				567EB1DA268A180E00313D03 /* ScheduleMakerView.swift in Sources */,
 				56C73B6926934B7800A8A2BC /* TabBarController.swift in Sources */,
 				567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */,
+				56793C57276B84C6007BCB3A /* Exception.swift in Sources */,
 				567EB1CE268A16D900313D03 /* UserSettings.swift in Sources */,
 				567EB1E9268A19A000313D03 /* AppDirectoryURLs.swift in Sources */,
 				567EB1D0268A16ED00313D03 /* UserSettingsViewModel.swift in Sources */,
@@ -807,6 +854,8 @@
 				56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */,
 				567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */,
 				563148A427188A950020A8E7 /* Environments.swift in Sources */,
+				56A1B3B327623050005F1B56 /* NotificationNameConstants.swift in Sources */,
+				56A1B3AF275D1ADE005F1B56 /* CalendarPagerViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1134,30 +1183,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.17.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5661AA9E2716CFBD00B8C4B2 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		5661AAA02716CFBD00B8C4B2 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5661AA9D2716CFBD00B8C4B2 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 567EB16C268A127400313D03 /* Project object */;
 }

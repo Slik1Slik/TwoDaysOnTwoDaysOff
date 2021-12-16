@@ -8,34 +8,35 @@
 import Foundation
 import RealmSwift
 
-let realm = try! Realm()
+let realm = try! Realm(queue: .main)
 
 class ExceptionsDataStorageManager
 {
-    static func save(_ exception: Exception) throws
+    class var shared: ExceptionsDataStorageManager {
+        get {
+            return ExceptionsDataStorageManager()
+        }
+    }
+    
+    func save(_ exception: Exception) throws
     {
         do {
             try realm.write {
-                    realm.add(exception)
-                }
+                realm.add(exception)
+            }
         } catch {
             throw ExceptionsDataStorageManagerErrors.AttemptToWriteWasFailure
         }
     }
     
-    static func exists(_ exception: Exception) -> Bool
+    func exists(_ exception: Exception) -> Bool
     {
-        let query = "(from <= %@ AND to >= %@) OR (from <= %@ AND to >= %@)"
-        guard let _ = realm.objects(Exception.self).filter(query,
-                                                           exception.from, exception.from,
-                                                           exception.to, exception.to).first else
-        {
-            return false
+        return Array(realm.objects(Exception.self)).contains { object in
+            (object.from...object.to).contains(exception.from) || (object.from...object.to).contains(exception.to)
         }
-        return true
     }
     
-    static func exists(exception: Exception, excluding excludedException: Exception) -> Bool
+    func exists(exception: Exception, excluding excludedException: Exception) -> Bool
     {
         let objects = realm.objects(Exception.self).filter {
             !($0.from == excludedException.from && $0.to == excludedException.to)
@@ -49,20 +50,20 @@ class ExceptionsDataStorageManager
         return true
     }
     
-    static func exists(date: Date) -> Bool
+    func exists(date: Date) -> Bool
     {
         Array(realm.objects(Exception.self)).contains { exception in
             (exception.from...exception.to).contains(date)
         }
     }
     
-    static func readAll() throws -> [Exception]
+    func readAll() -> [Exception]
     {
         let results = realm.objects(Exception.self)
         return Array(results)
     }
     
-    static func update(_ exception: inout Exception, with newException: Exception) throws
+    func update(_ exception: inout Exception, with newException: Exception) throws
     {
         do {
             try realm.write {
@@ -77,31 +78,40 @@ class ExceptionsDataStorageManager
         }
     }
     
-    static func find(by date: Date) -> Exception?
+    func find(by date: Date) -> Exception?
     {
-        let results = realm.objects(Exception.self).filter("from <= %@ AND to >= %@", date, date)
+        let results = realm.objects(Exception.self).filter { exception in
+            (exception.from...exception.to).contains(date)
+        }
         return results.first
     }
     
-    static func filtred(by predicate: NSPredicate) -> [Exception]
+    func filtred(by predicate: NSPredicate) -> [Exception]
     {
         let results = realm.objects(Exception.self).filter(predicate)
         return Array(results)
     }
     
-    static func remove(_ exception: Exception)
+    func remove(_ exception: Exception) throws
     {
-        try! realm.write {
-            realm.delete(exception)
+        guard exists(exception) else {
+            throw ExceptionsDataStorageManagerErrors.AttemptToRemoveWasFailure
+        }
+        do {
+            try realm.write {
+                realm.delete(exception)
+            }
+        } catch {
+            throw ExceptionsDataStorageManagerErrors.AttemptToRemoveWasFailure
         }
     }
     
-    static func countOfObjects() -> Int
+    func countOfObjects() -> Int
     {
         return realm.objects(Exception.self).count
     }
     
-    static func updateStorage()
+    func updateStorage()
     {
         try! realm.write {
             realm.objects(Exception.self).forEach { (exception) in
@@ -113,17 +123,23 @@ class ExceptionsDataStorageManager
     }
 }
 
-enum ExceptionsDataStorageManagerErrors: Error
+enum ExceptionsDataStorageManagerErrors: Error, LocalizedError
 {
     case AttemptToWriteWasFailure
+    case AttemptToRemoveWasFailure
     case AppendingExceptionConflictsWithCurrent
+    case ExceptionNotFound
     
     public var localizedDescription: String {
         switch self {
         case .AttemptToWriteWasFailure:
             return "Ошибка при записи исключения. Пожалуйста, попробуйте еще раз."
+        case .AttemptToRemoveWasFailure:
+            return "Ошибка при удалении исключения. Пожалуйста, попробуйте еще раз."
         case .AppendingExceptionConflictsWithCurrent:
             return "На выбранный период уже назначено исключение."
+        case .ExceptionNotFound:
+            return "Исключение не существует."
         }
     }
 }

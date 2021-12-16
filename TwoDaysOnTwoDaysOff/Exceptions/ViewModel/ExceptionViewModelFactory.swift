@@ -15,11 +15,12 @@ class ExceptionViewModelFactory {
     }
     
     func viewModel() -> ExceptionViewModel {
-        if ExceptionsDataStorageManager.exists(date: date) {
+        if ExceptionsDataStorageManager.shared.exists(date: date) {
             return UpdateExceptionViewModel(date: date)
         } else {
             let vm = AddExceptionViewModel()
             vm.from = date
+            vm.to = date
             return vm
         }
     }

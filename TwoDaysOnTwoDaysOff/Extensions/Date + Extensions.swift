@@ -169,3 +169,10 @@ extension Date
         }
     }
 }
+
+extension Date {
+    func addingDateComponent(_ dateComponent: Calendar.Component, value: Int) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.date(bySetting: dateComponent, value: value, of: self) ?? self
+    }
+}

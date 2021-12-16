@@ -18,84 +18,104 @@ struct ExceptionDetailsView: View {
     
     @ObservedObject private var keyboardObserver = KeyboardObserver()
     
+    private var onAccept: () -> () = {}
+    private var onCancel: () -> () = {}
+    
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 16) {
-                    Section(header: header("Name"), footer: footer(viewModel.nameErrorMessage)) {
-                        TextField("Name", text: $viewModel.name, onCommit: {
-                            endEditing()
-                        })
-                    }
-                    Section(header: header("Period"), footer: footer(viewModel.datesErrorMessage)) {
-                        VStack(spacing: 5) {
-                            dateRow(
-                                title: viewModel.isPeriod ? "From" : "Date",
-                                selection: $viewModel.from) {
-                                self.isAlertPresented = true
-                                self.caller = .from
-                            }
-                            if viewModel.isPeriod {
-                                withAnimation(.easeOut(duration: 0.3)) {
-                                    dateRow(
-                                        title: "To",
-                                        selection: $viewModel.to) {
-                                        self.isAlertPresented = true
-                                        self.caller = .to
+        ZStack {
+            NavigationView {
+                ScrollView {
+                    VStack(spacing: 16) {
+                        Section(header: header("Name"), footer: footer(viewModel.nameErrorMessage)) {
+                            TextField("Name", text: $viewModel.name, onCommit: {
+                                endEditing()
+                            })
+                        }
+                        Section(header: header("Period"), footer: footer(viewModel.datesErrorMessage)) {
+                            VStack(spacing: 5) {
+                                dateRow(
+                                    title: viewModel.isPeriod ? "From" : "Date",
+                                    selection: $viewModel.from) {
+                                    self.isAlertPresented = true
+                                    self.caller = .from
+                                }
+                                if viewModel.isPeriod {
+                                    withAnimation(.easeOut(duration: 0.3)) {
+                                        dateRow(
+                                            title: "To",
+                                            selection: $viewModel.to) {
+                                            self.isAlertPresented = true
+                                            self.caller = .to
+                                        }
                                     }
                                 }
+                                Divider()
+                                Toggle("Period", isOn: $viewModel.isPeriod)
+                                    .onChange(of: viewModel.isPeriod) { _ in
+                                        animation = .linear
+                                    }
                             }
-                            Divider()
-                            Toggle("Period", isOn: $viewModel.isPeriod)
-                                .onChange(of: viewModel.isPeriod) { _ in
-                                    animation = .linear
+                        }
+                        if viewModel.isDayKindChangable {
+                            Section(header: header("Day kind")) {
+                                DayKindPicker(selection: $viewModel.isWorking)
+                            }
+                        }
+                        Section(header: header("Details"), footer: footer("")) {
+//                            TextEditor(text: $viewModel.details)
+//                                .autocapitalization(.sentences)
+//                                .onReceive(Just(viewModel.details)) { _ in
+//                                    if viewModel.details.count > 400 {
+//                                        viewModel.details = String(viewModel.details.prefix(400))
+//                                    }
+//                                }
+//                                .lineLimit(5)
+                            NavigationLink(destination: DetailsTextView(selection: $viewModel.details)) {
+                                HStack {
+                                    Text(viewModel.details)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
                                 }
+                            }
                         }
                     }
-                    Section(header: header("Day kind")) {
-                        Toggle("Is working", isOn: $viewModel.isWorking)
-                            .disabled(!viewModel.isDayKindChangable)
-                    }
-                    Section(header: header("Details"), footer: detailsFooter()) {
-                        TextEditor(text: $viewModel.details)
-                            .autocapitalization(.sentences)
-                            .onReceive(Just(viewModel.details)) { _ in
-                                if viewModel.details.count > 400 {
-                                    viewModel.details = String(viewModel.details.prefix(400))
-                                }
-                            }
-                            .lineLimit(5)
-                    }
+                    .padding()
+                    .animation(animation)
                 }
-                .padding()
-                .animation(animation)
+                .simultaneousGesture(
+                    TapGesture()
+                        .onEnded {
+                            endEditing()
+                        }
+                )
+                .background(Color(.systemGray6))
+                .navigationBarItems(
+                    trailing:
+                        Button("Done", action: {
+                            viewModel.save()
+                            onAccept()
+                        })
+                        .disabled(!viewModel.isValid)
+                )
+                .navigationBarTitle("Exception", displayMode: .inline)
+                .ignoresSafeArea(.container, edges: .bottom)
             }
-            .background(Color(.systemGray6))
-            .navigationBarItems(
-                trailing:
-                    Button("Done", action: {
-                        viewModel.save()
-                    })
-                    .disabled(!viewModel.isValid)
-            )
-            .navigationBarTitle("Exception", displayMode: .inline)
-            .ignoresSafeArea(.container, edges: .bottom)
-        }
-        .brightness(brightness)
-        .disabled(isAlertPresented)
-        .onChange(of: isAlertPresented) { value in
-            if value {
-                self.darken()
-            } else {
-                self.illuminate()
+            .brightness(brightness)
+            .disabled(isAlertPresented)
+            .onChange(of: isAlertPresented) { value in
+                if value {
+                    self.darken()
+                } else {
+                    self.illuminate()
+                }
+            }
+            .zIndex(1)
+            if isAlertPresented {
+                currentDatePicker()
+                    .transition(.asymmetric(insertion: .scale.animation(.easeOut), removal: .opacity.animation(.easeIn(duration: 0.1))))
+                    .zIndex(1)
             }
         }
-        .onTapGesture {
-            endEditing()
-        }
-        .overlay(
-            currentDatePicker()
-        )
     }
     
     private func darken() {
@@ -105,7 +125,7 @@ struct ExceptionDetailsView: View {
     }
     
     private func illuminate() {
-        withAnimation(.easeOut(duration: 0.05)) {
+        withAnimation(.easeOut(duration: 0.1)) {
             self.brightness = 0
         }
     }
@@ -199,8 +219,8 @@ extension ExceptionDetailsView {
         @State private var dayKind: DayKind
         var body: some View {
             Picker("", selection: $dayKind) {
-                ForEach(ExceptionDetailsView.DayKind.allCases, id: \.self) {
-                    Text($0.rawValue)
+                ForEach(ExceptionDetailsView.DayKind.allCases, id: \.self) { kind in
+                    Text(kind.rawValue)
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
@@ -211,7 +231,6 @@ extension ExceptionDetailsView {
         init(selection: Binding<Bool>) {
             self._selection = selection
             self.dayKind = selection.wrappedValue ? .working : .dayOff
-            
         }
     }
     
@@ -226,8 +245,9 @@ extension ExceptionDetailsView {
 }
 
 extension ExceptionDetailsView {
-    init(date: Date) {
+    init(date: Date, onAccept: @escaping () -> () = {}) {
         self.viewModel = ExceptionViewModelFactory(date: date).viewModel()
+        self.onAccept = onAccept
     }
 }
 

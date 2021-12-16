@@ -12,10 +12,6 @@ struct MonthCalendarDatePickerAlert: View {
     @Binding private var isPresented: Bool
     @Binding private var selection: Date
     
-    @State private var yPoint: CGFloat = UIScreen.main.bounds.height
-    @State private var scaleEffect: CGFloat = 0
-    @State private var opacity: Double = 1
-    
     @ViewBuilder private var range: ClosedRange<Date>
     
     @ObservedObject private var calendarManager = MonthCalendarManager()
@@ -37,18 +33,7 @@ struct MonthCalendarDatePickerAlert: View {
             RoundedRectangle(cornerRadius: 8)
                 .foregroundColor(Color(.white))
         )
-        .scaleEffect(scaleEffect)
-        .opacity(opacity)
-        .offset(y: yPoint)
         .padding(.horizontal)
-        .onChange(of: isPresented) { value in
-            if value {
-                self.show()
-            } else {
-                self.hide()
-            }
-        }
-        .disabled(!isPresented)
     }
     
     init(selection: Binding<Date>, range: ClosedRange<Date>, isPresented: Binding<Bool>) {
@@ -63,32 +48,6 @@ struct MonthCalendarDatePickerAlert: View {
                                                     layoutConfiguration: .alert)
         
         self.calendarManager.layoutConfiguration.weekdaysRow.paddingTop = LayoutConstants.perfectPadding(10)
-    }
-    
-    private func show() {
-        let workItem = DispatchWorkItem {
-            self.yPoint = 0
-        }
-        workItem.perform()
-        workItem.notify(queue: DispatchQueue.main) {
-            withAnimation(.easeOut) {
-                self.scaleEffect = 1
-            }
-        }
-        workItem.cancel()
-    }
-    
-    private func hide() {
-        let duration = 0.1
-        withAnimation(.easeIn(duration: duration)){
-            self.opacity = 0
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-            self.scaleEffect = 0
-            self.opacity = 1
-            self.yPoint = UIScreen.main.bounds.height
-        }
-        self.isPresented = false
     }
 }
 
@@ -197,7 +156,7 @@ extension MonthCalendarDatePickerAlert {
 extension MonthCalendarDatePickerAlert {
     
     private func cancelAction() {
-        self.hide()
+        self.isPresented = false
     }
     
     private func acceptAction() {

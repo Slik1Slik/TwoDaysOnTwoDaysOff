@@ -14,14 +14,19 @@ class DayViewModel: ObservableObject {
     @Published var day: Day?
     @Published var date: Date = DateConstants.date_01_01_1970
     
+    @ObservedObject private var exceptionsObserver = RealmObserver(for: Exception.self)
+    
     private var cancellableSet: Set<AnyCancellable> = []
     
     init() {
         $date
-            .sink { [weak self] (date) in
-                self?.day = DaysDataStorageManager.find(by: date)
+            .sink { [unowned self] (date) in
+                self.day = DaysDataStorageManager.find(by: date)
             }
             .store(in: &cancellableSet)
+        exceptionsObserver.onObjectsHaveBeenChanged = { [unowned self] in
+            self.day = DaysDataStorageManager.find(by: date)
+        }
     }
     
     func day(_ date: Date) -> Day? {

@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isCalendarFormed = UserSettings.isCalendarFormed!
-    @State var selection = 0
-    @Environment(\.isAlertPresented) var isAnyAlertPresented
-    @State var brightness: Double = 0
+    
+    @AppStorage("isCalendarFormed") var isCalendarFormed: Bool = false
     
     var body: some View
     {

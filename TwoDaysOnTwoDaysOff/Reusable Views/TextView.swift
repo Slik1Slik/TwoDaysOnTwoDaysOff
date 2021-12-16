@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct TextView: UIViewRepresentable {
-    
-    var selection: Binding<String>
+    @Binding var selection: String
     var configuration = { (view: UIViewType) in }
     
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UITextView {
@@ -17,14 +16,30 @@ struct TextView: UIViewRepresentable {
         view.isScrollEnabled = true
         view.isEditable = true
         view.isUserInteractionEnabled = true
+        view.delegate = context.coordinator
         return view
     }
     
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<Self>) {
-        uiView.text = selection.wrappedValue
+        uiView.text = selection
         configuration(uiView)
     }
     
+    func makeCoordinator() -> Coordinator {
+        Coordinator($selection)
+    }
+     
+    class Coordinator: NSObject, UITextViewDelegate {
+        var text: Binding<String>
+     
+        init(_ text: Binding<String>) {
+            self.text = text
+        }
+     
+        func textViewDidChange(_ textView: UITextView) {
+            self.text.wrappedValue = textView.text
+        }
+    }
 }
 
 struct TextView_Previews: PreviewProvider {

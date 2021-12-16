@@ -10,12 +10,19 @@ import Combine
 
 class ExceptionViewModel: ObservableObject {
     @Published var from: Date = UserSettings.startDate
-    @Published var to: Date = Date()
+    @Published var to: Date = UserSettings.startDate
     @Published var name: String = ""
     @Published var details: String = ""
     @Published var isWorking: Bool = false
     
-    @Published var isPeriod: Bool = false
+    @Published var isPeriod: Bool = false {
+        //in case if user want to specify the period and then change their mind then the "to" value drops to be equal to "from" value
+        willSet {
+            if !newValue {
+                to = from
+            }
+        }
+    }
     @Published var isDayKindChangable = false
     
     @Published var isValid: Bool = false
@@ -24,7 +31,6 @@ class ExceptionViewModel: ObservableObject {
     @Published var detailsErrorMessage: String = " "
     @Published var datesErrorMessage: String = " "
     
-    @Published var isSuccessful: Bool = true
     @Published var errorMessage: String = ""
     
     internal var isNameFilled: AnyPublisher<Bool, Never> {
@@ -69,17 +75,25 @@ class ExceptionViewModel: ObservableObject {
     }
     
     internal var areDatesAvailable: AnyPublisher<Bool, Never> {
-        $from
-            .combineLatest($to)
+        Publishers.CombineLatest($from, $to)
             .debounce(for: 0.8, scheduler: RunLoop.main)
-            .map { [weak self] from, to in
-                guard ExceptionsDataStorageManager.find(by: from) == nil else {
+            .map { [unowned self] from, to in
+                guard ExceptionsDataStorageManager.shared.find(by: from) == nil else {
                     return false
                 }
-                guard self!.isPeriod else {
+                guard self.isPeriod else {
                     return true
                 }
-                return ExceptionsDataStorageManager.find(by: to) == nil
+                return ExceptionsDataStorageManager.shared.find(by: to) == nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    internal var areDatesValid: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest($from, $to)
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .map { from, to in
+                return from < to || from == to
             }
             .eraseToAnyPublisher()
     }
@@ -111,23 +125,12 @@ class ExceptionViewModel: ObservableObject {
             .assign(to: \.datesErrorMessage, on: self)
             .store(in: &cancellableSet)
         
-        //in case if user want to specify the period and then change their mind then the "to" value drops to be equal to "from" value
-        $isPeriod
-            .combineLatest($from)
-            .receive(on: RunLoop.main)
-            .map { _, dateFrom in
-                return dateFrom
-            }
-            .assign(to: \.to, on: self)
-            .store(in: &cancellableSet)
-        
         //if user change the "from" value then the "to" value becomes equal to the "from" value so in case if they want to specify the period, the "to" value wouldn't be earlier then "from" value
-        $from
-            .combineLatest($isPeriod)
+        areDatesValid
             .receive(on: RunLoop.main)
-            .sink { [weak self] dateFrom, isPeriod in
-                if !isPeriod {
-                    self?.to = dateFrom
+            .sink { [unowned self] valid in
+                if !valid {
+                    self.to = self.from
                 }
             }
             .store(in: &cancellableSet)
@@ -135,13 +138,12 @@ class ExceptionViewModel: ObservableObject {
         //if user add an one-day exception or days from the period have the same kind (working or non-working) then user wouldn't be able to choose the day kind
         Publishers.CombineLatest3($isPeriod, $from, $to)
             .receive(on: RunLoop.main)
-            .sink { [weak self] isPeriod, dateFrom, dateTo in
+            .sink { [unowned self] isPeriod, dateFrom, dateTo in
                 guard isPeriod else {
-                    self?.isWorking = !DaysDataStorageManager.find(by: dateFrom)!.isWorking
-                    self?.isDayKindChangable = false
+                    self.isWorking = !DaysDataStorageManager.find(by: dateFrom)!.isWorking
+                    self.isDayKindChangable = false
                     return
                 }
-                
                 let daysForInterval = DaysDataStorageManager.find(interval: DateInterval(start: dateFrom, end: dateTo))
                 let uniqueElements = daysForInterval
                     .map { day in
@@ -152,10 +154,10 @@ class ExceptionViewModel: ObservableObject {
                 let areDaysKindsForGivenPeriodEqual = uniqueElements.count == 1
                 
                 if areDaysKindsForGivenPeriodEqual {
-                    self?.isWorking = !daysForInterval.first!.isWorking
-                    self?.isDayKindChangable = false
+                    self.isWorking = !daysForInterval.first!.isWorking
+                    self.isDayKindChangable = false
                 } else {
-                    self?.isDayKindChangable = true
+                    self.isDayKindChangable = true
                 }
             }
             .store(in: &cancellableSet)
@@ -172,10 +174,9 @@ class ExceptionViewModel: ObservableObject {
     
     func save() {
         do {
-            try ExceptionsDataStorageManager.save(newException)
+            try ExceptionsDataStorageManager.shared.save(newException)
         } catch let error {
             self.errorMessage = (error as! ExceptionsDataStorageManagerErrors).localizedDescription
-            self.isSuccessful = false
         }
     }
     

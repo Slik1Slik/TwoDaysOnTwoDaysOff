@@ -104,23 +104,23 @@ class DaysDataStorageManager
     
     static private func setExceptions(for days: [Day]) -> [Day]
     {
+        guard ExceptionsDataStorageManager.shared.countOfObjects() != 0 else {
+            return days
+        }
+        
         var filtredDays = days
-        var exceptionIndex = 0
-        let totalExceptionsCount = ExceptionsDataStorageManager.countOfObjects()
         
         for index in 0..<filtredDays.count
         {
-            guard exceptionIndex < totalExceptionsCount else {return filtredDays}
-            let exception = ExceptionsDataStorageManager.find(by: filtredDays[index].date)
+            //guard filtredDays[index].date <= ExceptionsDataStorageManager.readAll().last!.to else {return filtredDays}
+            let exception = ExceptionsDataStorageManager.shared.find(by: filtredDays[index].date)
             if let exception = exception {
                 filtredDays[index].exception = exception
                 filtredDays[index].isWorking = exception.isWorking
-                exceptionIndex += 1
             } else {
                 continue
             }
         }
-        
         return filtredDays
     }
     

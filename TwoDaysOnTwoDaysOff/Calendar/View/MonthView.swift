@@ -65,11 +65,11 @@ struct MonthView<DateView: View, Header: View, AccessoryView: View>: View
                 //.overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 0.4))
             }
             accessoryView()
-                .padding(.leading, calendarManager.layoutConfiguration.calendarBody.paddingLeft)
-                .padding(.trailing, calendarManager.layoutConfiguration.calendarBody.paddingRight)
-                .padding(.top, calendarManager.layoutConfiguration.calendarBody.paddingTop)
-                .padding(.bottom, calendarManager.layoutConfiguration.calendarBody.paddingBottom)
-                .frame(alignment: .top)
+                .padding(.leading, calendarManager.layoutConfiguration.accessoryView.paddingLeft)
+                .padding(.trailing, calendarManager.layoutConfiguration.accessoryView.paddingRight)
+                .padding(.top, calendarManager.layoutConfiguration.accessoryView.paddingTop)
+                .padding(.bottom, calendarManager.layoutConfiguration.accessoryView.paddingBottom)
+                .frame(alignment: .bottom)
         }
         .frame(width: calendarManager.layoutConfiguration.width, alignment: .top)
     }

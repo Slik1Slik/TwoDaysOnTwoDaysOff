@@ -11,7 +11,6 @@ struct DateView: View {
     var date: Date
     @ObservedObject private var dayViewModel = DayViewModel()
     
-    @State private var isSelected: Bool = false
     @State private var opacity: Double = 1
     
     @ObservedObject private var calendarManager: MonthCalendarManager = MonthCalendarManager()
@@ -25,11 +24,12 @@ struct DateView: View {
                        height: MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width).item.width)
                 .background(backgroundColor)
                 .clipShape(Circle())
-                .opacity(opacity)
+                .opacity(isSelected || isSelectedAsExceptionForPeriod ? 0.3 : 1)
                 .onAppear(perform: {
                     self.dayViewModel.date = date
                 })
                 .onTapGesture {
+                    onTapGestureAction()
                 }
             if let day = dayViewModel.day, let _ = day.exception  {
                 Color(.gray)
@@ -60,9 +60,31 @@ struct DateView: View {
         return dayViewModel.day == nil
     }
     
+    private var isSelected: Bool {
+        return date == calendarManager.selectedDate
+    }
+    
+    private var isSelectedAsExceptionForPeriod: Bool {
+        guard let _ = calendarManager.selectedDate,
+              let day = dayViewModel.day,
+              let exception = day.exception,
+              !exception.isInvalidated,
+              exception.from != exception.to else
+        {
+            return false
+        }
+        let exceptionPeriod = (exception.from...exception.to)
+        return exceptionPeriod.contains(date) && exceptionPeriod.contains(calendarManager.selectedDate!)
+    }
+    
     private func onTapGestureAction() {
-        self.opacity = 0.3
+        guard !isSelected else {
+            calendarManager.selectedDate = nil
+            opacity = 1
+            return
+        }
         self.calendarManager.selectedDate = date
+        opacity = 0.3
     }
     
     init(date: Date, calendarManager: MonthCalendarManager) {

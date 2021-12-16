@@ -30,7 +30,11 @@ class MonthCalendarLayoutConfiguration {
             calculateAccessoryViewPadding()
         }
     }
-    var height: CGFloat = 400
+    var height: CGFloat {
+        let header = header.height + header.paddingTop + header.paddingBottom
+        let weekdaysRow = weekdaysRow.height + weekdaysRow.paddingTop + weekdaysRow.paddingBottom
+        return header + calendarBody.height + weekdaysRow
+    }
     
     var paddingTop: CGFloat = 0
     var paddingLeft: CGFloat = 0
@@ -72,7 +76,7 @@ class MonthCalendarLayoutConfiguration {
     }
     
     private func calculateItemSize() {
-        item.width = (width - paddingLeft - paddingRight - (calendarBody.interitemSpacing/8))/8
+        item.width = (width - paddingLeft - paddingRight - (calendarBody.interitemSpacing))/8
         item.height = item.width
     }
     
@@ -107,13 +111,13 @@ class MonthCalendarLayoutConfiguration {
     }
     
     private func calculateCalendarBodySize() {
-        let allItems = item.height * 5
-        let allLineSpacings = calendarBody.lineSpacing * 4
+        let allItems = item.height * 6
+        let allLineSpacings = calendarBody.lineSpacing * 5
         calendarBody.height = allItems + allLineSpacings + calendarBody.paddingTop + calendarBody.paddingBottom
     }
     
     private func calculateAccessoryViewPadding() {
-        accessoryView.paddingTop = 0
+        accessoryView.paddingTop = perfectPadding(16)
         accessoryView.paddingBottom = 0
         accessoryView.paddingLeft = perfectPadding(16)
         accessoryView.paddingRight = perfectPadding(16)

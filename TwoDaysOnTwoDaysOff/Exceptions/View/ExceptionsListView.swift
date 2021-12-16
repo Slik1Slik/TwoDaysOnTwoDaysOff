@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExceptionsListView: View {
-    @ObservedObject var exceptionListVM = ExceptionListViewModel()
+    @ObservedObject var exceptionListVM = ExceptionsViewModel()
     var body: some View {
 //        List {
 //            ForEach(sectionsHeadersTitles(), id: \.self) { section in
@@ -23,13 +23,13 @@ struct ExceptionsListView: View {
 //        }
         Text("hi")
     }
-    private func sectionsHeadersTitles() -> [String] {
-        var result = [String]()
-        result = exceptionListVM.exceptions.map { exception in
-            return exception.from.monthSymbolAndYear()
-        }
-        return result.uniqueWithSavingOriginalOrder
-    }
+//    private func sectionsHeadersTitles() -> [String] {
+//        var result = [String]()
+//        result = exceptionListVM.exceptions.map { exception in
+//            return exception.from.monthSymbolAndYear()
+//        }
+//        return result.uniqueWithSavingOriginalOrder
+//    }
     
     private func header(title: String) -> some View {
         return Group {

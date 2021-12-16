@@ -8,6 +8,10 @@
 import UIKit
 
 struct LayoutConstants {
+    
+    static let safeFrame = UIApplication.shared.windows[0].safeAreaLayoutGuide.layoutFrame
+    static let window = UIApplication.shared.windows[0]
+    
     static let paddingLeft: CGFloat = 16
     static let paddingRight: CGFloat = 16
     static let paddingTop: CGFloat = 16
