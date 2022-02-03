@@ -21,8 +21,8 @@ struct TextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<Self>) {
-        uiView.text = selection
         configuration(uiView)
+        uiView.text = selection
     }
     
     func makeCoordinator() -> Coordinator {

@@ -32,6 +32,7 @@
 		566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C679C273AC86A0056E616 /* Calendar + Extensions.swift */; };
 		5670199926F8C968009A065C /* ExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5670199826F8C968009A065C /* ExceptionViewModel.swift */; };
 		56793C57276B84C6007BCB3A /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56793C56276B84C6007BCB3A /* Exception.swift */; };
+		56793C5A276BAE1C007BCB3A /* RegularImagedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56793C59276BAE1C007BCB3A /* RegularImagedButtonStyle.swift */; };
 		567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */; };
 		567EB17A268A127500313D03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB179268A127500313D03 /* ContentView.swift */; };
 		567EB17C268A127800313D03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB17B268A127800313D03 /* Assets.xcassets */; };
@@ -69,17 +70,21 @@
 		567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */; };
 		567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */; };
 		56A1B3AA274B8D84005F1B56 /* CalendarPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3A9274B8D84005F1B56 /* CalendarPagerView.swift */; };
-		56A1B3AF275D1ADE005F1B56 /* CalendarPagerViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3AE275D1ADE005F1B56 /* CalendarPagerViewManager.swift */; };
 		56A1B3B127622EF4005F1B56 /* RealmObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B027622EF3005F1B56 /* RealmObserver.swift */; };
 		56A1B3B327623050005F1B56 /* NotificationNameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B227623050005F1B56 /* NotificationNameConstants.swift */; };
 		56A1B3B527662241005F1B56 /* UserDefaultsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B427662241005F1B56 /* UserDefaultsObserver.swift */; };
 		56A1B3B7276767DD005F1B56 /* DetailsTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */; };
+		56ACFB0F276BB1AC003FBA28 /* LargeImagedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ACFB0E276BB1AC003FBA28 /* LargeImagedButtonStyle.swift */; };
 		56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */; };
 		56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */; };
 		56C73B65269301F600A8A2BC /* TabBarElementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B64269301F600A8A2BC /* TabBarElementItem.swift */; };
 		56C73B6926934B7800A8A2BC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6826934B7800A8A2BC /* TabBarController.swift */; };
 		56C73B6B269DC4EB00A8A2BC /* CalendarPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */; };
 		56CDA64627120135006D3964 /* Placeholders.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56CDA64527120135006D3964 /* Placeholders.xcassets */; };
+		56EA81B6279C5A080015EC97 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81B5279C5A080015EC97 /* Sidebar.swift */; };
+		56EA81BB279F1EF50015EC97 /* SwipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81BA279F1EF50015EC97 /* SwipeType.swift */; };
+		56EA81BD279F1F130015EC97 /* ScrollDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81BC279F1F130015EC97 /* ScrollDirection.swift */; };
+		56EA81BF27AA6CD00015EC97 /* SidebarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81BE27AA6CD00015EC97 /* SidebarModifier.swift */; };
 		79A8D3CB87DEE41140E2BFB0 /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49CA7981B54DAEA37F3914A /* Pods_TwoDaysOnTwoDaysOff_TwoDaysOnTwoDaysOffUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +132,7 @@
 		566C679C273AC86A0056E616 /* Calendar + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar + Extensions.swift"; sourceTree = "<group>"; };
 		5670199826F8C968009A065C /* ExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModel.swift; sourceTree = "<group>"; };
 		56793C56276B84C6007BCB3A /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
+		56793C59276BAE1C007BCB3A /* RegularImagedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularImagedButtonStyle.swift; sourceTree = "<group>"; };
 		567EB174268A127500313D03 /* TwoDaysOnTwoDaysOff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoDaysOnTwoDaysOff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDaysOnTwoDaysOffApp.swift; sourceTree = "<group>"; };
 		567EB179268A127500313D03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -168,17 +174,21 @@
 		567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileStatusChecker.swift; sourceTree = "<group>"; };
 		567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DaysColors.xcassets; sourceTree = "<group>"; };
 		56A1B3A9274B8D84005F1B56 /* CalendarPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPagerView.swift; sourceTree = "<group>"; };
-		56A1B3AE275D1ADE005F1B56 /* CalendarPagerViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPagerViewManager.swift; sourceTree = "<group>"; };
 		56A1B3B027622EF3005F1B56 /* RealmObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmObserver.swift; sourceTree = "<group>"; };
 		56A1B3B227623050005F1B56 /* NotificationNameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameConstants.swift; sourceTree = "<group>"; };
 		56A1B3B427662241005F1B56 /* UserDefaultsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsObserver.swift; sourceTree = "<group>"; };
 		56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTextView.swift; sourceTree = "<group>"; };
+		56ACFB0E276BB1AC003FBA28 /* LargeImagedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeImagedButtonStyle.swift; sourceTree = "<group>"; };
 		56C73B60268DEFCA00A8A2BC /* TabBarConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConstants.swift; sourceTree = "<group>"; };
 		56C73B62269267ED00A8A2BC /* UITabBarControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarControllerWrapper.swift; sourceTree = "<group>"; };
 		56C73B64269301F600A8A2BC /* TabBarElementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarElementItem.swift; sourceTree = "<group>"; };
 		56C73B6826934B7800A8A2BC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		56C73B6A269DC4EB00A8A2BC /* CalendarPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPager.swift; sourceTree = "<group>"; };
 		56CDA64527120135006D3964 /* Placeholders.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Placeholders.xcassets; sourceTree = "<group>"; };
+		56EA81B5279C5A080015EC97 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		56EA81BA279F1EF50015EC97 /* SwipeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeType.swift; sourceTree = "<group>"; };
+		56EA81BC279F1F130015EC97 /* ScrollDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDirection.swift; sourceTree = "<group>"; };
+		56EA81BE27AA6CD00015EC97 /* SidebarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarModifier.swift; sourceTree = "<group>"; };
 		85AAE656378DE0AE3120A514 /* Pods-TwoDaysOnTwoDaysOff.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.debug.xcconfig"; sourceTree = "<group>"; };
 		8925D81D5B0022A19D8B7DE1 /* Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests.release.xcconfig"; sourceTree = "<group>"; };
 		936E66EE5441552D7CFCE054 /* Pods-TwoDaysOnTwoDaysOff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; path = "Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff.release.xcconfig"; sourceTree = "<group>"; };
@@ -284,6 +294,15 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		56793C58276BADDE007BCB3A /* Modifiers & Styles */ = {
+			isa = PBXGroup;
+			children = (
+				56ACFB0D276BB181003FBA28 /* Buttons */,
+				56EA81BE27AA6CD00015EC97 /* SidebarModifier.swift */,
+			);
+			path = "Modifiers & Styles";
+			sourceTree = "<group>";
+		};
 		567EB16B268A127400313D03 = {
 			isa = PBXGroup;
 			children = (
@@ -309,16 +328,19 @@
 		567EB176268A127500313D03 /* TwoDaysOnTwoDaysOff */ = {
 			isa = PBXGroup;
 			children = (
+				56EA81B9279F1ED80015EC97 /* Public Enums */,
 				567EB177268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift */,
 				567EB179268A127500313D03 /* ContentView.swift */,
 				567EB17B268A127800313D03 /* Assets.xcassets */,
 				567EB180268A127800313D03 /* Info.plist */,
 				567EB17D268A127800313D03 /* Preview Content */,
+				56793C58276BADDE007BCB3A /* Modifiers & Styles */,
 				567EB1A8268A14CC00313D03 /* Reusable Views */,
 				567EB1AD268A152100313D03 /* DataStorageManagers */,
 				567EB1B0268A158100313D03 /* JSON */,
 				56A1B3AB275D0363005F1B56 /* CalendarPagerView */,
 				567EB1C0268A162B00313D03 /* Calendar */,
+				56EA81B4279C599C0015EC97 /* Sidebar */,
 				567EB1CC268A16B600313D03 /* Exceptions */,
 				567EB1DD268A183400313D03 /* Set up Calendar */,
 				567EB1E4268A189200313D03 /* Extensions */,
@@ -538,9 +560,34 @@
 			isa = PBXGroup;
 			children = (
 				56A1B3A9274B8D84005F1B56 /* CalendarPagerView.swift */,
-				56A1B3AE275D1ADE005F1B56 /* CalendarPagerViewManager.swift */,
 			);
 			path = CalendarPagerView;
+			sourceTree = "<group>";
+		};
+		56ACFB0D276BB181003FBA28 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				56793C59276BAE1C007BCB3A /* RegularImagedButtonStyle.swift */,
+				56ACFB0E276BB1AC003FBA28 /* LargeImagedButtonStyle.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		56EA81B4279C599C0015EC97 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				56EA81B5279C5A080015EC97 /* Sidebar.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		56EA81B9279F1ED80015EC97 /* Public Enums */ = {
+			isa = PBXGroup;
+			children = (
+				56EA81BA279F1EF50015EC97 /* SwipeType.swift */,
+				56EA81BC279F1F130015EC97 /* ScrollDirection.swift */,
+			);
+			path = "Public Enums";
 			sourceTree = "<group>";
 		};
 		C35B3A15CB65070EA3D67D09 /* Frameworks */ = {
@@ -564,7 +611,7 @@
 				567EB170268A127500313D03 /* Sources */,
 				567EB171268A127500313D03 /* Frameworks */,
 				567EB172268A127500313D03 /* Resources */,
-				39CCD74D8D60610F02461808 /* [CP] Embed Pods Frameworks */,
+				6CE824C70BAC968023C413B8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -602,7 +649,7 @@
 				567EB18C268A127800313D03 /* Sources */,
 				567EB18D268A127800313D03 /* Frameworks */,
 				567EB18E268A127800313D03 /* Resources */,
-				3D0D3C5FCFC21EBDB84A3462 /* [CP] Embed Pods Frameworks */,
+				B75DB8FD5C755B24F293746F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -686,7 +733,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		39CCD74D8D60610F02461808 /* [CP] Embed Pods Frameworks */ = {
+		6CE824C70BAC968023C413B8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -701,23 +748,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff/Pods-TwoDaysOnTwoDaysOff-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3D0D3C5FCFC21EBDB84A3462 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9D9DC7990CC4C3A8A306FBBF /* [CP] Check Pods Manifest.lock */ = {
@@ -764,6 +794,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B75DB8FD5C755B24F293746F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests/Pods-TwoDaysOnTwoDaysOff-TwoDaysOnTwoDaysOffUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C1A51B4B7477F15D4C31E27B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -798,6 +845,7 @@
 				563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */,
 				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
 				56C73B63269267ED00A8A2BC /* UITabBarControllerWrapper.swift in Sources */,
+				56ACFB0F276BB1AC003FBA28 /* LargeImagedButtonStyle.swift in Sources */,
 				567EB1BC268A160400313D03 /* MonthCalendarView.swift in Sources */,
 				567EB1E7268A18CB00313D03 /* CalendarConstants.swift in Sources */,
 				567EB1B8268A15DD00313D03 /* DateView.swift in Sources */,
@@ -812,10 +860,13 @@
 				567EB1E1268A187700313D03 /* Date + Extensions.swift in Sources */,
 				5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */,
 				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
+				56EA81BB279F1EF50015EC97 /* SwipeType.swift in Sources */,
 				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
 				566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */,
 				567EB1C8268A168800313D03 /* ExceptionDetailsView.swift in Sources */,
+				56EA81BD279F1F130015EC97 /* ScrollDirection.swift in Sources */,
 				563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */,
+				56793C5A276BAE1C007BCB3A /* RegularImagedButtonStyle.swift in Sources */,
 				567EB1B5268A15BD00313D03 /* DayViewModel.swift in Sources */,
 				563148C22721DA1E0020A8E7 /* ExceptionIcon.swift in Sources */,
 				567EB1B2268A15A000313D03 /* Day.swift in Sources */,
@@ -843,6 +894,7 @@
 				567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */,
 				56793C57276B84C6007BCB3A /* Exception.swift in Sources */,
 				567EB1CE268A16D900313D03 /* UserSettings.swift in Sources */,
+				56EA81B6279C5A080015EC97 /* Sidebar.swift in Sources */,
 				567EB1E9268A19A000313D03 /* AppDirectoryURLs.swift in Sources */,
 				567EB1D0268A16ED00313D03 /* UserSettingsViewModel.swift in Sources */,
 				567EB1A6268A14C500313D03 /* TabBarView.swift in Sources */,
@@ -853,9 +905,9 @@
 				563148E02736C5440020A8E7 /* DateViewProtocol.swift in Sources */,
 				56C73B61268DEFCA00A8A2BC /* TabBarConstants.swift in Sources */,
 				567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */,
+				56EA81BF27AA6CD00015EC97 /* SidebarModifier.swift in Sources */,
 				563148A427188A950020A8E7 /* Environments.swift in Sources */,
 				56A1B3B327623050005F1B56 /* NotificationNameConstants.swift in Sources */,
-				56A1B3AF275D1ADE005F1B56 /* CalendarPagerViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

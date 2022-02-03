@@ -13,12 +13,12 @@ struct DetailsTextView: View {
     @ObservedObject private var keyboardObserver = KeyboardObserver()
     var body: some View {
         TextView(selection: $selection) { view in
+            view.font = view.font?.withSize(18)
             view.isScrollEnabled = true
             view.isEditable = true
             view.isUserInteractionEnabled = true
             view.autocapitalizationType = .sentences
             view.autocorrectionType = .default
-            view.font = view.font?.withSize(18)
         }
         .padding(.horizontal, LayoutConstants.perfectPadding(16))
         .padding(.bottom, LayoutConstants.perfectPadding(16) + keyboardObserver.keyboardFrame.height)

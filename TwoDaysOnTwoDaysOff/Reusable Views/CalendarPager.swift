@@ -132,20 +132,6 @@ extension CalendarPager {
 }
 
 extension CalendarPager {
-    private enum ScrollDirection {
-        case forward
-        case back
-    }
-}
-
-extension CalendarPager {
-    private enum SwipeType {
-        case short
-        case sufficient
-    }
-}
-
-extension CalendarPager {
     private enum DragGestureState {
         case active
         case inactive

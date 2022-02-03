@@ -1,5 +1,5 @@
 //
-//  CalendarPager2.swift
+//  CalendarPagerView.swift
 //  TwoDaysOnTwoDaysOff
 //
 //  Created by Slik on 22.11.2021.
@@ -48,7 +48,12 @@ struct CalendarPagerView<Content: View>: View {
         .gesture(
             DragGesture()
                 .onChanged { value in
-                    guard safeFrame.contains(value.startLocation) else {
+//                    print("height: " + value.translation.height.description)
+//                    print("width: " + value.translation.width.description)
+                    guard safeFrame.contains(value.startLocation),
+                          value.startLocation.x > 40,
+                          value.startLocation.x < UIScreen.main.bounds.maxX - 40
+                    else {
                         return
                     }
                     isGestureActive = true

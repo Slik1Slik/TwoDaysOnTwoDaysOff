@@ -34,6 +34,10 @@ struct LayoutConstants {
     }
 }
 
+struct SidebarConstants {
+    
+}
+
 struct BasicCalendarConstants
 {
     static let paddingLeft: CGFloat = 16

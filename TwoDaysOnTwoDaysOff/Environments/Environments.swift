@@ -8,19 +8,13 @@
 import UIKit
 import SwiftUI
 
-private struct AlertPresentedKey: EnvironmentKey {
+private struct DetailsViewPresentedKey: EnvironmentKey {
     static let defaultValue = false
 }
 
 extension EnvironmentValues {
-    var isAlertPresented: Bool {
-        get { self[AlertPresentedKey.self] }
-        set { self[AlertPresentedKey.self] = newValue }
-    }
-}
-
-extension View {
-    func isAlertPresented(_ isPresented: Bool) -> some View {
-        environment(\.isAlertPresented, isPresented)
+    var isDetailsViewPresented: Bool {
+        get { self[DetailsViewPresentedKey.self] }
+        set { self[DetailsViewPresentedKey.self] = newValue }
     }
 }

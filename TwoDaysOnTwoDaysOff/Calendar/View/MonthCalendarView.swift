@@ -8,39 +8,43 @@
 import SwiftUI
 
 struct MonthCalendarView: View {
+    
     @State var index = 0
     
     @ObservedObject private var calendarManager: MonthCalendarManager
     
-    //private var layoutConfiguration = MonthCalendarLayoutConfiguration()
-    
-    @ObservedObject private var exceptionsObserver: RealmObserver = RealmObserver(for: Exception.self)
-    
     @State private var isPageChanging = false
+    
+    @State private var isSidebarPresented = false
+    
+    @State private var swipeType: SwipeType = .short
     
     var body: some View {
         ZStack {
-            CalendarPagerView(selection: $index, pages: pages)
-            VStack {
-                submenuButton
-                    .padding(.top, LayoutConstants.safeFrame.minY)
-                    .padding(.horizontal, LayoutConstants.perfectPadding(16))
-                calendarControlBox
-                    .padding(.top, LayoutConstants.perfectPadding(16))
-                    .padding(.horizontal, LayoutConstants.perfectPadding(18))
-                Spacer()
-                if let date = calendarManager.selectedDate {
-                    MonthAccessoryView(date: date)
-                        .padding(.bottom, (LayoutConstants.window.frame.maxY - LayoutConstants.safeFrame.maxY) + LayoutConstants.perfectPadding(16))
-                        .padding(.top, LayoutConstants.perfectPadding(16))
+            Group {
+                CalendarPagerView(selection: $index, pages: pages)
+                VStack {
+                    submenuButton
+                        .padding(.top, LayoutConstants.safeFrame.minY)
                         .padding(.horizontal, LayoutConstants.perfectPadding(16))
-                        .frame(width: calendarManager.layoutConfiguration.width,
-                               height: UIScreen.main.bounds.height - calendarManager.layoutConfiguration.height - LayoutConstants.safeFrame.minY - LayoutConstants.perfectPadding(34))
-                        .background(Color.white)
+                    calendarControlBox
+                        .padding(.top, LayoutConstants.perfectPadding(16))
+                        .padding(.horizontal, LayoutConstants.perfectPadding(18))
+                    Spacer()
+                    if let date = calendarManager.selectedDate {
+                        MonthAccessoryView(date: date)
+                            .padding(.bottom, (LayoutConstants.window.frame.maxY - LayoutConstants.safeFrame.maxY) + LayoutConstants.perfectPadding(16))
+                            .padding(.top, LayoutConstants.perfectPadding(16))
+                            .padding(.horizontal, LayoutConstants.perfectPadding(16))
+                            .frame(width: calendarManager.layoutConfiguration.width,
+                                   height: UIScreen.main.bounds.height - calendarManager.layoutConfiguration.height - LayoutConstants.safeFrame.minY - LayoutConstants.perfectPadding(34))
+                    }
                 }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .opacity(isPageChanging ? 0 : 1)
+        }
+        .sidebar(isBarPresented: $isSidebarPresented, type: .regular) {
+            Sidebar()
         }
     }
     
@@ -53,25 +57,14 @@ struct MonthCalendarView: View {
         self.pages = calendarManager.months.map { month in
             return MonthPage(month: month, calendarManager: calendarManager)
         }
-        observeExceptions()
-    }
-    
-    private func observeExceptions() {
-        exceptionsObserver.onObjectHasBeenInserted = { newException in
-            self.calendarManager.selectedDate = newException.from
-        }
-        exceptionsObserver.onObjectHasBeenModified = { modifiedException in
-            self.calendarManager.selectedDate = modifiedException.from
-        }
-        exceptionsObserver.onObjectsHaveBeenDeleted = { _ in
-            self.calendarManager.selectedDate = nil
-        }
     }
     
     private var submenuButton: some View {
         HStack {
             Button {
-                index = 3
+                withAnimation {
+                    isSidebarPresented = true
+                }
             } label: {
                 Image(systemName: "line.horizontal.3")
                     .foregroundColor(Color(.label))
@@ -156,8 +149,8 @@ struct MonthPage: View, Identifiable {
     }
 }
 
-struct MonthCalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        MonthCalendarView(calendar: DateConstants.calendar, interval: DateInterval())
-    }
-}
+//struct MonthCalendarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MonthCalendarView(calendar: DateConstants.calendar, interval: DateInterval())
+//    }
+//}

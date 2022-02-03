@@ -12,16 +12,30 @@ import SwiftUI
 class KeyboardObserver: ObservableObject {
     @Published private(set) var keyboardFrame: CGRect = CGRect()
     
-    let keyboardWillShow = NotificationCenter.default
+    @Published private(set) var isKeyboardShown: Bool = false
+    
+    private let keyboardWillShow = NotificationCenter.default
         .publisher(for: UIResponder.keyboardWillShowNotification)
         .compactMap {
             ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)
         }
     
-    let keyboardWillHide = NotificationCenter.default
+    private let keyboardWillHide = NotificationCenter.default
         .publisher(for: UIResponder.keyboardWillHideNotification)
         .map { _ -> CGRect in
             CGRect()
+        }
+    
+    private let keyboardDidHide = NotificationCenter.default
+        .publisher(for: UIResponder.keyboardDidHideNotification)
+        .map { _ in
+            return false
+        }
+    
+    private let keyboardDidShow = NotificationCenter.default
+        .publisher(for: UIResponder.keyboardDidShowNotification)
+        .map { _ in
+            return true
         }
     
     private var cancellableSet: Set<AnyCancellable> = []
@@ -31,6 +45,12 @@ class KeyboardObserver: ObservableObject {
             .subscribe(on: RunLoop.main)
             .assign(to: \.keyboardFrame, on: self)
             .store(in: &cancellableSet)
+        
+        Publishers.Merge(keyboardDidShow, keyboardDidHide)
+            .subscribe(on: RunLoop.main)
+            .assign(to: \.isKeyboardShown, on: self)
+            .store(in: &cancellableSet)
+        
     }
 }
 

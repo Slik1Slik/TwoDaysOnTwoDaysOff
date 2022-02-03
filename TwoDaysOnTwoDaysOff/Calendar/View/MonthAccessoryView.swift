@@ -26,6 +26,9 @@ struct MonthAccessoryView: View {
             }
         }
         .clipped()
+        .background(RoundedRectangle(cornerRadius: 8).stroke())
+        .background(Color(UIColor.systemGray6))
+        .transition(.move(edge: .bottom))
         .sheet(isPresented: $isExceptionDetailsViewPresented) {
             ExceptionDetailsView(date: date) {
                 isExceptionDetailsViewPresented = false
@@ -46,7 +49,7 @@ struct MonthAccessoryView: View {
     
     private var updateExceptionButton: some View {
         Button {
-            isExceptionDetailsViewPresented = true
+            
         } label: {
             Image(systemName: "square.and.pencil")
                 .renderingMode(.template)

@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @AppStorage("isCalendarFormed") var isCalendarFormed: Bool = false
-    
+    @State var isShown: Bool = false
     var body: some View
     {
         if isCalendarFormed {
@@ -20,6 +20,10 @@ struct ContentView: View {
             ScheduleMakerView()
         }
     }
+}
+
+extension ContentView {
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -16,8 +16,6 @@ struct ExceptionDetailsView: View {
     @State private var brightness: Double = 0
     @State private var animation: Animation? = .none
     
-    @ObservedObject private var keyboardObserver = KeyboardObserver()
-    
     private var onAccept: () -> () = {}
     private var onCancel: () -> () = {}
     
