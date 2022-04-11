@@ -11,9 +11,9 @@ import SwiftUI
 
 class UserSettingsViewModel: ObservableObject
 {
-    @Published var startDate = UserSettings.isCalendarFormed! ? UserSettings.startDate : Date() {
+    @Published var startDate = UserSettings.isCalendarFormed! ? UserSettings.startDate : Date().short {
         willSet {
-            finalDate = newValue.addingTimeInterval(Double(DateConstants.dayInSeconds)*365)
+            finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: newValue) ?? newValue.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
         }
     }
     @Published var finalDate = Date()
@@ -21,6 +21,8 @@ class UserSettingsViewModel: ObservableObject
     @Published var countOfRestDays = 0
     @Published var restDayColor = UserSettings.isCalendarFormed! ? UserSettings.restDayCellColor : "white"
     @Published var workingDayColor = UserSettings.isCalendarFormed! ? UserSettings.workingDayCellColor : "black"
+    
+    @Published var colorPaletteToken = ColorPaletteToken.user
     
     @Published var colorsErrorMessage = ""
     
@@ -82,6 +84,8 @@ class UserSettingsViewModel: ObservableObject
 
         UserSettings.workingDayCellColor = self.workingDayColor
         UserSettings.restDayCellColor = self.restDayColor
+        
+        UserSettings.colorPaletteToken = self.colorPaletteToken
 
         UserSettings.isCalendarFormed = true
     }

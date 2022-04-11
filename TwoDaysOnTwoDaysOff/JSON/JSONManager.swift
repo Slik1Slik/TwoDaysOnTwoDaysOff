@@ -29,20 +29,24 @@ class JSONManager {
         do {
              return try decoder.decode(T.self, from: data)
         } catch {
-            throw JSONManagerError.fileReadingFailed
+            throw JSONManagerError.fileDecodingFailed
         }
     }
     
-    func write<T>(_ object: T, to url: URL) -> Bool where T: Encodable
+    func write<T>(_ object: T, to url: URL) throws where T: Encodable
     {
         let encoder = JSONEncoder()
         let formatter = DateConstants.dateFormatter
         
         encoder.dateEncodingStrategy = .formatted(formatter)
         
-        guard let data = try? encoder.encode(object) else {return false}
+        guard let data = try? encoder.encode(object) else {
+            throw AppFileManager.FileManagerError.fileReadingFailed(name: url.lastPathComponent)
+        }
         
-        return AppFileManager().writeFile(to: url, with: data)
+        if !AppFileManager().writeFile(to: url, with: data) {
+            throw AppFileManager.FileManagerError.fileWritingFailed(name: url.lastPathComponent)
+        }
     }
     
     func read<T>(for type: T.Type, from data: Data) throws -> T where T: Decodable
@@ -55,13 +59,13 @@ class JSONManager {
         
         do {
              return try decoder.decode(T.self, from: data)
-        } catch let error {
-            throw error
+        } catch {
+            throw JSONManagerError.fileDecodingFailed
         }
     }
     
     enum JSONManagerError: Error {
-        case fileReadingFailed
-        case fileWritingFailed
+        case fileDecodingFailed
+        case fileEncodingFailed
     }
 }

@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @AppStorage("isCalendarFormed") var isCalendarFormed: Bool = false
     @State var isShown: Bool = false
     var body: some View
     {
         if isCalendarFormed {
-            MonthCalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
-            
+            TabView {
+                CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
+                    .tabItem {
+                        Image(systemName: "calendar")
+                    }
+                    .environment(\.colorPalette, MonochromeColorPalette())
+                    //.environment(\.monthCalendarColorPalette, ApplicationColorPalette.monthCalendar)
+                ExceptionsListView()
+                    .tabItem {
+                        Image(systemName: "calendar")
+                    }
+                    .environment(\.colorPalette, ApplicationColorPalette.shared)
+                    .environment(\.monthCalendarColorPalette, ApplicationColorPalette.monthCalendar)
+            }
         } else {
             ScheduleMakerView()
         }
+            
     }
 }
 

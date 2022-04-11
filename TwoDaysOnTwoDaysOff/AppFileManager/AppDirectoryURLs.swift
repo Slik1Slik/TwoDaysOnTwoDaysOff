@@ -9,8 +9,8 @@ import Foundation
 
 enum AppDirectories : String
 {
-    case Documents = "Documents"
-    case Temp = "tmp"
+    case documents = "Documents"
+    case temp = "tmp"
 }
 
 class AppDirectoryURLs {
@@ -27,10 +27,10 @@ class AppDirectoryURLs {
     func getURL(for directory: AppDirectories) -> URL {
         switch directory
         {
-        case .Documents:
+        case .documents:
             return documentsDirectoryURL()
             
-        case .Temp:
+        case .temp:
             return tempDirectoryURL()
         }
     }

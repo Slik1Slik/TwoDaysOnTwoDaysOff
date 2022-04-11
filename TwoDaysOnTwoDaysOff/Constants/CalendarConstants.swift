@@ -34,10 +34,6 @@ struct LayoutConstants {
     }
 }
 
-struct SidebarConstants {
-    
-}
-
 struct BasicCalendarConstants
 {
     static let paddingLeft: CGFloat = 16
@@ -49,25 +45,28 @@ struct BasicCalendarConstants
     
     static let maximumCalendarWidth: CGFloat = UIScreen.main.bounds.width - BasicCalendarConstants.paddingLeft - BasicCalendarConstants.paddingLeft
     
-    static let maximumCalendarHeight: CGFloat = ExpandedMonthCalendarConstants.maximumCalendarHeight
+    static let maximumCalendarHeight: CGFloat = MonthCalendarLayoutConstants.maximumCalendarHeight
 }
 
-struct ExpandedMonthCalendarConstants
+struct MonthCalendarLayoutConstants
 {
     static let minimumLineSpacing: CGFloat = 15
     static let minimumInteritemSpacing: CGFloat = 10
     
-    static let sectionInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+    static let paddingLeft: CGFloat = LayoutConstants.perfectPadding(16)
+    static let paddingRight: CGFloat = LayoutConstants.perfectPadding(16)
+    static let paddingTop: CGFloat = LayoutConstants.perfectPadding(16)
+    static let paddingBottom: CGFloat = LayoutConstants.perfectPadding(16)
     
-    static let itemWidth = (BasicCalendarConstants.maximumCalendarWidth - sectionInsets.left - sectionInsets.right -  (minimumInteritemSpacing/8))/8
+    static let itemWidth = (BasicCalendarConstants.maximumCalendarWidth - paddingLeft - paddingRight -  (minimumInteritemSpacing/8))/8
     
     static let headerWidth = BasicCalendarConstants.maximumCalendarWidth
     static let headerHeight = itemWidth
     
+    static let exceptionMarkCircleSize: CGFloat = 7
+    
     static let pageHeight = UIScreen.main.bounds.height
     static let pageWidth = UIScreen.main.bounds.width
-    
-    static let paddingTop = pageHeight * 0.078
 
     static let maximumCalendarHeight: CGFloat =
     {
@@ -79,77 +78,5 @@ struct ExpandedMonthCalendarConstants
         let resultHeight = (rowHeight * 7) + headerHeight + minimumLineSpacing
 
         return resultHeight
-    }()
-}
-
-struct CollapsedMonthCalendarConstants
-{
-    static let ratio = YearScaledYearCalendarConstants.ratioBetweenExpandedAndCollapsedMonthCalendars
-    
-    static let minimumLineSpacing: CGFloat =
-    {
-        let expandedCalendarLineSpacing = ExpandedMonthCalendarConstants.minimumLineSpacing
-        
-        let result = expandedCalendarLineSpacing * ratio
-        
-        return result
-    }()
-    
-    static let minimumInteritemSpacing: CGFloat =
-    {
-        let expandedCalendarInteritemSpacing = ExpandedMonthCalendarConstants.minimumInteritemSpacing
-        
-        let result = expandedCalendarInteritemSpacing * ratio
-        
-        return result
-    }()
-    
-    static let sectionInsets: UIEdgeInsets =
-    {
-        let top: CGFloat    = ExpandedMonthCalendarConstants.sectionInsets.top * ratio
-        let bottom: CGFloat = ExpandedMonthCalendarConstants.sectionInsets.bottom * ratio
-        let left: CGFloat   = ExpandedMonthCalendarConstants.sectionInsets.left * ratio
-        let right: CGFloat  = ExpandedMonthCalendarConstants.sectionInsets.right * ratio
-        
-        let result = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
-        
-        return result
-    }()
-    
-    static let itemWidth = (YearScaledYearCalendarConstants.itemWidth - sectionInsets.left - sectionInsets.right - (minimumInteritemSpacing/8))/8
-    
-    static let headerWidth = YearScaledYearCalendarConstants.itemWidth
-    static let headerHeight = itemWidth
-}
-
-struct MonthScaledYearCalendarConstants
-{
-    static let minimumLineSpacing: CGFloat = 0
-    static let minimumInteritemSpacing: CGFloat = 0
-    
-    static let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    
-    static let itemWidth = BasicCalendarConstants.maximumCalendarWidth
-    static let itemHeight = ExpandedMonthCalendarConstants.maximumCalendarHeight
-}
-
-struct YearScaledYearCalendarConstants
-{
-    static let minimumLineSpacing: CGFloat = 5
-    static let minimumInteritemSpacing: CGFloat = 5
-    
-    static let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    
-    static let itemWidth = (BasicCalendarConstants.maximumCalendarWidth - sectionInsets.right - sectionInsets.left - minimumInteritemSpacing - (minimumInteritemSpacing/3))/3
-    
-    static let ratioBetweenExpandedAndCollapsedMonthCalendars: CGFloat = itemWidth / MonthScaledYearCalendarConstants.itemWidth
-    
-    static let itemHeight: CGFloat =
-    {
-        let maximumHeight = MonthScaledYearCalendarConstants.itemHeight
-        
-        let minimumHeight = ratioBetweenExpandedAndCollapsedMonthCalendars * maximumHeight
-        
-        return minimumHeight
     }()
 }

@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
     {
         return true
@@ -16,9 +17,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
     {
-        RealmManager.shared.updateSchema(with: 6)
-        
+        RealmManager.shared.updateSchema(with: 7)
         UserSettings.registerUserSettings()
+        DaysDataStorageManager.shared.updateStorage()
         return true
     }
 }

@@ -18,6 +18,7 @@ struct DaysCountPicker: View {
                         Text(($0+1).description).tag($0+1)
                     }
                 }
+                .pickerStyle(WheelPickerStyle())
                 .labelsHidden()
                 .fixedSize(horizontal: true, vertical: true)
                 .frame(width: geometry.size.width / 2 - 10, height: geometry.size.height * 0.5)

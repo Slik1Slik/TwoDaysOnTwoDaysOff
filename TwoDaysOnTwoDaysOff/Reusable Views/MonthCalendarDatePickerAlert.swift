@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import UIKit
 
 struct MonthCalendarDatePickerAlert: View {
     @Binding private var isPresented: Bool
@@ -34,6 +35,9 @@ struct MonthCalendarDatePickerAlert: View {
                 .foregroundColor(Color(.white))
         )
         .padding(.horizontal)
+        .onChange(of: isPresented) { newValue in
+            //NotificationCenter.default.post(name: , object: nil)
+        }
     }
     
     init(selection: Binding<Date>, range: ClosedRange<Date>, isPresented: Binding<Bool>) {
@@ -63,7 +67,7 @@ extension MonthCalendarDatePickerAlert {
             }
             .disabled(isCurrentMonthFirst())
             Spacer()
-            Text(DateConstants.monthSymbols[date.month! - 1])
+            Text(DateConstants.monthSymbols[date.monthNumber! - 1])
                 .bold()
             Spacer()
             Button {
@@ -84,7 +88,7 @@ extension MonthCalendarDatePickerAlert {
         @ObservedObject private var calendarManager = MonthCalendarManager()
         
         var body: some View {
-            Text(date.day!.description)
+            Text(date.dayNumber!.description)
                 .frame(width: calendarManager.layoutConfiguration.item.width, height: calendarManager.layoutConfiguration.item.height)
                 .background(backgroundColor)
                 .clipShape(Circle())
@@ -117,10 +121,10 @@ extension MonthCalendarDatePickerAlert {
         adjustContent(rowsCount: incomingMonthDaysCount == 42 ? 6 : 5)
     }
     private func isCurrentMonthFirst() -> Bool {
-        return (calendarManager.currentMonth.month == range.lowerBound.month) && (calendarManager.currentMonth.year == range.lowerBound.year)
+        return (calendarManager.currentMonth.monthNumber == range.lowerBound.monthNumber) && (calendarManager.currentMonth.yearNumber == range.lowerBound.yearNumber)
     }
     private func isCurrentMonthLast() -> Bool {
-        return (calendarManager.currentMonth.month == range.upperBound.month) && (calendarManager.currentMonth.year == range.upperBound.year)
+        return (calendarManager.currentMonth.monthNumber == range.upperBound.monthNumber) && (calendarManager.currentMonth.yearNumber == range.upperBound.yearNumber)
     }
     private func adjustContent(rowsCount: Int) {
         let initialLayoutConfiguration = MonthCalendarLayoutConfiguration(width: UIScreen.main.bounds.width / 1.5)
@@ -160,7 +164,7 @@ extension MonthCalendarDatePickerAlert {
     }
     
     private func acceptAction() {
-        self.selection = calendarManager.selectedDate!
+        self.selection = calendarManager.selectedDate
         self.isPresented = false
     }
     

@@ -82,3 +82,30 @@ extension View {
         return self.overlay(content())
     }
 }
+
+extension ScrollView {
+    private typealias PaddedContent = ModifiedContent<Content, _PaddingLayout>
+    
+    func fixFlickering() -> some View {
+        GeometryReader { geo in
+            ScrollView<PaddedContent>(axes, showsIndicators: showsIndicators) {
+                content.padding(geo.safeAreaInsets) as! PaddedContent
+            }
+            .edgesIgnoringSafeArea(.all)
+        }
+    }
+}
+
+extension View {
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
+}

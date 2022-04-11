@@ -60,21 +60,21 @@ extension Date {
         return components
     }
     
-    var day: Int?
+    var dayNumber: Int?
     {
         get {
             return self.baseComponents().day
         }
     }
     
-    var month: Int?
+    var monthNumber: Int?
     {
         get {
             return self.baseComponents().month
         }
     }
     
-    var year: Int?
+    var yearNumber: Int?
     {
         get {
             return self.baseComponents().year
@@ -84,33 +84,38 @@ extension Date {
 
 extension Date {
     
-    func short() -> Date
+    var short: Date
     {
-        let dateFormatter = DateConstants.dateFormatter
-        
-        let string = dateFormatter.string(from: self)
-        
-        return Date(from: string)!
+        get {
+            return DateConstants.calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
+        }
     }
     
-    func monthSymbolAndYear() -> String
-    {
+    func monthSymbol(_ type: MonthSymbolType) -> String {
         let calendar = DateConstants.calendar
-        let components = self.baseComponents()
-        let numberOfMonth = components.month!
-        let year = components.year!
-        
-        return calendar.standaloneMonthSymbols[numberOfMonth - 1].capitalized + " " + year.description
+        switch type {
+        case .monthSymbol:
+            return calendar.monthSymbols[self.monthNumber! - 1]
+        case .shortMonthSymbol:
+            return calendar.shortMonthSymbols[self.monthNumber! - 1]
+        case .standaloneMonthSymbol:
+            return calendar.standaloneMonthSymbols[self.monthNumber! - 1]
+        case .veryShortMonthSymbol:
+            return calendar.veryShortMonthSymbols[self.monthNumber! - 1]
+        case .shortStandaloneMonthSymbol:
+            return calendar.shortStandaloneMonthSymbols[self.monthNumber! - 1]
+        case .veryShortStandaloneMonthSymbol:
+            return calendar.veryShortStandaloneMonthSymbols[self.monthNumber! - 1]
+        }
     }
     
-    func dayNumberAndMonthSymbol() -> String
-    {
-        let calendar = DateConstants.calendar
-        let components = self.baseComponents()
-        let numberOfDay = components.day!.description
-        let monthSymbol = calendar.shortStandaloneMonthSymbols[components.month! - 1]
-        
-        return numberOfDay + " " + monthSymbol
+    enum MonthSymbolType {
+        case monthSymbol
+        case shortMonthSymbol
+        case standaloneMonthSymbol
+        case veryShortMonthSymbol
+        case shortStandaloneMonthSymbol
+        case veryShortStandaloneMonthSymbol
     }
 }
 
@@ -140,7 +145,7 @@ extension Date
 
 extension Date
 {
-    func compare(other: Date) -> DateComparisonResult {
+    func compare(with other: Date) -> DateComparisonResult {
         return DateComparisonResult(a: self, b: other)
     }
     

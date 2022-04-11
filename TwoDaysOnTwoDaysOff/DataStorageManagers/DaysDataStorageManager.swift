@@ -9,121 +9,103 @@ import Foundation
 
 class DaysDataStorageManager
 {
-    static private let fromDate: Date = UserSettings.startDate
-    static private let toDate: Date = UserSettings.finalDate
+    private let fromDate: Date = UserSettings.startDate
+    private let toDate: Date = UserSettings.finalDate
     
-    static private let countOfWorkingDays: Int = UserSettings.countOfWorkingDays!
-    static private let countOfRestDays: Int = UserSettings.countOfRestDays!
+    private let countOfWorkingDays: Int = UserSettings.countOfWorkingDays!
+    private let countOfRestDays: Int = UserSettings.countOfRestDays!
     
-    static private let calendar = DateConstants.calendar
+    private let calendar = DateConstants.calendar
     
-    static let storage: [Day] = {
-        let days = getDays()
-        
-        let filtredDays = filterDays(days)
-        
-        let finalDays = setExceptions(for: filtredDays)
-        
-        return finalDays
-    }()
-    
-    static func find(by date: Date) -> Day?
-    {
-        let day = storage.filter {
-            return calendar.isDate(date, inSameDayAs: $0.date)
+    class var shared: DaysDataStorageManager {
+        get {
+            return DaysDataStorageManager()
         }
-        return day.first
     }
     
-    static func find(interval: DateInterval) -> [Day] {
-        storage
-            .filter { day in
-                interval.contains(day.date)
-            }
+    var storage: [Day] = []
+    
+    func find(by date: Date) -> Day? {
+        storage.filter { calendar.isDate(date, inSameDayAs: $0.date) }.first
     }
     
-    static private func getParsedDays() -> [Day]
+    func find(interval: DateInterval) -> [Day] {
+        storage.filter { interval.contains($0.date) }
+    }
+    
+    func updateStorage() {
+        
+        guard let isCalendarFormed = UserSettings.isCalendarFormed,
+              isCalendarFormed == true,
+              fromDate < Date().short,
+              let currentDay = find(by: Date()),
+              currentDay.isWorking,
+              let dateBefore = calendar.date(byAdding: .day, value: -1, to: Date()),
+              let dayBefore = find(by: dateBefore),
+              !dayBefore.isWorking
+        else { return }
+        
+        UserSettings.startDate = Date().short
+        UserSettings.finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: Date().short) ?? Date().short.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
+    }
+    
+    private func generateDays()
     {
-        let days = getDays()
-        
-        let filtredDays = filterDays(days)
-        
-        let finalDays = setExceptions(for: filtredDays)
-        return finalDays
+        storage = DateConstants.calendar
+            .generateDates(inside: DateInterval(start: fromDate, end: toDate),
+                                                       matching:  DateComponents(hour: 0, minute: 0, second: 0))
+            .map { Day(date: $0, isWorking: false, exception: nil) }
     }
     
-    static private func getDays() -> [Day]
+    private func mapDays()
     {
-        var days = [Day]()
-        
-        let interval = toDate.timeIntervalSince(fromDate)
-        
-        var indexOfEachDay = 0.0
-        
-        while indexOfEachDay <= interval
-        {
-            let date = Date(timeInterval: indexOfEachDay, since: fromDate)
-            days.append(Day(date: date.short()))
-            
-            indexOfEachDay += 60*60*24
-        }
-        return days
-    }
-    
-    
-    static private func filterDays(_ daysToFilter: [Day]) -> [Day]
-    {
-        var days = daysToFilter
-        
         var indexOfEachDay = 0
         var indexOfWorkingDay = 0
         
         var index = 0
         
-        while indexOfEachDay <= days.count
+        while indexOfEachDay < storage.count
         {
             index = indexOfEachDay
             
             while indexOfWorkingDay < countOfWorkingDays
             {
-                guard index < days.count else {return days}
+                guard index < storage.count else { return }
                 
-                days[index].isWorking.toggle()
+                storage[index].isWorking.toggle()
                 indexOfWorkingDay += 1
                 index += 1
             }
             
             indexOfWorkingDay = 0
-            indexOfEachDay += countOfWorkingDays
-            
-            indexOfEachDay += countOfRestDays
+            indexOfEachDay += countOfWorkingDays + countOfRestDays
         }
-        
-        return days
     }
     
-    static private func setExceptions(for days: [Day]) -> [Day]
+    private func setExceptions()
     {
         guard ExceptionsDataStorageManager.shared.countOfObjects() != 0 else {
-            return days
+            return
         }
-        
-        var filtredDays = days
-        
-        for index in 0..<filtredDays.count
+        let lastExceptionDate = ExceptionsDataStorageManager.shared.readAll().sorted { $0.to < $1.to }.last!.to
+        let storageSearchBoundary = (0..<storage.count).filter { index in
+            calendar.isDate(storage[index].date, inSameDayAs: lastExceptionDate)
+        }.first!
+        for index in 0...storageSearchBoundary
         {
-            //guard filtredDays[index].date <= ExceptionsDataStorageManager.readAll().last!.to else {return filtredDays}
-            let exception = ExceptionsDataStorageManager.shared.find(by: filtredDays[index].date)
-            if let exception = exception {
-                filtredDays[index].exception = exception
-                filtredDays[index].isWorking = exception.isWorking
+            if let exception = ExceptionsDataStorageManager.shared.find(by: storage[index].date) {
+                storage[index].exception = exception
             } else {
                 continue
             }
         }
-        return filtredDays
     }
     
+    init() {
+        generateDays()
+        mapDays()
+        setExceptions()
+    }
 }
 
 enum DaysDataStorageManagerErrors: Error

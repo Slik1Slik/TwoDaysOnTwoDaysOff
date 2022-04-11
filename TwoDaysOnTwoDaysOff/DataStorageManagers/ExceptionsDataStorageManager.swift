@@ -57,10 +57,9 @@ class ExceptionsDataStorageManager
         }
     }
     
-    func readAll() -> [Exception]
+    func readAll() -> Results<Exception>
     {
-        let results = realm.objects(Exception.self)
-        return Array(results)
+        return realm.objects(Exception.self)
     }
     
     func update(_ exception: inout Exception, with newException: Exception) throws
@@ -92,6 +91,11 @@ class ExceptionsDataStorageManager
         return Array(results)
     }
     
+    func filtred(by predicate: NSPredicate) -> Results<Exception>
+    {
+        return realm.objects(Exception.self).filter(predicate)
+    }
+    
     func remove(_ exception: Exception) throws
     {
         guard exists(exception) else {
@@ -115,7 +119,7 @@ class ExceptionsDataStorageManager
     {
         try! realm.write {
             realm.objects(Exception.self).forEach { (exception) in
-                if exception.from < Date().short() {
+                if exception.from < Date().short {
                     realm.delete(exception)
                 }
             }

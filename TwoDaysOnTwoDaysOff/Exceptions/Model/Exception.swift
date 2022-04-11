@@ -8,7 +8,8 @@
 import Foundation
 import RealmSwift
 
-class Exception: Object {
+class Exception: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId = .generate()
     @Persisted var from: Date = Date()
     @Persisted var to: Date = Date()
     @Persisted var name: String = ""

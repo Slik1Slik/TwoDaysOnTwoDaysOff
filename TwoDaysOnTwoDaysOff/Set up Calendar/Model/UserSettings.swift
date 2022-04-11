@@ -27,21 +27,6 @@ struct Defaults<T> {
 
 final class UserSettings
 {
-    private enum SettingsKeys: String
-    {
-        case startDate
-        case finalDate
-        
-        case countOfWorkingDays
-        case countOfRestDays
-        
-        case wasApplicationEverLaunched
-        case countOfAppLaunches
-        case isCalendarFormed
-        
-        case restDayCellColor
-        case workingDayCellColor
-    }
     
     private static let userDefaults = UserDefaults.standard
     
@@ -57,7 +42,7 @@ final class UserSettings
         }
         set
         {
-            let parsedDate = newValue.short()
+            let parsedDate = newValue.short
             let interval = parsedDate.timeIntervalSince1970
             userDefaults.set(interval, forKey: "startDate")
         }
@@ -73,9 +58,27 @@ final class UserSettings
         }
         set
         {
-            let parsedDate = newValue.short()
+            let parsedDate = newValue.short
             let interval = parsedDate.timeIntervalSince1970
             userDefaults.set(interval, forKey: "finalDate")
+        }
+    }
+    
+    static var colorPaletteToken: ColorPaletteToken
+    {
+        get
+        {
+            let tokenString = userDefaults.value(forKey: "colorPaletteToken") as! String
+            
+            switch tokenString {
+            case ColorPaletteToken.user.rawValue: return ColorPaletteToken.user
+            case ColorPaletteToken.monochrome.rawValue: return ColorPaletteToken.monochrome
+            default: return ColorPaletteToken.user
+            }
+        }
+        set
+        {
+            userDefaults.set(newValue.rawValue, forKey: "colorPaletteToken")
         }
     }
     
@@ -86,6 +89,8 @@ final class UserSettings
     @Defaults<Bool>(key: "isCalendarFormed") static var isCalendarFormed
     
     @Defaults<Bool>(key: "wasApplicationEverLaunched") static var wasApplicationEverLaunched
+    
+    @Defaults<Bool>(key: "isChecked") static var isChecked
     
     @Defaults<Int>(key: "countOfAppLaunches") static var countOfAppLaunches
     
@@ -107,10 +112,32 @@ final class UserSettings
         userDefaults.register(defaults: [SettingsKeys.countOfWorkingDays.rawValue : 3])
         userDefaults.register(defaults: [SettingsKeys.countOfRestDays.rawValue : 3])
         
+        userDefaults.register(defaults: [SettingsKeys.colorPaletteToken.rawValue : ""])
+        
         userDefaults.register(defaults: [SettingsKeys.wasApplicationEverLaunched.rawValue : true])
         userDefaults.register(defaults: [SettingsKeys.isCalendarFormed.rawValue : false])
         
+        userDefaults.register(defaults: ["isChecked" : false])
+        
         userDefaults.register(defaults: [SettingsKeys.countOfAppLaunches.rawValue : 1])
+    }
+    
+    private enum SettingsKeys: String
+    {
+        case startDate
+        case finalDate
+        
+        case countOfWorkingDays
+        case countOfRestDays
+        
+        case wasApplicationEverLaunched
+        case countOfAppLaunches
+        case isCalendarFormed
+        
+        case restDayCellColor
+        case workingDayCellColor
+        
+        case colorPaletteToken
     }
 }
 
