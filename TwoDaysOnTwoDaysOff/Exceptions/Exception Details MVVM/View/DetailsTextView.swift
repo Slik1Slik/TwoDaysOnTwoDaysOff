@@ -54,7 +54,7 @@ struct DetailsTextView: View {
         Button(action: { selection = "" }) {
             Text("Clear")
             .bold()
-            .foregroundColor(selection.isEmpty ? colorPalette.buttonInactive : colorPalette.buttonPrimary)
+            .foregroundColor(selection.isEmpty ? colorPalette.inactive : colorPalette.buttonPrimary)
         }
         .disabled(selection.isEmpty)
     }

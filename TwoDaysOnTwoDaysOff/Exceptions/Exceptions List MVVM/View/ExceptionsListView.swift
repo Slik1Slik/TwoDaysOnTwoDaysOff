@@ -11,7 +11,7 @@ struct ExceptionsListView: View {
     @ObservedObject private var exceptionListVM = ExceptionListViewModel()
     @State private var isExceptionDetailsViewPresented: Bool = false
     @Environment(\.colorPalette) private var colorPalette
-    @Environment(\.monthCalendarColorPalette) private var monthCalendarColorPalette
+    @Environment(\.calendarColorPalette) private var calendarColorPalette
     
     var body: some View {
         NavigationView {
@@ -30,7 +30,7 @@ struct ExceptionsListView: View {
                         } label: {
                             ExceptionRowLabel(title: exception.name,
                                               subtitle: exception.from.string(format: "dd MMM"),
-                                              markerColor: exception.isWorking ? monthCalendarColorPalette.workingDayBackground : monthCalendarColorPalette.restDayBackground)
+                                              markerColor: exception.isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)
                         }
 
                     }
@@ -88,10 +88,9 @@ struct ExceptionsListView: View {
             isExceptionDetailsViewPresented = true
         } label: {
             Image(systemName: "plus")
-                .renderingMode(.template)
-                .foregroundColor(colorPalette.buttonPrimary)
                 .font(.title2)
         }
+        .foregroundColor(colorPalette.buttonPrimary)
     }
     
     private var switchFilterButton: some View {
@@ -102,7 +101,11 @@ struct ExceptionsListView: View {
         } label: {
             Image(systemName: "archivebox")
         }
-        .buttonStyle(DefaultButton(isHighlighted: exceptionListVM.selection == .outbound))
+        .padding(5)
+        .background(exceptionListVM.selection == .outbound ? colorPalette.buttonPrimary : .clear)
+        .cornerRadius(8)
+        .foregroundColor(exceptionListVM.selection == .outbound ? colorPalette.highlighted : colorPalette.buttonPrimary)
+        .font(.title2)
     }
     
     private var searchButton: some View {
@@ -111,7 +114,7 @@ struct ExceptionsListView: View {
         } label: {
             Image(systemName: "magnifyingglass")
                 .renderingMode(.template)
-                .foregroundColor(isExceptionDetailsViewPresented ? colorPalette.buttonInactive : colorPalette.buttonPrimary)
+                .foregroundColor(isExceptionDetailsViewPresented ? colorPalette.inactive : colorPalette.buttonPrimary)
                 .font(.title2)
         }
     }
@@ -180,7 +183,7 @@ extension ExceptionsListView {
             }
             .padding(.horizontal)
         }
-        .fixFlickering()
+        .fixGlitching()
     }
 }
 

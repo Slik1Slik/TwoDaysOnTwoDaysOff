@@ -81,7 +81,7 @@ struct ExceptionDetailsView: View {
                     .padding()
                     .animation(animation)
                 }
-                .fixFlickering()
+                .fixGlitching()
                 .simultaneousGesture(
                     TapGesture()
                         .onEnded {
@@ -164,7 +164,7 @@ extension ExceptionDetailsView {
         }) {
             Text("Done")
                 .bold()
-                .foregroundColor(viewModel.isValid ? colorPalette.buttonPrimary : colorPalette.buttonInactive)
+                .foregroundColor(viewModel.isValid ? colorPalette.buttonPrimary : colorPalette.inactive)
         }
         .disabled(!viewModel.isValid)
     }

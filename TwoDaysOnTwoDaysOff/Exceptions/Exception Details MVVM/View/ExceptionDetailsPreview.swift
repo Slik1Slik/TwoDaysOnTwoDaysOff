@@ -37,7 +37,6 @@ struct ExceptionDetailsPreview: View {
     private var dayKindLabel: some View {
         //"Внеплановый \(viewModel.isWorking ? "рабочий" : "выходной") день"
         HStack {
-            Image(systemName: "")
             Text("Внеплановый выходной день")
                 .font(.body)
             Spacer()

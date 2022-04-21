@@ -8,109 +8,122 @@
 import Foundation
 import SwiftUI
 
-protocol ColorPalette {
-    var buttonPrimary: Color { get }
-    var buttonSecondary: Color { get }
-    var buttonInactive: Color { get }
-    var buttonHighlighted: Color { get }
-    
-    var textPrimary: Color { get }
-    var textSecondary: Color { get }
-    
-    var backgroundDefault: Color { get }
-    var backgroundForm: Color { get }
-    var backgroundTable: Color { get }
-}
-
 class ApplicationColorPalette {
+    
     static var shared: ColorPalette {
-        switch UserSettings.colorPaletteToken {
-        case .user: return UserColorPalette()
-        case .monochrome: return MonochromeColorPalette()
+        var colorTheme = ColorTheme()
+        let colorPalette = ColorPalette()
+        do {
+            colorTheme = try UserColorThemeManager.shared.find(forID: UserSettings.colorThemeID!)
+        } catch {
+            return colorPalette
         }
+        colorPalette.buttonPrimary = colorTheme.accent.color
+        return colorPalette
     }
     
-    static var monthCalendar: MonthCalendarColorPalette {
-        switch UserSettings.colorPaletteToken {
-        case .user: return MonthCalendarUserColorPalette()
-        case .monochrome: return MonthCalendarMonochromeColorPalette()
+    static var calendar: CalendarColorPalette {
+        var colorTheme = ColorTheme()
+        let colorPalette = CalendarColorPalette()
+        do {
+            colorTheme = try UserColorThemeManager.shared.find(forID: UserSettings.colorThemeID!)
+        } catch {
+            return colorPalette
         }
+        colorPalette.restDayText = colorTheme.restDayText.color
+        colorPalette.workingDayText = colorTheme.workingDayText.color
+        
+        colorPalette.restDayBackground = colorTheme.restDayBackground.color
+        colorPalette.workingDayBackground = colorTheme.workingDayBackground.color
+        
+        return colorPalette
     }
 }
 
-class UserColorPalette: ColorPalette {
-    var buttonPrimary: Color = Color(UserSettings.restDayCellColor!)
-    var buttonSecondary: Color = .primary
-    var buttonInactive: Color = .secondary
-    var buttonHighlighted: Color = .white
+class ColorPalette {
     
-    var textPrimary: Color = .primary
-    var textSecondary: Color = .secondary
+    var inactive: Color
+    var highlighted: Color
     
-    var backgroundDefault: Color = .white
-    var backgroundForm: Color = Color(.systemGray6)
-    var backgroundTable: Color = .gray.opacity(0.04)
-}
-
-class MonochromeColorPalette: ColorPalette {
-    var buttonPrimary: Color = .blue
-    var buttonSecondary: Color = .primary
-    var buttonInactive: Color = .secondary
-    var buttonHighlighted: Color = .white
+    var buttonPrimary: Color
+    var buttonSecondary: Color
     
-    var textPrimary: Color = .primary
-    var textSecondary: Color = .secondary
+    var textPrimary: Color
+    var textSecondary: Color
     
-    var backgroundDefault: Color = .white
-    var backgroundForm: Color = Color(.systemGray6)
-    var backgroundTable: Color = .gray.opacity(0.04)
-}
-
-protocol MonthCalendarColorPalette {
-    var workingDayText: Color { get }
-    var restDayText: Color { get }
+    var backgroundDefault: Color
+    var backgroundForm: Color
     
-    var workingDayBackground: Color { get }
-    var restDayBackground: Color { get }
-}
-
-class MonthCalendarUserColorPalette: MonthCalendarColorPalette {
-    var workingDayText: Color {
-        return .primary
-    }
+    private let baseColor = BaseColor()
+    private let calendarColor = CalendarColor()
     
-    var restDayText: Color {
-        return .white
-    }
-    
-    var workingDayBackground: Color {
-        return Color(UserSettings.workingDayCellColor!)
-    }
-    
-    var restDayBackground: Color {
-        return Color(UserSettings.restDayCellColor!)
+    init() {
+        inactive = baseColor.inactive
+        highlighted = baseColor.highlighted
+        
+        buttonPrimary = baseColor.accentPrimary
+        buttonSecondary = baseColor.accentSecondary
+        
+        textPrimary = baseColor.contentPrimary
+        textSecondary = baseColor.contentSecondary
+        
+        backgroundDefault = baseColor.themePrimary
+        backgroundForm = baseColor.themeSecondary
     }
 }
 
-class MonthCalendarMonochromeColorPalette: MonthCalendarColorPalette {
-    var workingDayText: Color {
-        return .white
-    }
+class CalendarColorPalette {
     
-    var restDayText: Color {
-        return .primary
-    }
+    var workingDayText: Color
+    var restDayText: Color
     
-    var workingDayBackground: Color {
-        return .primary.opacity(0.8)
-    }
+    var workingDayBackground: Color
+    var restDayBackground: Color
     
-    var restDayBackground: Color {
-        return .clear
+    private let calendarColor = CalendarColor()
+    
+    init() {
+        workingDayText = calendarColor.white
+        restDayText = calendarColor.black
+        
+        workingDayBackground = calendarColor.graphite
+        restDayBackground = calendarColor.white
     }
 }
 
 enum ColorPaletteToken: String {
-    case user = "user"
-    case monochrome = "monochrome"
+    case user
+    case monochrome
+}
+
+struct BaseColor {
+    let inactive: Color = Color("inactive")
+    let highlighted: Color = Color("highlighted")
+    
+    let accentPrimary: Color = Color("accentPrimary")
+    let accentSecondary: Color = Color("accentSecondary")
+    
+    let contentPrimary: Color = Color("contentPrimary")
+    let contentSecondary: Color = Color("contentSecondary")
+    
+    let themePrimary: Color = Color("themePrimary")
+    let themeSecondary: Color = Color("themeSecondary")
+    let themeTertiary: Color = Color("themeTertiary")
+}
+
+struct CalendarColor: PropertyIterable {
+    let red: Color = Color("red")
+    let redLight: Color = Color("redLight")
+    
+    let blue: Color = Color("blue")
+    let blueLight: Color = Color("blueLight")
+    
+    let green: Color = Color("green")
+    let greenLight: Color = Color("greenLight")
+    
+    let graphite: Color = Color("graphite")
+    let black: Color = Color("black")
+    
+    let white: Color = Color("white")
+    let clear: Color = .clear
 }

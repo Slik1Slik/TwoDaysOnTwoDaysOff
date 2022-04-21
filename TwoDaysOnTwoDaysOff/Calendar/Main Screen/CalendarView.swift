@@ -19,6 +19,8 @@ struct CalendarView: View {
     @Environment(\.colorPalette) private var colorPalette
     //@Environment(\.monthCalendarColorPalette) var monthCalendarColorPalette
     
+    @State private var calendarMode: CalendarMode = .month
+    
     @State private var isMonthScale = true
     @State private var headerHeight: CGFloat = 0
     
@@ -44,6 +46,10 @@ struct CalendarView: View {
                 .background(colorPalette.backgroundDefault)
                 .navigationBarHidden(true)
                 .navigationBarTitleDisplayMode(.inline)
+                .sidebar(isBarPresented: $isSidebarPresented, type: .large, sidebar: {
+                    Sidebar()
+                })
+                .fixPushingUp()
         }
     }
     
@@ -65,19 +71,40 @@ struct CalendarView: View {
         }
     }
     
-    private var submenuButton: some View {
+    private var navigationBar: some View {
         HStack {
-            Button {
-                withAnimation {
-                    isSidebarPresented = true
-                }
-            } label: {
-                Image(systemName: "line.horizontal.3")
-                    .foregroundColor(.primary)
-                    .font(.title.weight(.thin))
-            }
+            sidebarButton
             Spacer()
         }
+    }
+    
+    private var sidebarButton: some View {
+        Button {
+            withAnimation {
+                isSidebarPresented = true
+            }
+        } label: {
+            Image(systemName: "line.horizontal.3")
+                .foregroundColor(colorPalette.buttonSecondary)
+                .font(.title.weight(.thin))
+        }
+    }
+    
+    private var calendarModeButton: some View {
+        Button(action: {
+            withAnimation {
+                calendarMode.toggle()
+            }
+        }) {
+            Text(calendarManager.currentMonth.yearNumber!.description)
+        }
+        .foregroundColor(colorPalette.buttonPrimary)
+        .font(.title.weight(.thin))
+//        .padding(5)
+//        .background(calendarMode == .year ? colorPalette.buttonPrimary : .clear)
+//        .cornerRadius(8)
+//        .foregroundColor(calendarMode == .year ? colorPalette.highlighted : colorPalette.buttonPrimary)
+//        .font(.title2)
     }
     
     private var getToFirstMonth: some View {
@@ -90,19 +117,6 @@ struct CalendarView: View {
         }
         .foregroundColor(colorPalette.buttonSecondary)
         .font(.title.weight(.thin))
-    }
-    
-    private var calendarModeButton: some View {
-        Button(action: {
-            withAnimation {
-                isMonthScale.toggle()
-            }
-        }) {
-            Text(calendarManager.currentMonth.yearNumber!.description)
-        }
-        .foregroundColor(colorPalette.buttonPrimary)
-        .font(.title.weight(.thin))
-        
     }
     
     private var monthLabel: some View {
@@ -127,6 +141,9 @@ struct CalendarView: View {
     
     private var header: some View {
         VStack(spacing: 0) {
+            navigationBar
+                .padding(.horizontal, LayoutConstants.perfectPadding(16))
+                .padding(.vertical, LayoutConstants.perfectPadding(8))
             VStack(spacing: LayoutConstants.perfectPadding(16)) {
                 HStack {
                     monthLabel
@@ -168,5 +185,19 @@ struct CalendarView: View {
         //let calendarBodyPaddingTop = calendarManager.layoutConfiguration.calendarBody.paddingTop
         
         return headerTextHeight + spacing + headerPaddingTop + weekdaysRowHeight
+    }
+    
+    enum CalendarMode {
+        case month
+        case year
+        
+        mutating func toggle() {
+            switch self {
+            case .month:
+                self = .year
+            case .year:
+                self = .month
+            }
+        }
     }
 }

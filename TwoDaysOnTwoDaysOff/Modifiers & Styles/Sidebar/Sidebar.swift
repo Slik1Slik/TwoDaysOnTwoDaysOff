@@ -12,7 +12,7 @@ struct Sidebar: View {
         HStack {
             ScrollView {
                 VStack {
-                    NavigationLink("Exceptions", destination: ExceptionsListView())
+                    NavigationLink("Exceptions", destination: LazyView(ExceptionsListView()))
                 }
             }
             .padding(.top, LayoutConstants.safeFrame.minY)

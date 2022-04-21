@@ -19,7 +19,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     {
         RealmManager.shared.updateSchema(with: 7)
         UserSettings.registerUserSettings()
-        DaysDataStorageManager.shared.updateStorage()
+        UserDaysDataStorageManager.shared.updateStorage()
+        UserColorThemeManager.shared.createStorageIfNeeded()
+        
         return true
     }
 }

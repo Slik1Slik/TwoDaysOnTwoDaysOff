@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExceptionRow: View, Identifiable {
     
-    @Environment(\.monthCalendarColorPalette) private var monthCalendarColorPalette
+    @Environment(\.calendarColorPalette) private var calendarColorPalette
     
     var id = UUID()
     
@@ -46,7 +46,7 @@ struct ExceptionRow: View, Identifiable {
     
     private var colorMark: some View {
         Capsule(style: .continuous)
-            .foregroundColor(isWorking ? monthCalendarColorPalette.workingDayBackground: monthCalendarColorPalette.restDayBackground)
+            .foregroundColor(isWorking ? calendarColorPalette.workingDayBackground: calendarColorPalette.restDayBackground)
             .frame(maxWidth: 5, maxHeight: .infinity)
     }
     

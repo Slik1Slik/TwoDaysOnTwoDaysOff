@@ -11,66 +11,21 @@ import SwiftUI
 
 class UserSettingsViewModel: ObservableObject
 {
-    @Published var startDate = UserSettings.isCalendarFormed! ? UserSettings.startDate : Date().short {
-        willSet {
-            finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: newValue) ?? newValue.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
-        }
-    }
+    @Published var startDate = UserSettings.isCalendarFormed! ? UserSettings.startDate : Date().short
     @Published var finalDate = Date()
     @Published var countOfWorkingDays = 0
     @Published var countOfRestDays = 0
-    @Published var restDayColor = UserSettings.isCalendarFormed! ? UserSettings.restDayCellColor : "white"
-    @Published var workingDayColor = UserSettings.isCalendarFormed! ? UserSettings.workingDayCellColor : "black"
-    
-    @Published var colorPaletteToken = ColorPaletteToken.user
     
     @Published var colorsErrorMessage = ""
     
-    @Published var isValid = false
-    @Published var areColorsValid = false
-    
     private var cancellableSet: Set<AnyCancellable> = []
-    
-    private var areColorsSpecified: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest($workingDayColor, $restDayColor)
-            .map {
-                return !(($0 == "black") || ($1 == "white"))
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private var areColorsEqual: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest($workingDayColor, $restDayColor)
-            .map {
-                return $0 == $1
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private var areColorsValidPublisher: AnyPublisher<Bool, Never> {
-        Publishers.CombineLatest(areColorsSpecified, areColorsEqual)
-            .map {
-                return $0 && !$1
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    private var areSettingsValid: AnyPublisher<Bool, Never> {
-        areColorsValidPublisher
-            .eraseToAnyPublisher()
-    }
-    
     init()
     {
-        areColorsEqual
-            .map {equal in
-                return equal ? "Цвета дней не должны совпадать" : ""
+        $startDate
+            .map { date in
+                return DateConstants.calendar.date(byAdding: .year, value: 1, to: date) ?? date.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
             }
-            .assign(to: \.colorsErrorMessage, on: self)
-            .store(in: &cancellableSet)
-        
-        areSettingsValid
-            .assign(to: \.isValid, on: self)
+            .assign(to: \.finalDate, on: self)
             .store(in: &cancellableSet)
     }
     
@@ -81,11 +36,6 @@ class UserSettingsViewModel: ObservableObject
 
         UserSettings.countOfWorkingDays = self.countOfWorkingDays + 1
         UserSettings.countOfRestDays = self.countOfRestDays + 1
-
-        UserSettings.workingDayCellColor = self.workingDayColor
-        UserSettings.restDayCellColor = self.restDayColor
-        
-        UserSettings.colorPaletteToken = self.colorPaletteToken
 
         UserSettings.isCalendarFormed = true
     }

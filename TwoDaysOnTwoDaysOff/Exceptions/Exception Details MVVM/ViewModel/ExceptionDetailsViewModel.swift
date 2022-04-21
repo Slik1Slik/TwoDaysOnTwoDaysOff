@@ -140,11 +140,11 @@ class ExceptionDetailsViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { [unowned self] isPeriod, dateFrom, dateTo in
                 guard isPeriod else {
-                    self.isWorking = !DaysDataStorageManager.shared.find(by: dateFrom)!.isWorking
+                    self.isWorking = !UserDaysDataStorageManager.shared.find(by: dateFrom)!.isWorking
                     self.isDayKindChangable = false
                     return
                 }
-                let daysForInterval = DaysDataStorageManager.shared.find(interval: DateInterval(start: dateFrom, end: dateTo))
+                let daysForInterval = UserDaysDataStorageManager.shared.find(by: .interval(DateInterval(start: dateFrom, end: dateTo)))
                 let uniqueElements = daysForInterval
                     .map { day in
                         return day.isWorking

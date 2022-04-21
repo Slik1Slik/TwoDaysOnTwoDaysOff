@@ -22,7 +22,7 @@ struct ScheduleMakerView: View {
                     }
                 } else {Text("")}
                 Spacer()
-                if (currentIndex != 2) {
+                if (currentIndex != 1) {
                     Button("Далее") {
                         withAnimation(.easeInOut) {
                             currentIndex += 1
@@ -33,13 +33,12 @@ struct ScheduleMakerView: View {
                         self.userSettingsVM.saveUserSettings()
                         self.completion()
                     }
-                    .disabled(!userSettingsVM.isValid)
                 }
             }.padding()
             if currentIndex == 0 {
                 ScreenView(currentIndex: 0,
                            title: ScreenTitles.startDate.rawValue,
-                           details: ScreensDetails.startDate.rawValue) {
+                           details: ScreenTitles.startDate.details) {
                     DatePicker("", selection: $userSettingsVM.startDate,
                                in: Date()...Date().addingTimeInterval(Double(DateConstants.dayInSeconds)*30.00), displayedComponents: [.date])
                         .datePickerStyle(WheelDatePickerStyle())
@@ -50,37 +49,10 @@ struct ScheduleMakerView: View {
             if currentIndex == 1 {
                 ScreenView(currentIndex: 1,
                            title: ScreenTitles.schedule.rawValue,
-                           details: ScreensDetails.schedule.rawValue) {
+                           details: ScreenTitles.startDate.details) {
                     DaysCountPicker(workingDays: $userSettingsVM.countOfWorkingDays, restDays: $userSettingsVM.countOfRestDays)
                         .frame(height: UIScreen.main.bounds.size.height * 0.2)
                     
-                }.transition(.scale)
-            }
-            if currentIndex == 2 {
-                ScreenView(currentIndex: 2,
-                           title: ScreenTitles.colors.rawValue,
-                           details: ScreensDetails.colors.rawValue) {
-                    VStack(alignment: .center) {
-                        HStack(alignment: .center, spacing: 10) {
-                            Text("Выходные")
-                            DaysColorsView(.normal) { (color) in
-                                self.userSettingsVM.restDayColor = color
-                            }
-                        }
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 5, trailing: 0))
-                        
-                        HStack(alignment: .center, spacing: 10) {
-                            Text("Рабочие")
-                            DaysColorsView(.reversed) { (color) in
-                                self.userSettingsVM.workingDayColor = color
-                            }
-                        }
-                        .padding(EdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 0))
-                        
-                    }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black.opacity(0.5), lineWidth: 0.4))
                 }.transition(.scale)
             }
         }
@@ -88,24 +60,25 @@ struct ScheduleMakerView: View {
     init(completion: @escaping ()->() = {}) {
         self.completion = completion
     }
+    
+    public enum ScreenTitles: String
+    {
+        case startDate = "Когда у вас ближайшая смена?"
+        case schedule = "Какой у вас рабочий график?"
+        
+        var details: String {
+            switch self {
+            case .startDate:
+                return "Если у вас сегодня не выходной, необходимо выбрать первый рабочий день после предстоящих выходных. От этой даты будет рассчитан график."
+            case .schedule:
+                return "Ваш график, ничего сложного."
+            }
+        }
+    }
 }
 
 struct ScheduleMakerView_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleMakerView()
     }
-}
-
-public enum ScreenTitles: String
-{
-    case startDate = "Когда у вас ближайшая смена?"
-    case schedule = "Какой у вас рабочий график?"
-    case colors = "Цвета дней в календаре"
-}
-
-public enum ScreensDetails: String
-{
-    case startDate = "Если у вас сегодня не выходной, необходимо выбрать первый рабочий день после предстоящих выходных. От этой даты будет рассчитан ваш рабочий год."
-    case schedule = "Ваш график, ничего сложного."
-    case colors = "Цвета можно будет изменить в дальнейшем."
 }

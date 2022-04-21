@@ -9,28 +9,49 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("isCalendarFormed") var isCalendarFormed: Bool = false
+    @AppStorage("colorThemeID") var colorThemeID: String = UserSettings.colorThemeID!
+    @State private var colorPalette: ColorPalette = ColorPalette()
+    @State private var calendarColorPalette: CalendarColorPalette = CalendarColorPalette()
     @State var isShown: Bool = false
     var body: some View
     {
         if isCalendarFormed {
-            TabView {
-                CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
-                    .tabItem {
-                        Image(systemName: "calendar")
-                    }
-                    .environment(\.colorPalette, MonochromeColorPalette())
-                    //.environment(\.monthCalendarColorPalette, ApplicationColorPalette.monthCalendar)
-                ExceptionsListView()
-                    .tabItem {
-                        Image(systemName: "calendar")
-                    }
-                    .environment(\.colorPalette, ApplicationColorPalette.shared)
-                    .environment(\.monthCalendarColorPalette, ApplicationColorPalette.monthCalendar)
+//            TabView {
+//                CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
+//                    .tabItem {
+//                        Image(systemName: "calendar")
+//                    }
+//                    .environment(\.colorPalette, colorPalette)
+//                    .environment(\.calendarColorPalette, calendarColorPalette)
+//                ExceptionsListView()
+//                    .tabItem {
+//                        Image(systemName: "calendar")
+//                    }
+//                    .environment(\.colorPalette, colorPalette)
+//                    .environment(\.calendarColorPalette, calendarColorPalette)
+//                ColorThemeSettingsView()
+//                    .tabItem {
+//                        Image(systemName: "gear")
+//                    }
+//                    .environment(\.colorPalette, colorPalette)
+//            }
+            CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
+                .environment(\.colorPalette, colorPalette)
+                .environment(\.calendarColorPalette, calendarColorPalette)
+            .onChange(of: colorThemeID) { _ in
+                setUpColorPalette()
+            }
+            .onAppear {
+                setUpColorPalette()
             }
         } else {
             ScheduleMakerView()
         }
-            
+    }
+    
+    private func setUpColorPalette() {
+        colorPalette = ApplicationColorPalette.shared
+        calendarColorPalette = ApplicationColorPalette.calendar
     }
 }
 

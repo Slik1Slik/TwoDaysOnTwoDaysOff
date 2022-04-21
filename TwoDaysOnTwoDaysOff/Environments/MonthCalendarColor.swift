@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-private struct MonthCalendarColorPaletteKey: EnvironmentKey {
-    static let defaultValue: MonthCalendarColorPalette = MonthCalendarMonochromeColorPalette()
+private struct CalendarColorPaletteKey: EnvironmentKey {
+    static let defaultValue: CalendarColorPalette = CalendarColorPalette()
 }
 
 extension EnvironmentValues {
-    var monthCalendarColorPalette: MonthCalendarColorPalette {
-        get { self[MonthCalendarColorPaletteKey.self] }
-        set { self[MonthCalendarColorPaletteKey.self] = newValue }
+    var calendarColorPalette: CalendarColorPalette {
+        get { self[CalendarColorPaletteKey.self] }
+        set { self[CalendarColorPaletteKey.self] = newValue }
     }
 }

@@ -17,7 +17,7 @@ class AppDirectoryURLs {
     
     func documentsDirectoryURL() -> URL {
         
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     }
     
     func tempDirectoryURL() -> URL {
@@ -36,11 +36,6 @@ class AppDirectoryURLs {
     }
     
     func getFullPath(forFileName name: String, inDirectory directory: AppDirectories) -> URL {
-        let url = getURL(for: directory).appendingPathComponent(name)
-        
-        if !AppFileStatusChecker().exists(file: url) {
-            let _ = AppFileManager().writeFile(to: url, with: Data())
-        }
-        return url
+        return getURL(for: directory).appendingPathComponent(name)
     }
 }

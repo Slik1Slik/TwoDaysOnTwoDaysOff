@@ -10,12 +10,13 @@ import SwiftUI
 
 struct DefaultButton: ButtonStyle {
     var isHighlighted = false
+    var colorPalette: ColorPalette
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(5)
-            .background(isHighlighted ? ApplicationColorPalette.shared.buttonPrimary : .clear)
+            .background(isHighlighted ? colorPalette.buttonPrimary : .clear)
             .cornerRadius(8)
-            .foregroundColor(isHighlighted ? ApplicationColorPalette.shared.buttonHighlighted : ApplicationColorPalette.shared.buttonPrimary)
+            .foregroundColor(isHighlighted ? colorPalette.highlighted : colorPalette.buttonPrimary)
             .font(.title2)
     }
 }
@@ -26,7 +27,7 @@ struct HighlightedDefaultButton: ButtonStyle {
             .padding(5)
             .background(ApplicationColorPalette.shared.buttonPrimary)
             .cornerRadius(8)
-            .foregroundColor(ApplicationColorPalette.shared.buttonHighlighted)
+            .foregroundColor(ApplicationColorPalette.shared.highlighted)
             .font(.title2)
     }
 }

@@ -12,7 +12,7 @@ struct MonthCalendarPage: View {
     var month: Date
     
     @Environment(\.colorPalette) var colorPalette
-    private var calendarColorPalette: MonthCalendarColorPalette = MonthCalendarMonochromeColorPalette()
+    private var calendarColorPalette: CalendarColorPalette = ApplicationColorPalette.calendar
     
     private var calendarManager: MonthCalendarManager
     
@@ -72,7 +72,7 @@ struct MonthCalendarPage: View {
     private func dateView(date: Date, isWorking: Bool) -> some View {
         DateView(date: date)
             .font(.title3)
-            .foregroundColor(isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)
+            .foregroundColor(isWorking ? calendarColorPalette.workingDayText : calendarColorPalette.restDayText)
             .frame(width: calendarManager.layoutConfiguration.item.width,
                    height: calendarManager.layoutConfiguration.item.width)
             .background(isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)

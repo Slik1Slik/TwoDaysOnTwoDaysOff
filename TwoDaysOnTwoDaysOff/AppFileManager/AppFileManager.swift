@@ -32,7 +32,11 @@ class AppFileManager {
     
     func deleteFile(at url: URL) -> Bool
     {
-        try! FileManager.default.removeItem(at: url)
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            return false
+        }
         return true
     }
     
@@ -43,11 +47,8 @@ class AppFileManager {
         return true
     }
     
-    func createFolder(at url: URL, with data: Data) -> Bool {
-        guard ((try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)) != nil) else {
-            return false
-        }
-        return true
+    func createFolder(at url: URL) -> Bool {
+        ((try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)) != nil)
     }
     
     func loadBundledContent(fromFileNamed name: String, withExtension fileExtension: String) throws -> Data {

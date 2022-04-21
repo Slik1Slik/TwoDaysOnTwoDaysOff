@@ -16,8 +16,7 @@ extension Binding {
     }
     
     var initialValue: AnyPublisher<Value, Never> {
-        return
-            self.publisher()
+        self.publisher()
             .scan(self.wrappedValue) { value, _ in
                 return value
             }
@@ -70,12 +69,12 @@ extension Binding {
 }
 
 extension View {
-     public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
-         let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
-         return clipShape(roundedRect)
-              .overlay(roundedRect.strokeBorder(content, lineWidth: width))
-     }
- }
+    public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
+        let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
+        return clipShape(roundedRect)
+            .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+    }
+}
 
 extension View {
     func overlay<Content: View>(content: @escaping () -> Content) -> some View {
@@ -83,20 +82,30 @@ extension View {
     }
 }
 
+//With a large title of a NavigationView, ScrollView may cause a glitching and unpredictable behaviour of the title.
+//This extension fixes the issue.
 extension ScrollView {
-    private typealias PaddedContent = ModifiedContent<Content, _PaddingLayout>
     
-    func fixFlickering() -> some View {
-        GeometryReader { geo in
-            ScrollView<PaddedContent>(axes, showsIndicators: showsIndicators) {
-                content.padding(geo.safeAreaInsets) as! PaddedContent
+    func fixGlitching() -> some View {
+        GeometryReader { proxy in
+            ScrollView<ModifiedContent<Content, _PaddingLayout>>(axes, showsIndicators: showsIndicators) {
+                content.padding(proxy.safeAreaInsets) as! ModifiedContent<Content, _PaddingLayout>
             }
             .edgesIgnoringSafeArea(.all)
         }
     }
 }
 
+//In some cases, appearing of the keyboard in a sheet pushes up view which presents the sheet. This extension fixes the issue.
 extension View {
+    func fixPushingUp() -> some View {
+        GeometryReader { geometry in
+            ZStack {
+                self
+            }
+        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
 }
 
 extension UINavigationController: UIGestureRecognizerDelegate {
@@ -104,7 +113,7 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
     }

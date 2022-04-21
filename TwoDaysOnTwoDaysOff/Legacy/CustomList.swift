@@ -104,7 +104,7 @@ struct CustomList<Content: View, Data: RandomAccessCollection>: View where Data.
                         .frame(width: 23, height: 23, alignment: .center)
                 } else {
                     circleOutline
-                        .foregroundColor(colorPalette.buttonInactive.opacity(0.8))
+                        .foregroundColor(colorPalette.inactive.opacity(0.8))
                         .frame(width: 23, height: 23, alignment: .center)
                 }
             }

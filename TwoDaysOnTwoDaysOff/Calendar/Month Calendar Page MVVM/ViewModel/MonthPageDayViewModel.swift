@@ -27,7 +27,7 @@ class MonthPageDayViewModel: ObservableObject {
     init() {
         $month
             .map { date in
-                DaysDataStorageManager.shared.find(interval: DateConstants.calendar.dateInterval(of: .month, for: date)!)
+                UserDaysDataStorageManager.shared.find(by: .month(date))
             }
             .assign(to: \.days, on: self)
             .store(in: &cancellableSet)

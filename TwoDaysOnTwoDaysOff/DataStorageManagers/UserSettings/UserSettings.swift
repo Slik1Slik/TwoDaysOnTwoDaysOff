@@ -32,6 +32,35 @@ final class UserSettings
     
     //@Defaults<Date>(key: "startDate") static var startDate
     
+    static var schedule: Schedule
+    {
+        get
+        {
+            let startDateInterval = userDefaults.value(forKey: "startDate") as! Double
+            let finalDateInterval = userDefaults.value(forKey: "finalDate") as! Double
+            
+            let countOfWorkingDays = userDefaults.value(forKey: "countOfWorkingDays") as! Int
+            let countOfRestDays = userDefaults.value(forKey: "countOfRestDays") as! Int
+            
+            return Schedule(startDate: Date.init(timeIntervalSince1970: startDateInterval),
+                             finalDate: Date.init(timeIntervalSince1970: finalDateInterval),
+                             countOfWorkingDays: countOfWorkingDays,
+                             countOfRestDays: countOfRestDays)
+        }
+        
+        set
+        {
+            let dateFromValue = newValue.startDate.short.timeIntervalSince1970
+            let dateToValue = newValue.finalDate.short.timeIntervalSince1970
+            
+            userDefaults.set(dateFromValue, forKey: "startDate")
+            userDefaults.set(dateToValue, forKey: "finalDate")
+            
+            userDefaults.set(newValue.countOfWorkingDays, forKey: "countOfWorkingDays")
+            userDefaults.set(newValue.countOfRestDays, forKey: "countOfRestDays")
+        }
+    }
+    
     static var startDate: Date
     {
         get
@@ -90,13 +119,13 @@ final class UserSettings
     
     @Defaults<Bool>(key: "wasApplicationEverLaunched") static var wasApplicationEverLaunched
     
-    @Defaults<Bool>(key: "isChecked") static var isChecked
-    
     @Defaults<Int>(key: "countOfAppLaunches") static var countOfAppLaunches
     
     @Defaults<String>(key: "restDayCellColor") static var restDayCellColor
     
     @Defaults<String>(key: "workingDayCellColor") static var workingDayCellColor
+    
+    @Defaults<String>(key: "colorThemeID") static var colorThemeID
     
     static func registerUserSettings()
     {
@@ -113,11 +142,10 @@ final class UserSettings
         userDefaults.register(defaults: [SettingsKeys.countOfRestDays.rawValue : 3])
         
         userDefaults.register(defaults: [SettingsKeys.colorPaletteToken.rawValue : ""])
+        userDefaults.register(defaults: [SettingsKeys.colorThemeID.rawValue : "Монохром"])
         
         userDefaults.register(defaults: [SettingsKeys.wasApplicationEverLaunched.rawValue : true])
         userDefaults.register(defaults: [SettingsKeys.isCalendarFormed.rawValue : false])
-        
-        userDefaults.register(defaults: ["isChecked" : false])
         
         userDefaults.register(defaults: [SettingsKeys.countOfAppLaunches.rawValue : 1])
     }
@@ -138,6 +166,7 @@ final class UserSettings
         case workingDayCellColor
         
         case colorPaletteToken
+        case colorThemeID
     }
 }
 
