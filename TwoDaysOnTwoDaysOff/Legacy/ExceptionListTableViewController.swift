@@ -45,9 +45,9 @@ class ExceptionListTableViewController: UITableViewController {
         case .predicate(let nsPredicate):
             predicate = nsPredicate
         case .new:
-            predicate = NSPredicate(format: "to >= %@", argumentArray: [Date().short])
+            predicate = NSPredicate(format: "to >= %@", argumentArray: [Date().startOfDay])
         case .outbound:
-            predicate = NSPredicate(format: "to <= %@", argumentArray: [Date().short])
+            predicate = NSPredicate(format: "to <= %@", argumentArray: [Date().startOfDay])
         }
         self.exceptions = Array(ExceptionsDataStorageManager.shared.filtred(by: predicate).sorted(byKeyPath: "from", ascending: false))
     }

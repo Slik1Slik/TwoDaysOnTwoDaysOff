@@ -27,16 +27,16 @@ class ExceptionListViewModel: ObservableObject {
     init() {
         Publishers.CombineLatest3($selection, $listMode, $searchText)
             .receive(on: RunLoop.main)
-            .sink { [unowned self] _, _, _ in
+            .sink { [weak self] _, _, _ in
                 DispatchQueue.main.async {
-                    queryExceptions()
+                    self?.queryExceptions()
                 }
             }
             .store(in: &cancellableSet)
         
-        exceptionsObserver.onObjectsHaveBeenChanged = { [unowned self] in
+        exceptionsObserver.onObjectsHaveBeenChanged = { [weak self] in
             DispatchQueue.main.async {
-                queryExceptions()
+                self?.queryExceptions()
             }
         }
     }
@@ -66,7 +66,7 @@ class ExceptionListViewModel: ObservableObject {
             format = "to < %@"
         }
         argumentArray.removeAll()
-        argumentArray.append(Date().short)
+        argumentArray.append(Date().startOfDay)
         if listMode == .search {
             format += " AND name CONTAINS %@ OR details CONTAINS %@"
             argumentArray.append(searchText)

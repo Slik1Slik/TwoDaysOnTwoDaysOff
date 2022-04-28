@@ -38,6 +38,14 @@ class ApplicationColorPalette {
         
         return colorPalette
     }
+    
+    static var monochromeColorPalette: ColorPalette {
+        return ColorPalette()
+    }
+    
+    static var monochromeCalendarColorPalette: CalendarColorPalette {
+        return CalendarColorPalette()
+    }
 }
 
 class ColorPalette {
@@ -47,15 +55,17 @@ class ColorPalette {
     
     var buttonPrimary: Color
     var buttonSecondary: Color
+    var buttonTertiary: Color
     
     var textPrimary: Color
     var textSecondary: Color
+    var textTertiary: Color
     
-    var backgroundDefault: Color
-    var backgroundForm: Color
+    var backgroundPrimary: Color
+    var backgroundSecondary: Color
+    var backgroundTertiary: Color
     
     private let baseColor = BaseColor()
-    private let calendarColor = CalendarColor()
     
     init() {
         inactive = baseColor.inactive
@@ -63,12 +73,15 @@ class ColorPalette {
         
         buttonPrimary = baseColor.accentPrimary
         buttonSecondary = baseColor.accentSecondary
+        buttonTertiary = baseColor.accentTertiary
         
         textPrimary = baseColor.contentPrimary
         textSecondary = baseColor.contentSecondary
+        textTertiary = baseColor.contentTertiary
         
-        backgroundDefault = baseColor.themePrimary
-        backgroundForm = baseColor.themeSecondary
+        backgroundPrimary = baseColor.themePrimary
+        backgroundSecondary = baseColor.themeSecondary
+        backgroundTertiary = baseColor.themeTertiary
     }
 }
 
@@ -80,20 +93,15 @@ class CalendarColorPalette {
     var workingDayBackground: Color
     var restDayBackground: Color
     
-    private let calendarColor = CalendarColor()
+    private let monochromeColorTheme = DefaultColorTheme.monochrome.theme
     
     init() {
-        workingDayText = calendarColor.white
-        restDayText = calendarColor.black
+        workingDayText = monochromeColorTheme.workingDayText.color
+        restDayText = monochromeColorTheme.restDayText.color
         
-        workingDayBackground = calendarColor.graphite
-        restDayBackground = calendarColor.white
+        workingDayBackground = monochromeColorTheme.workingDayBackground.color
+        restDayBackground = monochromeColorTheme.restDayBackground.color
     }
-}
-
-enum ColorPaletteToken: String {
-    case user
-    case monochrome
 }
 
 struct BaseColor {
@@ -102,28 +110,13 @@ struct BaseColor {
     
     let accentPrimary: Color = Color("accentPrimary")
     let accentSecondary: Color = Color("accentSecondary")
+    let accentTertiary: Color = Color("accentTertiary")
     
     let contentPrimary: Color = Color("contentPrimary")
     let contentSecondary: Color = Color("contentSecondary")
+    let contentTertiary: Color = Color("contentTertiary")
     
     let themePrimary: Color = Color("themePrimary")
     let themeSecondary: Color = Color("themeSecondary")
     let themeTertiary: Color = Color("themeTertiary")
-}
-
-struct CalendarColor: PropertyIterable {
-    let red: Color = Color("red")
-    let redLight: Color = Color("redLight")
-    
-    let blue: Color = Color("blue")
-    let blueLight: Color = Color("blueLight")
-    
-    let green: Color = Color("green")
-    let greenLight: Color = Color("greenLight")
-    
-    let graphite: Color = Color("graphite")
-    let black: Color = Color("black")
-    
-    let white: Color = Color("white")
-    let clear: Color = .clear
 }

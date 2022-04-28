@@ -8,19 +8,31 @@
 import SwiftUI
 
 struct ScheduleMakerView: View {
+    
     @ObservedObject private var userSettingsVM = UserSettingsViewModel()
+    @ObservedObject private var calendarManager: CalendarManager
+    
+    @Environment(\.colorPalette) private var colorPalette
+    
     @State private var currentIndex: Int = 0
+    
     private var completion = {}
+    
     var body: some View {
         VStack(spacing: 30) {
             HStack {
                 if currentIndex != 0 {
-                    Button("Back") {
+                    Button {
                         withAnimation(.easeInOut) {
                             self.currentIndex -= 1
                         }
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(colorPalette.buttonPrimary)
+                            .font(.headline)
                     }
-                } else {Text("")}
+
+                }
                 Spacer()
                 if (currentIndex != 1) {
                     Button("Далее") {
@@ -28,37 +40,48 @@ struct ScheduleMakerView: View {
                             currentIndex += 1
                         }
                     }
+                    .font(.headline)
+                    .foregroundColor(colorPalette.buttonPrimary)
                 } else {
                     Button("Готово") {
                         self.userSettingsVM.saveUserSettings()
                         self.completion()
                     }
+                    .font(.headline)
+                    .foregroundColor(colorPalette.buttonPrimary)
                 }
-            }.padding()
+            }
+            .padding()
+            
             if currentIndex == 0 {
                 ScreenView(currentIndex: 0,
                            title: ScreenTitles.startDate.rawValue,
                            details: ScreenTitles.startDate.details) {
-                    DatePicker("", selection: $userSettingsVM.startDate,
-                               in: Date()...Date().addingTimeInterval(Double(DateConstants.dayInSeconds)*30.00), displayedComponents: [.date])
-                        .datePickerStyle(WheelDatePickerStyle())
-                        .environment(\.locale, .init(identifier: "ru_RU"))
-                        .frame(width: UIScreen.main.bounds.width - 32, alignment: .center)
+                    CompactMonthCalendarView(calendarManager: calendarManager)
+
                 }.transition(.scale)
             }
+            
             if currentIndex == 1 {
                 ScreenView(currentIndex: 1,
                            title: ScreenTitles.schedule.rawValue,
-                           details: ScreenTitles.startDate.details) {
+                           details: ScreenTitles.schedule.details) {
                     DaysCountPicker(workingDays: $userSettingsVM.countOfWorkingDays, restDays: $userSettingsVM.countOfRestDays)
-                        .frame(height: UIScreen.main.bounds.size.height * 0.2)
                     
                 }.transition(.scale)
             }
         }
+        .onChange(of: calendarManager.selectedDate) { newValue in
+            userSettingsVM.startDate = newValue
+        }
     }
-    init(completion: @escaping ()->() = {}) {
-        self.completion = completion
+    
+    init() {
+        let interval = DateInterval(start: Date().startOfDay, end: Date().addingTimeInterval(Double(DateConstants.dayInSeconds)*30.00))
+        self.calendarManager = CalendarManager(calendar: DateConstants.calendar,
+                                                    interval: interval,
+                                                    initialDate: Date().startOfDay,
+                                                    layoutConfiguration: .alert)
     }
     
     public enum ScreenTitles: String

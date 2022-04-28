@@ -19,9 +19,8 @@ struct MonthAccessoryView: View {
     @Environment(\.colorPalette) var colorPalette
     
     var body: some View {
-        VStack(spacing: LayoutConstants.perfectPadding(8)) {
+        VStack(spacing: LayoutConstants.perfectPadding(16)) {
             if viewModel.isValid {
-                controlBox
                 exceptionHeader
                 exceptionDetails
                 Spacer()
@@ -33,29 +32,29 @@ struct MonthAccessoryView: View {
         }
         .padding(LayoutConstants.perfectPadding(16))
         .frame(maxWidth: .infinity)
-        .background(colorPalette.backgroundDefault.ignoresSafeArea(.all, edges: [.bottom,.horizontal]))
+        .background(colorPalette.backgroundPrimary.ignoresSafeArea(.all, edges: [.bottom,.horizontal]))
         .sheet(isPresented: $isExceptionDetailsViewPresented) {
             NavigationView {
-                ExceptionDetailsView(date: date) {
-                    isExceptionDetailsViewPresented = false
-                    
-                }
+                ExceptionDetailsView(date: date)
                 .environment(\.colorPalette, colorPalette)
             }
         }
         .alert(isPresented: $viewModel.isFailed) {
-            Alert(title: Text("Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text(""), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
         }
         .alert(isPresented: $isRemoveMessageAlertPresented) {
-            Alert(title: Text("Alert"),
-                  message: Text("Are you sure you want to delete this exception?"),
-                  primaryButton: .default(Text("Yes"), action: { viewModel.remove() }),
-                  secondaryButton: .cancel())
+            Alert(title: Text("Предупреждение"),
+                  message: Text("Вы уверены, что хотите удалить исключение? Отменить это действие будет невозможно."),
+                  primaryButton: .destructive(Text("Удалить"), action: { viewModel.remove() }),
+                  secondaryButton: .cancel(Text("Отмена")))
         }
     }
     
-    private var updateExceptionButton: some View {
-        Button(action: {}) {
+    private var updateExceptionLink: some View {
+        NavigationLink {
+            ExceptionDetailsView(date: date)
+            .environment(\.colorPalette, colorPalette)
+        } label: {
             Image(systemName: "square.and.pencil")
         }
         .foregroundColor(colorPalette.buttonPrimary)
@@ -76,27 +75,26 @@ struct MonthAccessoryView: View {
         } label: {
             Image(systemName: "plus")
                 .renderingMode(.template)
-                .foregroundColor(Color(.systemGray4))
+                .foregroundColor(colorPalette.buttonTertiary)
                 .font(.system(size: LayoutConstants.perfectPadding(36)).weight(.thin))
         }
     }
     
     private var controlBox: some View {
-        HStack(alignment: .lastTextBaseline, spacing: LayoutConstants.perfectPadding(5)) {
-            Spacer()
+        HStack(spacing: LayoutConstants.perfectPadding(5)) {
             removeExceptionButton
-            updateExceptionButton
+            updateExceptionLink
         }
     }
     
     private var exceptionHeader: some View {
         HStack {
             Text(viewModel.name)
-                .font(.title2)
-                .bold()
-            Spacer()
-            Text(exceptionDateLabel)
                 .font(.title3)
+                .bold()
+                .lineLimit(2)
+            Spacer()
+            controlBox
         }
     }
     
@@ -115,6 +113,7 @@ struct MonthAccessoryView: View {
         return HStack {
             Text(viewModel.details)
                 .lineLimit(4)
+                .foregroundColor(colorPalette.textSecondary)
             Spacer()
         }
     }
@@ -123,7 +122,7 @@ struct MonthAccessoryView: View {
         VStack(spacing: 10) {
             Text("Исключение еще не назначено")
                 .font(.title3)
-                .foregroundColor(Color(.systemGray4))
+                .foregroundColor(colorPalette.textTertiary)
             addExceptionButton
         }
     }

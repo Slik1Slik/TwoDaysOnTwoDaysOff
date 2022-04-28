@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct ScreenView<Content: View>: View {
-    let content: Content
+    
+    let content: () -> Content
     
     var currentIndex: Int
     var title: String
     var details: String
+    
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
-            VStack(alignment: .center, spacing: 15) {
-                Text(title)
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                content
-            }
-            .padding([.leading, .trailing])
+        VStack(spacing: LayoutConstants.perfectPadding(25)) {
+            Text(title)
+                .font(.title)
+                .multilineTextAlignment(.center)
+            content()
             Text(details)
                 .font(.caption)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.gray)
                 .padding(.horizontal)
         }
+        .padding(LayoutConstants.perfectPadding(16))
         Spacer()
     }
     
@@ -35,7 +35,7 @@ struct ScreenView<Content: View>: View {
         self.currentIndex = currentIndex
         self.title = title
         self.details = details
-        self.content = content()
+        self.content = content
     }
 }
 

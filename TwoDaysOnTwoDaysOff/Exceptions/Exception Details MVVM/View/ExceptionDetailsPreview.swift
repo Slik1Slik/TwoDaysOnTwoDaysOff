@@ -11,18 +11,43 @@ struct ExceptionDetailsPreview: View {
     
     //private var viewModel: ExceptionDetailsViewModel
     
+    @Environment(\.colorPalette) private var colorPalette
+    @Environment(\.presentationMode) private var presentationMode
+    
     var body: some View {
-        NavigationView {
-            VStack(spacing: 16) {
-                titleLabel
-                dayKindLabel
-                dateIntervalLabel
-                detailsLabel
-                Spacer()
-            }
+        VStack(spacing: 16) {
+            titleLabel
+            dayKindLabel
+            dateIntervalLabel
+            detailsLabel
+            Spacer()
+        }
+        .padding()
+        .navigationBarHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private var navigationBar: some View {
+        Text("Детали")
+            .bold()
+            .frame(maxWidth: .infinity, alignment: .center)
+            .overlay(
+                HStack{
+                    backButton
+                    Spacer()
+                }
+            )
             .padding()
-            .navigationTitle("Детали")
-            .navigationBarTitleDisplayMode(.inline)
+        
+    }
+    
+    private var backButton: some View {
+        Button {
+            presentationMode.wrappedValue.dismiss()
+        } label: {
+            Image(systemName: "chevron.left")
+                .foregroundColor(colorPalette.buttonPrimary)
+                .font(.title2)
         }
     }
     
@@ -62,7 +87,7 @@ struct ExceptionDetailsPreview: View {
                 Spacer()
             }
             HStack {
-                Text("Вот так вот в жизни бывает, пиздец просто, я ебал того маму, как же все остопиздело")
+                Text("Вот так вот в жизни бывает")
                     .font(.caption)
                     .foregroundColor(.gray)
                 Spacer()

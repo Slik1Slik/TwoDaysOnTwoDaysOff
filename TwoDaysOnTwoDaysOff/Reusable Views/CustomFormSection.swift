@@ -12,7 +12,7 @@ struct CustomSection<Header, Footer, Content>: View where Header: View, Footer: 
     var footer: Footer
     @ViewBuilder var content: () -> Content
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             header
             content()
                 .padding([.horizontal], 16)
@@ -31,24 +31,24 @@ struct CustomSection<Header, Footer, Content>: View where Header: View, Footer: 
     }
 }
 
-extension CustomSection where Header == EmptyView {
-    init(header: Header = EmptyView(), footer: Footer, @ViewBuilder content: @escaping ()->Content) {
+extension CustomSection where Header == Text {
+    init(header: Header = Text(" "), footer: Footer, @ViewBuilder content: @escaping ()->Content) {
         self.header = header
         self.footer = footer
         self.content = content
     }
 }
 
-extension CustomSection where Footer == EmptyView {
-    init(header: Header, footer: Footer = EmptyView(), @ViewBuilder content: @escaping ()->Content) {
+extension CustomSection where Footer == Text {
+    init(header: Header, footer: Footer = Text(" "), @ViewBuilder content: @escaping ()->Content) {
         self.header = header
         self.footer = footer
         self.content = content
     }
 }
 
-extension CustomSection where Header == EmptyView, Footer == EmptyView {
-    init(header: Header = EmptyView(), footer: Footer = EmptyView(), @ViewBuilder content: @escaping ()->Content) {
+extension CustomSection where Header == Text, Footer == Text {
+    init(header: Header = Text(" "), footer: Footer = Text(" "), @ViewBuilder content: @escaping ()->Content) {
         self.header = header
         self.footer = footer
         self.content = content

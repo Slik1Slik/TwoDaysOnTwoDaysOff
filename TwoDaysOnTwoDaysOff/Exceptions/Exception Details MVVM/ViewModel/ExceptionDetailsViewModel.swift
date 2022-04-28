@@ -33,6 +33,14 @@ class ExceptionDetailsViewModel: ObservableObject {
     
     @Published var errorMessage: String = ""
     
+    var nameTextFieldPlaceholder: String {
+        if isWorking {
+            return isDayKindChangable ? "Командировка" : "Подработка"
+        } else {
+            return isDayKindChangable ? "Отпуск" : "Отгул"
+        }
+    }
+    
     internal var isNameFilled: AnyPublisher<Bool, Never> {
         $name
             .map { string in
@@ -109,6 +117,18 @@ class ExceptionDetailsViewModel: ObservableObject {
     internal var cancellableSet: Set<AnyCancellable> = []
     
     init() {
+        setSubscriptions()
+    }
+    
+    func save() {
+        do {
+            try ExceptionsDataStorageManager.shared.save(newException)
+        } catch let error {
+            self.errorMessage = (error as! ExceptionsDataStorageManagerErrors).localizedDescription
+        }
+    }
+    
+    private func setSubscriptions() {
         isNameSymbolsCountCorrect
             .receive(on: RunLoop.main)
             .map { valid in
@@ -166,18 +186,6 @@ class ExceptionDetailsViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .assign(to: \.isValid, on: self)
             .store(in: &cancellableSet)
-    }
-    
-    init(data: Data) {
-        
-    }
-    
-    func save() {
-        do {
-            try ExceptionsDataStorageManager.shared.save(newException)
-        } catch let error {
-            self.errorMessage = (error as! ExceptionsDataStorageManagerErrors).localizedDescription
-        }
     }
     
     internal var newException: Exception {

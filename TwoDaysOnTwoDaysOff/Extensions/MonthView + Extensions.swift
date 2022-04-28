@@ -13,7 +13,7 @@ extension MonthView where Header == DefaultHeader,
                           DateView == DefaultDateView {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true
     ) {
@@ -38,7 +38,7 @@ extension MonthView where Header == DefaultHeader,
                           WeekdaysRow == DefaultWeekdaysRow {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true,
          @ViewBuilder dateView: @escaping (Date) -> DateView
@@ -62,7 +62,7 @@ extension MonthView where DateView == DefaultDateView,
                           WeekdaysRow == DefaultWeekdaysRow {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true,
          @ViewBuilder header: @escaping (Date) -> Header
@@ -86,7 +86,7 @@ extension MonthView where DateView == DefaultDateView,
                           Header == DefaultHeader {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true,
          @ViewBuilder weekdaysRow: @escaping () -> WeekdaysRow
@@ -107,7 +107,7 @@ extension MonthView where DateView == DefaultDateView,
 extension MonthView where DateView == DefaultDateView {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true,
          @ViewBuilder header: @escaping (Date) -> Header,
@@ -128,7 +128,7 @@ extension MonthView where DateView == DefaultDateView {
 extension MonthView where Header == DefaultHeader {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true,
          @ViewBuilder dateView: @escaping (Date) -> DateView,
@@ -149,7 +149,7 @@ extension MonthView where Header == DefaultHeader {
 extension MonthView where WeekdaysRow == DefaultWeekdaysRow {
     
     init(month: Date,
-         calendarManager: MonthCalendarManager,
+         calendarManager: CalendarManager,
          showsHeader: Bool = true,
          showsWeekdaysRow: Bool = true,
          @ViewBuilder dateView: @escaping (Date) -> DateView,
@@ -174,7 +174,7 @@ extension MonthView where WeekdaysRow == DefaultWeekdaysRow {
 //MARK: Default placeholders if the views do not need to be specified
 struct DefaultDateView: View {
     var date: Date
-    var calendarManager: MonthCalendarManager
+    var calendarManager: CalendarManager
     
     var body: some View {
         Text(date.dayNumber!.description)
@@ -188,7 +188,7 @@ struct DefaultDateView: View {
 
 struct DefaultHeader: View {
     var date: Date
-    var calendarManager: MonthCalendarManager
+    var calendarManager: CalendarManager
     
     var body: some View {
         HStack {
@@ -200,7 +200,7 @@ struct DefaultHeader: View {
 }
 
 struct DefaultWeekdaysRow: View {
-    var calendarManager: MonthCalendarManager
+    var calendarManager: CalendarManager
     
     var body: some View {
         HStack(spacing: calendarManager.layoutConfiguration.calendarBody.interitemSpacing) {

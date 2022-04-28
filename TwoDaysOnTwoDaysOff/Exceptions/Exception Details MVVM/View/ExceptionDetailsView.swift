@@ -12,10 +12,11 @@ import Combine
 struct ExceptionDetailsView: View {
     
     @ObservedObject private var viewModel: ExceptionDetailsViewModel
+    
     @State private var isAlertPresented = false
     @State private var caller = DatePickerCaller.from
     @State private var brightness: Double = 0
-    @State private var animation: Animation? = .none
+    @State private var formAnimation: Animation? = .none
     
     @Environment(\.colorPalette) private var colorPalette
     @Environment(\.presentationMode) private var presentationMode
@@ -30,46 +31,43 @@ struct ExceptionDetailsView: View {
                 Divider()
                 ScrollView {
                     VStack(spacing: 16) {
-                        Section(header: header("Name"), footer: footer(viewModel.nameErrorMessage)) {
-                            TextField("Name", text: $viewModel.name, onCommit: {
+                        Section(header: header("НАЗВАНИЕ"), footer: footer(viewModel.nameErrorMessage)) {
+                            TextField(viewModel.nameTextFieldPlaceholder, text: $viewModel.name, onCommit: {
                                 endEditing()
                             })
                         }
-                        Section(header: header("Period"), footer: footer(viewModel.datesErrorMessage)) {
-                            VStack(spacing: 5) {
+                        Section(header: header("ПЕРИОД"), footer: footer(viewModel.datesErrorMessage)) {
+                            VStack(spacing: 10) {
                                 dateRow(
-                                    title: viewModel.isPeriod ? "From" : "Date",
+                                    title: viewModel.isPeriod ? "Начало" : "Дата",
                                     selection: $viewModel.from) {
                                         self.isAlertPresented = true
                                         self.caller = .from
                                     }
                                 if viewModel.isPeriod {
-                                    withAnimation(.easeOut(duration: 0.3)) {
-                                        dateRow(
-                                            title: "To",
-                                            selection: $viewModel.to) {
-                                                self.isAlertPresented = true
-                                                self.caller = .to
-                                            }
-                                    }
+                                    dateRow(
+                                        title: "Завершение",
+                                        selection: $viewModel.to) {
+                                            self.isAlertPresented = true
+                                            self.caller = .to
+                                        }
                                 }
                                 Divider()
-                                Toggle("Period", isOn: $viewModel.isPeriod)
-                                    .onChange(of: viewModel.isPeriod) { _ in
-                                        animation = .linear
-                                    }
+                                    .padding(.trailing, -LayoutConstants.perfectPadding(16))
+                                Toggle("Период", isOn: $viewModel.isPeriod)
                             }
                         }
                         if viewModel.isDayKindChangable {
-                            Section(header: header("Day kind")) {
+                            Section(header: header("ДЕНЬ")) {
                                 DayKindPicker(selection: $viewModel.isWorking)
+                                    .environment(\.colorPalette, colorPalette)
                             }
                         }
-                        Section(header: header("Details"), footer: footer("")) {
+                        Section(header: header("ДЕТАЛИ"), footer: footer("")) {
                             NavigationLink(destination: DetailsTextView(selection: $viewModel.details).environment(\.colorPalette, colorPalette)) {
                                 HStack {
-                                    Text(viewModel.details)
-                                        .foregroundColor(colorPalette.textPrimary)
+                                    Text(detailsText)
+                                        .foregroundColor(colorPalette.textTertiary)
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .renderingMode(.template)
@@ -78,17 +76,11 @@ struct ExceptionDetailsView: View {
                             }
                         }
                     }
-                    .padding()
-                    .animation(animation)
+                    .padding(LayoutConstants.perfectPadding(16))
+                    .animation(formAnimation)
                 }
                 .fixGlitching()
-                .simultaneousGesture(
-                    TapGesture()
-                        .onEnded {
-                            endEditing()
-                        }
-                )
-                .background(colorPalette.backgroundForm.ignoresSafeArea())
+                .background(colorPalette.backgroundSecondary.ignoresSafeArea())
                 .ignoresSafeArea(.container, edges: .bottom)
             }
             .brightness(brightness)
@@ -101,6 +93,16 @@ struct ExceptionDetailsView: View {
                 }
             }
             .zIndex(1)
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded {
+                        endEditing()
+                        isAlertPresented = false
+                        if formAnimation == .none {
+                            formAnimation = .linear
+                        }
+                    }
+            )
             if isAlertPresented {
                 currentDatePicker()
                     .transition(.asymmetric(insertion: .scale.animation(.easeOut), removal: .opacity.animation(.easeIn(duration: 0.1))))
@@ -108,7 +110,6 @@ struct ExceptionDetailsView: View {
             }
         }
         .navigationBarHidden(true)
-        .navigationBarTitle("Details")
     }
     
     private func darken() {
@@ -126,12 +127,16 @@ struct ExceptionDetailsView: View {
     private func endEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
+    private var detailsText: String {
+        return viewModel.details.isEmpty ? "Описание" : viewModel.details
+    }
 }
 
 extension ExceptionDetailsView {
     
     private var navigationBar: some View {
-        Text("Details")
+        Text("Детали")
             .bold()
             .frame(maxWidth: .infinity, alignment: .center)
             .overlay(
@@ -153,7 +158,7 @@ extension ExceptionDetailsView {
         } label: {
             Image(systemName: "chevron.left")
                 .foregroundColor(colorPalette.buttonPrimary)
-                .font(.title)
+                .font(.title2)
         }
     }
     
@@ -162,7 +167,7 @@ extension ExceptionDetailsView {
             viewModel.save()
             presentationMode.wrappedValue.dismiss()
         }) {
-            Text("Done")
+            Text("Готово")
                 .bold()
                 .foregroundColor(viewModel.isValid ? colorPalette.buttonPrimary : colorPalette.inactive)
         }
@@ -172,10 +177,12 @@ extension ExceptionDetailsView {
     private func header(_ title: String) -> some View {
         HStack {
             Text(title)
-                .font(.subheadline.bold())
+                .font(.subheadline.uppercaseSmallCaps())
+                .foregroundColor(colorPalette.inactive)
             Spacer()
         }
-        .padding([.horizontal], 5)
+        .padding(.horizontal, LayoutConstants.perfectPadding(10))
+        .padding(.bottom, LayoutConstants.perfectPadding(5))
     }
     
     private func footer(_ title: String) -> some View {
@@ -186,22 +193,12 @@ extension ExceptionDetailsView {
                 .lineLimit(1)
             Spacer()
         }
-        .padding([.horizontal], 5)
-    }
-    
-    private func detailsFooter() -> some View {
-        HStack {
-            Spacer()
-            HStack {
-                Text(viewModel.details.count.description + "/" + "400")
-                    .font(.caption)
-            }
-        }
+        .padding(5)
     }
 }
 
 extension ExceptionDetailsView {
-    func dateRow(title: String, selection: Binding<Date>, action: @escaping ()->()) -> some View {
+    private func dateRow(title: String, selection: Binding<Date>, action: @escaping ()->()) -> some View {
         HStack {
             Text(title)
             Spacer()
@@ -220,55 +217,26 @@ extension ExceptionDetailsView {
         }
     }
     
-    private func currentDatePicker() -> MonthCalendarDatePickerAlert {
+    private func currentDatePicker() -> DatePickerAlert {
         return caller == .from ? datePickerFrom() : datePickerTo()
     }
     
-    private func datePickerFrom() -> MonthCalendarDatePickerAlert {
-        let lowerBound = UserSettings.startDate
+    private func datePickerFrom() -> DatePickerAlert {
+        let lowerBound = Date().startOfDay
         let upperBound = viewModel.isPeriod ? viewModel.to : UserSettings.finalDate
-        return MonthCalendarDatePickerAlert(
-            selection: $viewModel.from,
-            range: lowerBound...upperBound,
-            isPresented: $isAlertPresented
-        )
+        return DatePickerAlert(initialDate: viewModel.from, range: lowerBound...upperBound) { date in
+            viewModel.from = date
+            isAlertPresented = false
+        }
     }
     
-    private func datePickerTo() -> MonthCalendarDatePickerAlert {
+    private func datePickerTo() -> DatePickerAlert {
         let lowerBound = viewModel.from
         let upperBound = UserSettings.finalDate
-        return MonthCalendarDatePickerAlert(
-            selection: $viewModel.to,
-            range: lowerBound...upperBound,
-            isPresented: $isAlertPresented
-        )
-    }
-}
-
-extension ExceptionDetailsView {
-    struct DayKindPicker: View {
-        @Binding var selection: Bool
-        @State private var dayKind: DayKind
-        var body: some View {
-            Picker("", selection: $dayKind) {
-                ForEach(ExceptionDetailsView.DayKind.allCases, id: \.self) { kind in
-                    Text(kind.rawValue)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .onChange(of: dayKind) { kind in
-                selection = kind == .working
-            }
+        return DatePickerAlert(initialDate: viewModel.to, range: lowerBound...upperBound) { date in
+            viewModel.to = date
+            isAlertPresented = false
         }
-        init(selection: Binding<Bool>) {
-            self._selection = selection
-            self.dayKind = selection.wrappedValue ? .working : .dayOff
-        }
-    }
-    
-    enum DayKind: String, CaseIterable {
-        case working = "Working"
-        case dayOff = "Day off"
     }
 }
 

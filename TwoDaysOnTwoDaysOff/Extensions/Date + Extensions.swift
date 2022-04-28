@@ -84,10 +84,18 @@ extension Date {
 
 extension Date {
     
-    var short: Date
+    var startOfDay: Date
     {
         get {
-            return DateConstants.calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self)!
+            var components = self.allComponents()
+            
+            components.day = self.dayNumber
+            components.hour = 0
+            components.minute = 0
+            components.second = 0
+            components.nanosecond = 0
+            
+            return Calendar.current.date(from: components) ?? Calendar.current.startOfDay(for: self)
         }
     }
     

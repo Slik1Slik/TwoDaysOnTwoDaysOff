@@ -9,15 +9,15 @@ import SwiftUI
 
 class AppDirectoryObserver: ObservableObject {
     
+    let url: URL
+    
+    var onDirectoryDidChange: (() -> Void)?
+    
     private var observedFolderFileDescriptor: CInt = -1
     
     private let directoryObserverQueue = DispatchQueue(label: "FolderObserverQueue", attributes: .concurrent)
     
     private var directoryObserverSource: DispatchSourceFileSystemObject?
-    
-    let url: URL
-    
-    var onDirectoryDidChange: (() -> Void)?
     
     init(url: URL) {
         self.url = url
@@ -31,7 +31,7 @@ class AppDirectoryObserver: ObservableObject {
         
         observedFolderFileDescriptor = open(url.path, O_EVTONLY)
         
-        directoryObserverSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: observedFolderFileDescriptor, eventMask: .write, queue: directoryObserverQueue)
+        directoryObserverSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: observedFolderFileDescriptor, eventMask: .all, queue: directoryObserverQueue)
         
         directoryObserverSource?.setEventHandler { [weak self] in
             self?.onDirectoryDidChange?()

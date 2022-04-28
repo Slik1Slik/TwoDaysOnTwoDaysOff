@@ -22,15 +22,17 @@ struct CustomColorPicker: View {
     let supportsOpacity: Bool
     let supportsBrightness: Bool
     
+    let showsRecentColors: Bool
+    
     let pickerStyle: CustomColorPicker.PickerStyle
     let colorLabelBackground: CustomColorPicker.ColorLabelBackground
     
-    @State private var selectedColorBrightness: Double = 1
-    @State private var selectedColorOpacity: Double = 1
+    @State private var selectedColorBrightness: Double
+    @State private var selectedColorOpacity: Double
     
-    @State private var selectedBaseColor: Color = .clear
+    @State private var selectedBaseColor: Color
     
-    @State private var recentColors: [Color] = []
+    @State private var recentColors: [Color]
     
     var body: some View {
         VStack(spacing: 15) {
@@ -38,15 +40,17 @@ struct CustomColorPicker: View {
                 .padding(.horizontal, -16)
             Divider()
             sliders
-            HStack(spacing: 0) {
-                selectedColorLabel
-                VStack(spacing: 10) {
-                    recentColorsControlBar
-                    recentColorPicker
-                        .padding(.trailing, -16)
+            if showsRecentColors {
+                HStack(spacing: 0) {
+                    selectedColorLabel
+                    VStack(spacing: 10) {
+                        recentColorsControlBar
+                        recentColorPicker
+                            .padding(.trailing, -16)
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: 85, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, maxHeight: 85, alignment: .leading)
         }
         .padding()
         .onChange(of: selectedColorBrightness) { newValue in
@@ -54,10 +58,6 @@ struct CustomColorPicker: View {
         }
         .onChange(of: selectedColorOpacity) { newValue in
             updateSelectedColor()
-        }
-        .onAppear {
-            recentColors.append(selectedColor)
-            updateHSBAValues()
         }
     }
     
@@ -130,7 +130,7 @@ extension CustomColorPicker {
         Section {
             Slider(value: $selectedColorBrightness, in: minBrightness...maxBrightness, step: minHSBAUnit)
         } header: {
-            Text("BRIGHTNESS")
+            Text("ЯРКОСТЬ")
                 .foregroundColor(.secondary)
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -141,7 +141,7 @@ extension CustomColorPicker {
         Section {
             Slider(value: $selectedColorOpacity, in: minOpacity...maxOpacity, step: minHSBAUnit)
         } header: {
-            Text("OPACITY")
+            Text("НЕПРОЗРАЧНОСТЬ")
                 .foregroundColor(.secondary)
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -158,7 +158,9 @@ extension CustomColorPicker {
     
     private var recentColorsControlBar: some View {
         HStack {
-            addColorToRecentButton
+            if recentColors.count < 10 {
+                addColorToRecentButton
+            }
             if !recentColors.isEmpty {
                 dropLastRecentColorButton
             }
@@ -175,6 +177,7 @@ extension CustomColorPicker {
                 .font(.title)
                 .foregroundColor(.gray.opacity(0.5))
         }
+        .disabled(recentColors.count > 10)
     }
     
     private var dropLastRecentColorButton: some View {
@@ -319,9 +322,20 @@ extension CustomColorPicker {
          minHSBAUnit: CGFloat = (1/255)/10,
          supportsOpacity: Bool = true,
          supportsBrightness: Bool = true,
+         showsRecentColors: Bool = true,
          pickerStyle: CustomColorPicker.PickerStyle = .carousel,
          colorLabelBackground: CustomColorPicker.ColorLabelBackground = .grid)
     {
+        
+        let selectionHSBA = selection.wrappedValue.uiColor.hsbaComponents
+        
+        self.selectedColorBrightness = selectionHSBA.brightness
+        self.selectedColorOpacity = selectionHSBA.alpha
+        
+        self.selectedBaseColor = selection.wrappedValue
+        
+        self.recentColors = [selection.wrappedValue]
+        
         self._selectedColor = selection
         
         self.minBrightness = minBrightness
@@ -335,81 +349,7 @@ extension CustomColorPicker {
         self.supportsBrightness = supportsBrightness
         self.supportsOpacity = supportsOpacity
         
-        self.pickerStyle = pickerStyle
-        self.colorLabelBackground = colorLabelBackground
-    }
-}
-
-extension CustomColorPicker {
-    
-    init(selection: Binding<Color>,
-         minBrightness: CGFloat,
-         maxBrightness: CGFloat,
-         minOpacity: CGFloat,
-         maxOpacity: CGFloat,
-         minHSBAUnit: CGFloat)
-    {
-        self._selectedColor = selection
-        
-        self.minBrightness = minBrightness
-        self.maxBrightness = maxBrightness
-        
-        self.minOpacity = minOpacity
-        self.maxOpacity = maxOpacity
-        
-        self.minHSBAUnit = minHSBAUnit
-        
-        self.supportsBrightness = true
-        self.supportsOpacity = true
-        
-        self.pickerStyle = .carousel
-        self.colorLabelBackground = .grid
-    }
-}
-
-extension CustomColorPicker {
-    
-    init(selection: Binding<Color>,
-         supportsOpacity: Bool,
-         supportsBrightness: Bool)
-    {
-        self._selectedColor = selection
-        
-        self.minBrightness = (1/255)/10
-        self.maxBrightness = 1
-        
-        self.minOpacity = (1/255)/10
-        self.maxOpacity = 1
-        
-        self.minHSBAUnit = 1/255
-        
-        self.supportsBrightness = supportsBrightness
-        self.supportsOpacity = supportsOpacity
-        
-        self.pickerStyle = .carousel
-        self.colorLabelBackground = .grid
-    }
-}
-
-
-extension CustomColorPicker {
-    
-    init(selection: Binding<Color>,
-         pickerStyle: CustomColorPicker.PickerStyle,
-         colorLabelBackground: CustomColorPicker.ColorLabelBackground)
-    {
-        self._selectedColor = selection
-        
-        self.minBrightness = (1/255)/10
-        self.maxBrightness = 1
-        
-        self.minOpacity = (1/255)/10
-        self.maxOpacity = 1
-        
-        self.minHSBAUnit = 1/255
-        
-        self.supportsBrightness = true
-        self.supportsOpacity = true
+        self.showsRecentColors = showsRecentColors
         
         self.pickerStyle = pickerStyle
         self.colorLabelBackground = colorLabelBackground

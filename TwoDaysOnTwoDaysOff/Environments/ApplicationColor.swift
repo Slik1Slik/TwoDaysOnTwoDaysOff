@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 private struct ApplicationColorPaletteKey: EnvironmentKey {
-    static let defaultValue: ColorPalette = ColorPaletteBuillder.monochrome
+    static let defaultValue: ColorPalette = ApplicationColorPalette.monochromeColorPalette
 }
 
 extension EnvironmentValues {

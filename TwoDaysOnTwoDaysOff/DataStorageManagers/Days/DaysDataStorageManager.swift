@@ -41,7 +41,7 @@ class UserDaysDataStorageManager
     func updateStorage() {
         guard let isCalendarFormed = UserSettings.isCalendarFormed,
               isCalendarFormed == true,
-              schedule.startDate < Date().short,
+              schedule.startDate < Date().startOfDay,
               let currentDay = find(by: Date()),
               currentDay.isWorking,
               let dateBefore = calendar.date(byAdding: .day, value: -1, to: Date()),
@@ -49,8 +49,8 @@ class UserDaysDataStorageManager
               !dayBefore.isWorking
         else { return }
         
-        UserSettings.startDate = Date().short
-        UserSettings.finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: Date().short) ?? Date().short.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
+        UserSettings.startDate = Date().startOfDay
+        UserSettings.finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: Date().startOfDay) ?? Date().startOfDay.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
     }
 
     init() {

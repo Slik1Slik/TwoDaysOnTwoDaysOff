@@ -11,14 +11,15 @@ import SwiftUI
 
 class UserSettingsViewModel: ObservableObject
 {
-    @Published var startDate = UserSettings.isCalendarFormed! ? UserSettings.startDate : Date().short
+    @Published var startDate = UserSettings.isCalendarFormed! ? UserSettings.startDate : Date().startOfDay
     @Published var finalDate = Date()
-    @Published var countOfWorkingDays = 0
-    @Published var countOfRestDays = 0
+    @Published var countOfWorkingDays = 2
+    @Published var countOfRestDays = 2
     
     @Published var colorsErrorMessage = ""
     
     private var cancellableSet: Set<AnyCancellable> = []
+    
     init()
     {
         $startDate
@@ -29,14 +30,21 @@ class UserSettingsViewModel: ObservableObject
             .store(in: &cancellableSet)
     }
     
+    func dropCurrentUserSettings() {
+        UserSettings.isCalendarFormed = false
+        try? ExceptionsDataStorageManager.shared.removeAll()
+    }
+    
     func saveUserSettings()
     {
         UserSettings.startDate = self.startDate
         UserSettings.finalDate = self.finalDate
+        
+        UserSettings.countOfWorkingDays = self.countOfWorkingDays
+        UserSettings.countOfRestDays = self.countOfRestDays
 
-        UserSettings.countOfWorkingDays = self.countOfWorkingDays + 1
-        UserSettings.countOfRestDays = self.countOfRestDays + 1
-
+        print(startDate)
+        
         UserSettings.isCalendarFormed = true
     }
 }

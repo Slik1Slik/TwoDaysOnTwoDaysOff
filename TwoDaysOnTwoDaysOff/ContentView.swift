@@ -8,44 +8,53 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @AppStorage("isCalendarFormed") var isCalendarFormed: Bool = false
     @AppStorage("colorThemeID") var colorThemeID: String = UserSettings.colorThemeID!
+    
     @State private var colorPalette: ColorPalette = ColorPalette()
     @State private var calendarColorPalette: CalendarColorPalette = CalendarColorPalette()
+    
+    @ObservedObject private var userColorThemesObserver: UserColorThemesObserver = UserColorThemesObserver()
+    
     @State var isShown: Bool = false
     var body: some View
     {
         if isCalendarFormed {
-//            TabView {
-//                CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
-//                    .tabItem {
-//                        Image(systemName: "calendar")
-//                    }
-//                    .environment(\.colorPalette, colorPalette)
-//                    .environment(\.calendarColorPalette, calendarColorPalette)
-//                ExceptionsListView()
-//                    .tabItem {
-//                        Image(systemName: "calendar")
-//                    }
-//                    .environment(\.colorPalette, colorPalette)
-//                    .environment(\.calendarColorPalette, calendarColorPalette)
-//                ColorThemeSettingsView()
-//                    .tabItem {
-//                        Image(systemName: "gear")
-//                    }
-//                    .environment(\.colorPalette, colorPalette)
-//            }
-            CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
-                .environment(\.colorPalette, colorPalette)
-                .environment(\.calendarColorPalette, calendarColorPalette)
+            TabView {
+                CalendarView(calendar: DateConstants.calendar, interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
+                    .tabItem {
+                        Image(systemName: AppScreen.schedule.iconName)
+                        Text(AppScreen.schedule.title)
+                    }
+                    .environment(\.colorPalette, colorPalette)
+                    .environment(\.calendarColorPalette, calendarColorPalette)
+                ExceptionsListView()
+                    .tabItem {
+                        Image(systemName: AppScreen.exceptions.iconName)
+                        Text(AppScreen.exceptions.title)
+                    }
+                    .environment(\.colorPalette, colorPalette)
+                    .environment(\.calendarColorPalette, calendarColorPalette)
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: AppScreen.settings.iconName)
+                        Text(AppScreen.settings.title)
+                    }
+                    .environment(\.colorPalette, colorPalette)
+            }
+            .ifAvailable.tint(colorPalette.buttonPrimary)
             .onChange(of: colorThemeID) { _ in
                 setUpColorPalette()
             }
             .onAppear {
                 setUpColorPalette()
+                observeColorThemes()
+                setUpTabBar()
             }
         } else {
             ScheduleMakerView()
+                .environment(\.colorPalette, colorPalette)
         }
     }
     
@@ -53,10 +62,47 @@ struct ContentView: View {
         colorPalette = ApplicationColorPalette.shared
         calendarColorPalette = ApplicationColorPalette.calendar
     }
+    
+    private func observeColorThemes() {
+        userColorThemesObserver.onThemeUpdated = { [self] in
+            self.setUpColorPalette()
+        }
+        userColorThemesObserver.startObserving()
+    }
+    
+    private func setUpTabBar() {
+        UITabBar.appearance().backgroundColor = colorPalette.backgroundPrimary.uiColor
+    }
 }
 
 extension ContentView {
-    
+    enum AppScreen: CaseIterable {
+        case schedule
+        case exceptions
+        case settings
+        
+        var title: String {
+            switch self {
+            case .schedule:
+                return "График"
+            case .exceptions:
+                return "Исключения"
+            case .settings:
+                return "Настройки"
+            }
+        }
+        
+        var iconName: String {
+            switch self {
+            case .schedule:
+                return "calendar"
+            case .exceptions:
+                return "doc.text.fill"
+            case .settings:
+                return "gear"
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -64,42 +110,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-struct ColorPreferenceKey: PreferenceKey {
-    static var defaultValue: Color = Color.clear
-    
-    static func reduce(value: inout Color, nextValue: () -> Color) {
-        value = nextValue()
-    }
-}
-
-extension View {
-    @inlinable func hidden(_ hidden: Bool) -> some View {
-        if hidden {
-            return self.opacity(0)
-        } else {
-            return self.opacity(1)
-        }
-    }
-}
-
-//UITabBarWrapper([
-//    TabBarElement(
-//        tabBarElementItem: .init(title: "Home", systemImageName: "calendar"),
-//        {
-//            MonthCalendarView(interval: DateInterval(start: UserSettings.startDate, end: UserSettings.finalDate))
-//        }
-//    ),
-//    TabBarElement(
-//        tabBarElementItem: .init(title: "Exceptions", systemImageName: "doc.plaintext"),
-//        {
-//            ExceptionsListView()
-//        }
-//    ),
-//    TabBarElement(
-//        tabBarElementItem: .init(title: "Settings", systemImageName: "gearshape.2"),
-//        {
-//            Text("hi")
-//        }
-//    )
-//])

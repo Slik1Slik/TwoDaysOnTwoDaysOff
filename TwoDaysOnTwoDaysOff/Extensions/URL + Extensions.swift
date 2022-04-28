@@ -10,7 +10,7 @@ import Foundation
 extension URL {
     var creationDate: Date {
         get {
-            return (try? resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date().short
+            return (try? resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date().startOfDay
         }
         set {
             var resourceValues = URLResourceValues()

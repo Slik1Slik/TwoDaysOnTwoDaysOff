@@ -30,8 +30,6 @@ final class UserSettings
     
     private static let userDefaults = UserDefaults.standard
     
-    //@Defaults<Date>(key: "startDate") static var startDate
-    
     static var schedule: Schedule
     {
         get
@@ -50,8 +48,8 @@ final class UserSettings
         
         set
         {
-            let dateFromValue = newValue.startDate.short.timeIntervalSince1970
-            let dateToValue = newValue.finalDate.short.timeIntervalSince1970
+            let dateFromValue = newValue.startDate.startOfDay.timeIntervalSince1970
+            let dateToValue = newValue.finalDate.startOfDay.timeIntervalSince1970
             
             userDefaults.set(dateFromValue, forKey: "startDate")
             userDefaults.set(dateToValue, forKey: "finalDate")
@@ -71,7 +69,7 @@ final class UserSettings
         }
         set
         {
-            let parsedDate = newValue.short
+            let parsedDate = newValue.startOfDay
             let interval = parsedDate.timeIntervalSince1970
             userDefaults.set(interval, forKey: "startDate")
         }
@@ -87,27 +85,9 @@ final class UserSettings
         }
         set
         {
-            let parsedDate = newValue.short
+            let parsedDate = newValue.startOfDay
             let interval = parsedDate.timeIntervalSince1970
             userDefaults.set(interval, forKey: "finalDate")
-        }
-    }
-    
-    static var colorPaletteToken: ColorPaletteToken
-    {
-        get
-        {
-            let tokenString = userDefaults.value(forKey: "colorPaletteToken") as! String
-            
-            switch tokenString {
-            case ColorPaletteToken.user.rawValue: return ColorPaletteToken.user
-            case ColorPaletteToken.monochrome.rawValue: return ColorPaletteToken.monochrome
-            default: return ColorPaletteToken.user
-            }
-        }
-        set
-        {
-            userDefaults.set(newValue.rawValue, forKey: "colorPaletteToken")
         }
     }
     
@@ -121,27 +101,16 @@ final class UserSettings
     
     @Defaults<Int>(key: "countOfAppLaunches") static var countOfAppLaunches
     
-    @Defaults<String>(key: "restDayCellColor") static var restDayCellColor
-    
-    @Defaults<String>(key: "workingDayCellColor") static var workingDayCellColor
-    
     @Defaults<String>(key: "colorThemeID") static var colorThemeID
     
     static func registerUserSettings()
     {
-        let red = UIColor.systemRed.cgColor.components
-        let gray = UIColor.systemGray.cgColor.components
-        
-        userDefaults.register(defaults: [SettingsKeys.restDayCellColor.rawValue : red as Any])
-        userDefaults.register(defaults: [SettingsKeys.workingDayCellColor.rawValue : gray as Any])
-        
         userDefaults.register(defaults: [SettingsKeys.startDate.rawValue : 1615939200.0])
         userDefaults.register(defaults: [SettingsKeys.finalDate.rawValue : 1647475200.0])
         
         userDefaults.register(defaults: [SettingsKeys.countOfWorkingDays.rawValue : 3])
         userDefaults.register(defaults: [SettingsKeys.countOfRestDays.rawValue : 3])
         
-        userDefaults.register(defaults: [SettingsKeys.colorPaletteToken.rawValue : ""])
         userDefaults.register(defaults: [SettingsKeys.colorThemeID.rawValue : "Монохром"])
         
         userDefaults.register(defaults: [SettingsKeys.wasApplicationEverLaunched.rawValue : true])
@@ -150,7 +119,7 @@ final class UserSettings
         userDefaults.register(defaults: [SettingsKeys.countOfAppLaunches.rawValue : 1])
     }
     
-    private enum SettingsKeys: String
+    enum SettingsKeys: String
     {
         case startDate
         case finalDate
@@ -162,10 +131,6 @@ final class UserSettings
         case countOfAppLaunches
         case isCalendarFormed
         
-        case restDayCellColor
-        case workingDayCellColor
-        
-        case colorPaletteToken
         case colorThemeID
     }
 }

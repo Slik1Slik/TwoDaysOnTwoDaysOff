@@ -25,7 +25,7 @@ class ExceptionsDataStorageManager
                 realm.add(exception)
             }
         } catch {
-            throw ExceptionsDataStorageManagerErrors.AttemptToWriteWasFailure
+            throw ExceptionsDataStorageManagerErrors.attemptToWriteWasFailure
         }
     }
     
@@ -73,7 +73,7 @@ class ExceptionsDataStorageManager
                 exception.details = newException.details
             }
         } catch {
-            throw ExceptionsDataStorageManagerErrors.AttemptToWriteWasFailure
+            throw ExceptionsDataStorageManagerErrors.attemptToWriteWasFailure
         }
     }
     
@@ -99,14 +99,28 @@ class ExceptionsDataStorageManager
     func remove(_ exception: Exception) throws
     {
         guard exists(exception) else {
-            throw ExceptionsDataStorageManagerErrors.AttemptToRemoveWasFailure
+            throw ExceptionsDataStorageManagerErrors.attemptToRemoveWasFailure
         }
         do {
             try realm.write {
                 realm.delete(exception)
             }
         } catch {
-            throw ExceptionsDataStorageManagerErrors.AttemptToRemoveWasFailure
+            throw ExceptionsDataStorageManagerErrors.attemptToRemoveWasFailure
+        }
+    }
+    
+    func removeAll() throws
+    {
+        guard countOfObjects() > 0 else {
+            throw ExceptionsDataStorageManagerErrors.attemptToRemoveWasFailure
+        }
+        do {
+            try realm.write {
+                realm.deleteAll()
+            }
+        } catch {
+            throw ExceptionsDataStorageManagerErrors.attemptToRemoveWasFailure
         }
     }
     
@@ -119,7 +133,7 @@ class ExceptionsDataStorageManager
     {
         try! realm.write {
             realm.objects(Exception.self).forEach { (exception) in
-                if exception.from < Date().short {
+                if exception.from < Date().startOfDay {
                     realm.delete(exception)
                 }
             }
@@ -129,20 +143,20 @@ class ExceptionsDataStorageManager
 
 enum ExceptionsDataStorageManagerErrors: Error, LocalizedError
 {
-    case AttemptToWriteWasFailure
-    case AttemptToRemoveWasFailure
-    case AppendingExceptionConflictsWithCurrent
-    case ExceptionNotFound
+    case attemptToWriteWasFailure
+    case attemptToRemoveWasFailure
+    case appendingExceptionConflictsWithCurrent
+    case exceptionNotFound
     
     public var localizedDescription: String {
         switch self {
-        case .AttemptToWriteWasFailure:
+        case .attemptToWriteWasFailure:
             return "Ошибка при записи исключения. Пожалуйста, попробуйте еще раз."
-        case .AttemptToRemoveWasFailure:
+        case .attemptToRemoveWasFailure:
             return "Ошибка при удалении исключения. Пожалуйста, попробуйте еще раз."
-        case .AppendingExceptionConflictsWithCurrent:
+        case .appendingExceptionConflictsWithCurrent:
             return "На выбранный период уже назначено исключение."
-        case .ExceptionNotFound:
+        case .exceptionNotFound:
             return "Исключение не существует."
         }
     }

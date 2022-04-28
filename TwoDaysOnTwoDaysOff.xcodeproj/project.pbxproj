@@ -20,18 +20,21 @@
 		561CE6CC280DB0390024533B /* SaveColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561CE6CB280DB0390024533B /* SaveColorThemeView.swift */; };
 		563148A1271824320020A8E7 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A0271824320020A8E7 /* TextView.swift */; };
 		563148A427188A950020A8E7 /* ApplicationColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A327188A950020A8E7 /* ApplicationColor.swift */; };
-		563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */; };
+		563148A7271D41170020A8E7 /* CalendarLayoutConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148A6271D41170020A8E7 /* CalendarLayoutConfiguration.swift */; };
 		563148CD2722D4CF0020A8E7 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */; };
 		563148CF2722DAF00020A8E7 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */; };
 		563148D3272C3F9E0020A8E7 /* AddExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */; };
 		563148D7272C48840020A8E7 /* UpdateExceptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */; };
 		563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */; };
 		563148DB2736B49A0020A8E7 /* MonthCalendarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */; };
-		563148DD2736BF180020A8E7 /* MonthCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DC2736BF180020A8E7 /* MonthCalendarManager.swift */; };
+		563148DD2736BF180020A8E7 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563148DC2736BF180020A8E7 /* CalendarManager.swift */; };
 		5659E63A27020C780092EA6E /* CustomFormSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63927020C780092EA6E /* CustomFormSection.swift */; };
-		5659E63C2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */; };
+		5659E63C2704847C0092EA6E /* CompactMonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63B2704847C0092EA6E /* CompactMonthCalendarView.swift */; };
 		5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E63D27075C6E0092EA6E /* View Extensions.swift */; };
 		5659E649270E087E0092EA6E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659E648270E087E0092EA6E /* RealmManager.swift */; };
+		565EEA5F2814490B00709ACC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EEA5E2814490B00709ACC /* SettingsView.swift */; };
+		565EEA6128147C6100709ACC /* CustomNumberPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EEA6028147C6100709ACC /* CustomNumberPicker.swift */; };
+		565EEA662814A32B00709ACC /* Availability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EEA652814A32B00709ACC /* Availability.swift */; };
 		56680266280FF0D100A5F8E2 /* AppDirectoryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56680265280FF0D100A5F8E2 /* AppDirectoryObserver.swift */; };
 		5668026828105D4900A5F8E2 /* URL + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5668026728105D4900A5F8E2 /* URL + Extensions.swift */; };
 		566C679D273AC86A0056E616 /* Calendar + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C679C273AC86A0056E616 /* Calendar + Extensions.swift */; };
@@ -67,11 +70,11 @@
 		567EB1E9268A19A000313D03 /* AppDirectoryURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1E8268A19A000313D03 /* AppDirectoryURLs.swift */; };
 		567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EA268A19B400313D03 /* AppFileManager.swift */; };
 		567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */; };
-		567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */; };
 		56950FFA27D640100086AD88 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56950FF927D640100086AD88 /* Blur.swift */; };
 		56A1B3B127622EF4005F1B56 /* RealmObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B027622EF3005F1B56 /* RealmObserver.swift */; };
 		56A1B3B7276767DD005F1B56 /* DetailsTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */; };
-		56A94B0027E8F4AD006548CE /* MonthPageDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A94AFF27E8F4AD006548CE /* MonthPageDayViewModel.swift */; };
+		56A8798728199DE000F90F12 /* CalendarMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A8798628199DE000F90F12 /* CalendarMode.swift */; };
+		56A94B0027E8F4AD006548CE /* MonthCalendarPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A94AFF27E8F4AD006548CE /* MonthCalendarPageViewModel.swift */; };
 		56A94B0627EA1C21006548CE /* MonthCalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A94B0527EA1C21006548CE /* MonthCalendarPage.swift */; };
 		56A94B0927EA326D006548CE /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A94B0827EA326D006548CE /* Colors.swift */; };
 		56A94B0D27EB17DD006548CE /* MonthCalendarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A94B0C27EB17DD006548CE /* MonthCalendarColor.swift */; };
@@ -91,6 +94,7 @@
 		56E63C5E28116440002F0EB0 /* ColorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E63C5528116440002F0EB0 /* ColorGenerator.swift */; };
 		56E63C5F28116440002F0EB0 /* CarouselPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E63C5728116440002F0EB0 /* CarouselPicker.swift */; };
 		56E63C6028116440002F0EB0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E63C5828116440002F0EB0 /* Grid.swift */; };
+		56E63C6228131E55002F0EB0 /* UserSettingsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E63C6128131E55002F0EB0 /* UserSettingsObserver.swift */; };
 		56E85D6C27F9CF1D002D71E0 /* AppHapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E85D6B27F9CF1D002D71E0 /* AppHapticEngine.swift */; };
 		56E85D6E27F9D9B0002D71E0 /* ExceptionListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E85D6D27F9D9B0002D71E0 /* ExceptionListTableViewController.swift */; };
 		56E85D7027F9D9FF002D71E0 /* ExceptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E85D6F27F9D9FF002D71E0 /* ExceptionTableViewCell.swift */; };
@@ -105,10 +109,14 @@
 		56EA81BB279F1EF50015EC97 /* SwipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81BA279F1EF50015EC97 /* SwipeType.swift */; };
 		56EA81BD279F1F130015EC97 /* ScrollDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81BC279F1F130015EC97 /* ScrollDirection.swift */; };
 		56EA81BF27AA6CD00015EC97 /* SidebarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA81BE27AA6CD00015EC97 /* SidebarModifier.swift */; };
+		56F257012816A0DE00D4F47C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56F257002816A0DE00D4F47C /* Launch Screen.storyboard */; };
+		56F2570C2816C3AD00D4F47C /* DatePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F2570B2816C3AD00D4F47C /* DatePickerAlert.swift */; };
+		56F2570E2816ED2100D4F47C /* DayKindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F2570D2816ED2100D4F47C /* DayKindPicker.swift */; };
+		56F257102816F91F00D4F47C /* UserColorThemesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F2570F2816F91F00D4F47C /* UserColorThemesObserver.swift */; };
+		56F257122816FD2D00D4F47C /* StorageEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F257112816FD2D00D4F47C /* StorageEvent.swift */; };
+		56F257162817F2C400D4F47C /* YearCalendarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F257152817F2C400D4F47C /* YearCalendarPage.swift */; };
+		56F257182817F3A900D4F47C /* YearCalendarPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F257172817F3A900D4F47C /* YearCalendarPageViewModel.swift */; };
 		56F52511280C2BEF00D3F4E8 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F52510280C2BEF00D3F4E8 /* ColorTheme.swift */; };
-		56F52514280C2C5E00D3F4E8 /* ColorPalette Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F52513280C2C5E00D3F4E8 /* ColorPalette Builder.swift */; };
-		56F52516280C2C8200D3F4E8 /* CalendarColorPalette Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F52515280C2C8200D3F4E8 /* CalendarColorPalette Builder.swift */; };
-		56F5251C280C547600D3F4E8 /* ColorThemeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F5251B280C547600D3F4E8 /* ColorThemeSettingsView.swift */; };
 		56F52520280C5B5300D3F4E8 /* UserColorThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F5251F280C5B5300D3F4E8 /* UserColorThemeManager.swift */; };
 		56F52524280C6BFF00D3F4E8 /* ColorThemeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F52523280C6BFF00D3F4E8 /* ColorThemeDetailsViewModel.swift */; };
 		56F52526280C6C2800D3F4E8 /* ColorThemeSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F52525280C6C2800D3F4E8 /* ColorThemeSettingsViewModel.swift */; };
@@ -147,18 +155,21 @@
 		561CE6CB280DB0390024533B /* SaveColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveColorThemeView.swift; sourceTree = "<group>"; };
 		563148A0271824320020A8E7 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		563148A327188A950020A8E7 /* ApplicationColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationColor.swift; sourceTree = "<group>"; };
-		563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarLayoutConfiguration.swift; sourceTree = "<group>"; };
+		563148A6271D41170020A8E7 /* CalendarLayoutConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLayoutConfiguration.swift; sourceTree = "<group>"; };
 		563148CC2722D4CF0020A8E7 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
 		563148D2272C3F9E0020A8E7 /* AddExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExceptionViewModel.swift; sourceTree = "<group>"; };
 		563148D6272C48840020A8E7 /* UpdateExceptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateExceptionViewModel.swift; sourceTree = "<group>"; };
 		563148D8272D347B0020A8E7 /* ExceptionViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionViewModelFactory.swift; sourceTree = "<group>"; };
 		563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarConfiguration.swift; sourceTree = "<group>"; };
-		563148DC2736BF180020A8E7 /* MonthCalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarManager.swift; sourceTree = "<group>"; };
+		563148DC2736BF180020A8E7 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		5659E63927020C780092EA6E /* CustomFormSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormSection.swift; sourceTree = "<group>"; };
-		5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarDatePickerAlert.swift; sourceTree = "<group>"; };
+		5659E63B2704847C0092EA6E /* CompactMonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactMonthCalendarView.swift; sourceTree = "<group>"; };
 		5659E63D27075C6E0092EA6E /* View Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View Extensions.swift"; sourceTree = "<group>"; };
 		5659E648270E087E0092EA6E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		565EEA5E2814490B00709ACC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		565EEA6028147C6100709ACC /* CustomNumberPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberPicker.swift; sourceTree = "<group>"; };
+		565EEA652814A32B00709ACC /* Availability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Availability.swift; sourceTree = "<group>"; };
 		56680265280FF0D100A5F8E2 /* AppDirectoryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDirectoryObserver.swift; sourceTree = "<group>"; };
 		5668026728105D4900A5F8E2 /* URL + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL + Extensions.swift"; sourceTree = "<group>"; };
 		566C679C273AC86A0056E616 /* Calendar + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar + Extensions.swift"; sourceTree = "<group>"; };
@@ -200,11 +211,11 @@
 		567EB1E8268A19A000313D03 /* AppDirectoryURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDirectoryURLs.swift; sourceTree = "<group>"; };
 		567EB1EA268A19B400313D03 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		567EB1EC268A19C100313D03 /* AppFileStatusChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileStatusChecker.swift; sourceTree = "<group>"; };
-		567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DaysColors.xcassets; sourceTree = "<group>"; };
 		56950FF927D640100086AD88 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		56A1B3B027622EF3005F1B56 /* RealmObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmObserver.swift; sourceTree = "<group>"; };
 		56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTextView.swift; sourceTree = "<group>"; };
-		56A94AFF27E8F4AD006548CE /* MonthPageDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPageDayViewModel.swift; sourceTree = "<group>"; };
+		56A8798628199DE000F90F12 /* CalendarMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMode.swift; sourceTree = "<group>"; };
+		56A94AFF27E8F4AD006548CE /* MonthCalendarPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarPageViewModel.swift; sourceTree = "<group>"; };
 		56A94B0527EA1C21006548CE /* MonthCalendarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarPage.swift; sourceTree = "<group>"; };
 		56A94B0827EA326D006548CE /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		56A94B0C27EB17DD006548CE /* MonthCalendarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarColor.swift; sourceTree = "<group>"; };
@@ -224,6 +235,7 @@
 		56E63C5528116440002F0EB0 /* ColorGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorGenerator.swift; sourceTree = "<group>"; };
 		56E63C5728116440002F0EB0 /* CarouselPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselPicker.swift; sourceTree = "<group>"; };
 		56E63C5828116440002F0EB0 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		56E63C6128131E55002F0EB0 /* UserSettingsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsObserver.swift; sourceTree = "<group>"; };
 		56E85D6B27F9CF1D002D71E0 /* AppHapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHapticEngine.swift; sourceTree = "<group>"; };
 		56E85D6D27F9D9B0002D71E0 /* ExceptionListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionListTableViewController.swift; sourceTree = "<group>"; };
 		56E85D6F27F9D9FF002D71E0 /* ExceptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -238,10 +250,14 @@
 		56EA81BA279F1EF50015EC97 /* SwipeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeType.swift; sourceTree = "<group>"; };
 		56EA81BC279F1F130015EC97 /* ScrollDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDirection.swift; sourceTree = "<group>"; };
 		56EA81BE27AA6CD00015EC97 /* SidebarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarModifier.swift; sourceTree = "<group>"; };
+		56F257002816A0DE00D4F47C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		56F2570B2816C3AD00D4F47C /* DatePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerAlert.swift; sourceTree = "<group>"; };
+		56F2570D2816ED2100D4F47C /* DayKindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKindPicker.swift; sourceTree = "<group>"; };
+		56F2570F2816F91F00D4F47C /* UserColorThemesObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorThemesObserver.swift; sourceTree = "<group>"; };
+		56F257112816FD2D00D4F47C /* StorageEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageEvent.swift; sourceTree = "<group>"; };
+		56F257152817F2C400D4F47C /* YearCalendarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCalendarPage.swift; sourceTree = "<group>"; };
+		56F257172817F3A900D4F47C /* YearCalendarPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCalendarPageViewModel.swift; sourceTree = "<group>"; };
 		56F52510280C2BEF00D3F4E8 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
-		56F52513280C2C5E00D3F4E8 /* ColorPalette Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorPalette Builder.swift"; sourceTree = "<group>"; };
-		56F52515280C2C8200D3F4E8 /* CalendarColorPalette Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalendarColorPalette Builder.swift"; sourceTree = "<group>"; };
-		56F5251B280C547600D3F4E8 /* ColorThemeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeSettingsView.swift; sourceTree = "<group>"; };
 		56F5251F280C5B5300D3F4E8 /* UserColorThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorThemeManager.swift; sourceTree = "<group>"; };
 		56F52523280C6BFF00D3F4E8 /* ColorThemeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeDetailsViewModel.swift; sourceTree = "<group>"; };
 		56F52525280C6C2800D3F4E8 /* ColorThemeSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -294,13 +310,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		5615739628003651001D28BD /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Alert;
-			sourceTree = "<group>";
-		};
 		5615739A28057206001D28BD /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,21 +321,19 @@
 		5615739D28057F6B001D28BD /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				567EB1EF268A1C3B00313D03 /* DaysColors.xcassets */,
 				5615739E28057FDB001D28BD /* BaseColors.xcassets */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		561573A028059DA5001D28BD /* ColorTheme Settings */ = {
+		561573A028059DA5001D28BD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				561573A328059E17001D28BD /* Model */,
 				561573A228059E12001D28BD /* View */,
 				561573A128059E08001D28BD /* ViewModel */,
-				56F52512280C2C3500D3F4E8 /* Builders */,
 			);
-			path = "ColorTheme Settings";
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		561573A128059E08001D28BD /* ViewModel */ = {
@@ -342,7 +349,7 @@
 		561573A228059E12001D28BD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				56F5251B280C547600D3F4E8 /* ColorThemeSettingsView.swift */,
+				565EEA5E2814490B00709ACC /* SettingsView.swift */,
 				561CE6BE280D5F570024533B /* ColorThemeDetailsView.swift */,
 				561CE6C0280D6A320024533B /* MonthCalendarPagePreview.swift */,
 				561CE6CB280DB0390024533B /* SaveColorThemeView.swift */,
@@ -397,9 +404,9 @@
 		563148A5271D40E40020A8E7 /* Calendar Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				563148A6271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift */,
+				563148A6271D41170020A8E7 /* CalendarLayoutConfiguration.swift */,
 				563148DA2736B49A0020A8E7 /* MonthCalendarConfiguration.swift */,
-				563148DC2736BF180020A8E7 /* MonthCalendarManager.swift */,
+				563148DC2736BF180020A8E7 /* CalendarManager.swift */,
 			);
 			path = "Calendar Configuration";
 			sourceTree = "<group>";
@@ -419,6 +426,8 @@
 				563148CE2722DAF00020A8E7 /* ApplicationObserver.swift */,
 				56A1B3B027622EF3005F1B56 /* RealmObserver.swift */,
 				56680265280FF0D100A5F8E2 /* AppDirectoryObserver.swift */,
+				56E63C6128131E55002F0EB0 /* UserSettingsObserver.swift */,
+				56F2570F2816F91F00D4F47C /* UserColorThemesObserver.swift */,
 			);
 			path = Observers;
 			sourceTree = "<group>";
@@ -438,11 +447,10 @@
 		56793C58276BADDE007BCB3A /* Modifiers & Styles */ = {
 			isa = PBXGroup;
 			children = (
-				5615739628003651001D28BD /* Alert */,
-				56EA81B4279C599C0015EC97 /* Sidebar */,
 				56A94B0727EA323A006548CE /* Colors */,
 				56950FF827D640010086AD88 /* Effects */,
 				56ACFB0D276BB181003FBA28 /* Buttons */,
+				565EEA652814A32B00709ACC /* Availability.swift */,
 			);
 			path = "Modifiers & Styles";
 			sourceTree = "<group>";
@@ -485,10 +493,10 @@
 				567EB1AD268A152100313D03 /* DataStorageManagers */,
 				567EB1B0268A158100313D03 /* JSON */,
 				567EB1C0268A162B00313D03 /* Calendar */,
-				56A94B2927F0890E006548CE /* Reusable Month Calendar */,
+				56A94B2927F0890E006548CE /* Reusable Calendar */,
 				567EB1CC268A16B600313D03 /* Exceptions */,
 				567EB1DD268A183400313D03 /* Set up Calendar */,
-				561573A028059DA5001D28BD /* ColorTheme Settings */,
+				561573A028059DA5001D28BD /* Settings */,
 				567EB1E4268A189200313D03 /* Extensions */,
 				563148A227188A480020A8E7 /* Environments */,
 				563148CB2722D4A70020A8E7 /* Observers */,
@@ -496,7 +504,7 @@
 				5615739A28057206001D28BD /* Protocols */,
 				567EB1EE268A19EE00313D03 /* AppFileManager */,
 				5659E648270E087E0092EA6E /* RealmManager.swift */,
-				56E85D6B27F9CF1D002D71E0 /* AppHapticEngine.swift */,
+				56F257002816A0DE00D4F47C /* Launch Screen.storyboard */,
 			);
 			path = TwoDaysOnTwoDaysOff;
 			sourceTree = "<group>";
@@ -532,9 +540,10 @@
 			children = (
 				566802692811639200A5F8E2 /* CustomColorPicker */,
 				5659E63927020C780092EA6E /* CustomFormSection.swift */,
-				5659E63B2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift */,
+				5659E63B2704847C0092EA6E /* CompactMonthCalendarView.swift */,
 				563148A0271824320020A8E7 /* TextView.swift */,
 				56E85D7E27FB4ED8002D71E0 /* LazyView.swift */,
+				56F2570B2816C3AD00D4F47C /* DatePickerAlert.swift */,
 			);
 			path = "Reusable Views";
 			sourceTree = "<group>";
@@ -569,9 +578,10 @@
 			isa = PBXGroup;
 			children = (
 				567EB1B3268A15A500313D03 /* Model */,
-				56A94B2C27F089A4006548CE /* Main Screen */,
+				56A94B2C27F089A4006548CE /* Main */,
 				56A94B2627F08881006548CE /* AccessoryView MVVM */,
 				56A94B2327F087C6006548CE /* Month Calendar Page MVVM */,
+				56F257142817F27000D4F47C /* Year Calendar Page MVVM */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -663,6 +673,22 @@
 			path = Effects;
 			sourceTree = "<group>";
 		};
+		56A879802819973600F90F12 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				56F257152817F2C400D4F47C /* YearCalendarPage.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		56A879812819973C00F90F12 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				56F257172817F3A900D4F47C /* YearCalendarPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		56A94B0727EA323A006548CE /* Colors */ = {
 			isa = PBXGroup;
 			children = (
@@ -697,6 +723,7 @@
 				567EB1C7268A168800313D03 /* ExceptionDetailsView.swift */,
 				56A1B3B6276767DD005F1B56 /* DetailsTextView.swift */,
 				56E85D8027FB5061002D71E0 /* ExceptionDetailsPreview.swift */,
+				56F2570D2816ED2100D4F47C /* DayKindPicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -739,7 +766,7 @@
 		56A94B2427F087DC006548CE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				56A94AFF27E8F4AD006548CE /* MonthPageDayViewModel.swift */,
+				56A94AFF27E8F4AD006548CE /* MonthCalendarPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -778,13 +805,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		56A94B2927F0890E006548CE /* Reusable Month Calendar */ = {
+		56A94B2927F0890E006548CE /* Reusable Calendar */ = {
 			isa = PBXGroup;
 			children = (
 				56A94B2B27F08967006548CE /* View */,
 				563148A5271D40E40020A8E7 /* Calendar Configuration */,
 			);
-			path = "Reusable Month Calendar";
+			path = "Reusable Calendar";
 			sourceTree = "<group>";
 		};
 		56A94B2B27F08967006548CE /* View */ = {
@@ -795,13 +822,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		56A94B2C27F089A4006548CE /* Main Screen */ = {
+		56A94B2C27F089A4006548CE /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				56BEA0FD27C54156003B1D43 /* CalendarView.swift */,
 				56BEA0FB27C53FF5003B1D43 /* CalendarPager.swift */,
 			);
-			path = "Main Screen";
+			path = Main;
 			sourceTree = "<group>";
 		};
 		56ACFB0D276BB181003FBA28 /* Buttons */ = {
@@ -859,6 +886,8 @@
 		56E85D7B27FB4EA0002D71E0 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				56E85D6B27F9CF1D002D71E0 /* AppHapticEngine.swift */,
+				56EA81B4279C599C0015EC97 /* Sidebar */,
 				567EB1D5268A173600313D03 /* DaysColorsView.swift */,
 				56E85D6D27F9D9B0002D71E0 /* ExceptionListTableViewController.swift */,
 				56E85D7C27FB4EB3002D71E0 /* ExceptionRowOld.swift */,
@@ -866,6 +895,7 @@
 				56E85D7327FACF48002D71E0 /* CustomList.swift */,
 				56A94B2E27F09386006548CE /* ClerableTextField.swift */,
 				56E85D7127F9E212002D71E0 /* ExceptionsList.swift */,
+				565EEA6028147C6100709ACC /* CustomNumberPicker.swift */,
 			);
 			path = Legacy;
 			sourceTree = "<group>";
@@ -886,17 +916,19 @@
 				56EA81BC279F1F130015EC97 /* ScrollDirection.swift */,
 				56E85D7727FB139E002D71E0 /* ContentRole.swift */,
 				56E85D7927FB13D4002D71E0 /* ListMode.swift */,
+				56F257112816FD2D00D4F47C /* StorageEvent.swift */,
+				56A8798628199DE000F90F12 /* CalendarMode.swift */,
 			);
 			path = "Public Enums";
 			sourceTree = "<group>";
 		};
-		56F52512280C2C3500D3F4E8 /* Builders */ = {
+		56F257142817F27000D4F47C /* Year Calendar Page MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				56F52513280C2C5E00D3F4E8 /* ColorPalette Builder.swift */,
-				56F52515280C2C8200D3F4E8 /* CalendarColorPalette Builder.swift */,
+				56A879802819973600F90F12 /* View */,
+				56A879812819973C00F90F12 /* ViewModel */,
 			);
-			path = Builders;
+			path = "Year Calendar Page MVVM";
 			sourceTree = "<group>";
 		};
 		C35B3A15CB65070EA3D67D09 /* Frameworks */ = {
@@ -1021,7 +1053,7 @@
 				5615739F28057FDB001D28BD /* BaseColors.xcassets in Resources */,
 				567EB17F268A127800313D03 /* Preview Assets.xcassets in Resources */,
 				567EB17C268A127800313D03 /* Assets.xcassets in Resources */,
-				567EB1F0268A1C3B00313D03 /* DaysColors.xcassets in Resources */,
+				56F257012816A0DE00D4F47C /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1152,9 +1184,10 @@
 				56E85D7D27FB4EB3002D71E0 /* ExceptionRowOld.swift in Sources */,
 				56E85D7A27FB13D4002D71E0 /* ListMode.swift in Sources */,
 				56A94B0D27EB17DD006548CE /* MonthCalendarColor.swift in Sources */,
-				5659E63C2704847C0092EA6E /* MonthCalendarDatePickerAlert.swift in Sources */,
+				5659E63C2704847C0092EA6E /* CompactMonthCalendarView.swift in Sources */,
+				56F257122816FD2D00D4F47C /* StorageEvent.swift in Sources */,
 				56F52526280C6C2800D3F4E8 /* ColorThemeSettingsViewModel.swift in Sources */,
-				563148A7271D41170020A8E7 /* MonthCalendarLayoutConfiguration.swift in Sources */,
+				563148A7271D41170020A8E7 /* CalendarLayoutConfiguration.swift in Sources */,
 				567EB1BA268A15F700313D03 /* MonthView.swift in Sources */,
 				56DF93AE27DF80D40015AFF1 /* AccessoryViewExceptionViewModel.swift in Sources */,
 				56E63C5E28116440002F0EB0 /* ColorGenerator.swift in Sources */,
@@ -1164,6 +1197,7 @@
 				567EB1E7268A18CB00313D03 /* CalendarConstants.swift in Sources */,
 				56E85D7827FB139E002D71E0 /* ContentRole.swift in Sources */,
 				567EB1B8268A15DD00313D03 /* DateView.swift in Sources */,
+				56A8798728199DE000F90F12 /* CalendarMode.swift in Sources */,
 				567EB1EB268A19B400313D03 /* AppFileManager.swift in Sources */,
 				56BEA0FC27C53FF5003B1D43 /* CalendarPager.swift in Sources */,
 				567EB17A268A127500313D03 /* ContentView.swift in Sources */,
@@ -1174,6 +1208,7 @@
 				5615739C28057223001D28BD /* PropertyIterable.swift in Sources */,
 				563148D7272C48840020A8E7 /* UpdateExceptionViewModel.swift in Sources */,
 				567EB1D6268A173600313D03 /* DaysColorsView.swift in Sources */,
+				565EEA6128147C6100709ACC /* CustomNumberPicker.swift in Sources */,
 				567EB1E1268A187700313D03 /* Date + Extensions.swift in Sources */,
 				56E63C6028116440002F0EB0 /* Grid.swift in Sources */,
 				561CE6C8280D7DC20024533B /* DaysDataStorageLinker.swift in Sources */,
@@ -1181,8 +1216,7 @@
 				567EB1E3268A188800313D03 /* DateConstants.swift in Sources */,
 				56A94B3127F48920006548CE /* ExceptionRow.swift in Sources */,
 				56E85D7427FACF48002D71E0 /* CustomList.swift in Sources */,
-				56F52516280C2C8200D3F4E8 /* CalendarColorPalette Builder.swift in Sources */,
-				56A94B0027E8F4AD006548CE /* MonthPageDayViewModel.swift in Sources */,
+				56A94B0027E8F4AD006548CE /* MonthCalendarPageViewModel.swift in Sources */,
 				56E85D7F27FB4ED8002D71E0 /* LazyView.swift in Sources */,
 				56EA81BB279F1EF50015EC97 /* SwipeType.swift in Sources */,
 				5659E649270E087E0092EA6E /* RealmManager.swift in Sources */,
@@ -1202,15 +1236,19 @@
 				567EB1D8268A175000313D03 /* StartScreenView.swift in Sources */,
 				567EB1C5268A166A00313D03 /* ExceptionListViewModel.swift in Sources */,
 				56E85D6C27F9CF1D002D71E0 /* AppHapticEngine.swift in Sources */,
+				56E63C6228131E55002F0EB0 /* UserSettingsObserver.swift in Sources */,
+				565EEA662814A32B00709ACC /* Availability.swift in Sources */,
 				56E85D8127FB5061002D71E0 /* ExceptionDetailsPreview.swift in Sources */,
 				567EB1CA268A169600313D03 /* ExceptionsListView.swift in Sources */,
+				56F257162817F2C400D4F47C /* YearCalendarPage.swift in Sources */,
 				563148A1271824320020A8E7 /* TextView.swift in Sources */,
-				563148DD2736BF180020A8E7 /* MonthCalendarManager.swift in Sources */,
+				563148DD2736BF180020A8E7 /* CalendarManager.swift in Sources */,
 				563148D9272D347B0020A8E7 /* ExceptionViewModelFactory.swift in Sources */,
 				56950FFA27D640100086AD88 /* Blur.swift in Sources */,
 				56680266280FF0D100A5F8E2 /* AppDirectoryObserver.swift in Sources */,
 				56F52524280C6BFF00D3F4E8 /* ColorThemeDetailsViewModel.swift in Sources */,
 				56A94B0927EA326D006548CE /* Colors.swift in Sources */,
+				565EEA5F2814490B00709ACC /* SettingsView.swift in Sources */,
 				5659E63E27075C6E0092EA6E /* View Extensions.swift in Sources */,
 				563148D3272C3F9E0020A8E7 /* AddExceptionViewModel.swift in Sources */,
 				56F52520280C5B5300D3F4E8 /* UserColorThemeManager.swift in Sources */,
@@ -1220,12 +1258,12 @@
 				567EB1DF268A186700313D03 /* Array + Extensions.swift in Sources */,
 				56E63C5F28116440002F0EB0 /* CarouselPicker.swift in Sources */,
 				561573A52805A015001D28BD /* Schedule.swift in Sources */,
-				56F5251C280C547600D3F4E8 /* ColorThemeSettingsView.swift in Sources */,
 				567EB1AA268A150400313D03 /* DaysDataStorageManager.swift in Sources */,
-				56F52514280C2C5E00D3F4E8 /* ColorPalette Builder.swift in Sources */,
 				567EB1BE268A161400313D03 /* MonthAccessoryView.swift in Sources */,
 				56BEA0FE27C54156003B1D43 /* CalendarView.swift in Sources */,
 				56E63C5928116440002F0EB0 /* CustomColorPicker.swift in Sources */,
+				56F257102816F91F00D4F47C /* UserColorThemesObserver.swift in Sources */,
+				56F2570E2816ED2100D4F47C /* DayKindPicker.swift in Sources */,
 				567EB1DA268A180E00313D03 /* ScheduleMakerView.swift in Sources */,
 				567EB1ED268A19C100313D03 /* AppFileStatusChecker.swift in Sources */,
 				56A94B2F27F09386006548CE /* ClerableTextField.swift in Sources */,
@@ -1238,7 +1276,9 @@
 				567EB1D0268A16ED00313D03 /* UserSettingsViewModel.swift in Sources */,
 				56A94B0627EA1C21006548CE /* MonthCalendarPage.swift in Sources */,
 				5670199926F8C968009A065C /* ExceptionDetailsViewModel.swift in Sources */,
+				56F257182817F3A900D4F47C /* YearCalendarPageViewModel.swift in Sources */,
 				563148CF2722DAF00020A8E7 /* ApplicationObserver.swift in Sources */,
+				56F2570C2816C3AD00D4F47C /* DatePickerAlert.swift in Sources */,
 				567EB1D4268A171D00313D03 /* DaysCountPicker.swift in Sources */,
 				567EB178268A127500313D03 /* TwoDaysOnTwoDaysOffApp.swift in Sources */,
 				567EB1AC268A151600313D03 /* ExceptionsDataStorageManager.swift in Sources */,

@@ -9,9 +9,10 @@ import SwiftUI
 import UIKit
 
 class UserColorThemeManager {
-    class var shared: UserColorThemeManager {
+    
+    static var shared: UserColorThemeManager {
         get {
-            UserColorThemeManager()
+            return UserColorThemeManager()
         }
     }
     
@@ -72,35 +73,28 @@ class UserColorThemeManager {
         if !AppFileManager().deleteFile(at: url) {
             throw UserColorThemeError.removingFailed
         }
+        post(UserColorThemeNotifications.themeHasBeenUpdated)
+        post(UserColorThemeNotifications.themesHaveBeenChanged)
     }
     
-    func add(_ colorTheme: ColorTheme) throws {
+    func save(_ colorTheme: ColorTheme) throws {
         let url = colorThemesDirectory.appendingPathComponent("\(colorTheme.id).json")
-        guard !AppFileStatusChecker().exists(file: url) else {
-            throw UserColorThemeError.themeAlreadyExists
-        }
-        do {
-            try save(colorTheme)
-        } catch let error as UserColorThemeError {
-            throw error
-        }
-    }
-    
-    func update(_ colorTheme: ColorTheme) throws {
-        do {
-            try save(colorTheme)
-        } catch let error as UserColorThemeError {
-            throw error
-        }
-    }
-    
-    private func save(_ colorTheme: ColorTheme) throws {
-        let url = colorThemesDirectory.appendingPathComponent("\(colorTheme.id).json")
+        let event: StorageEvent = AppFileStatusChecker().exists(file: url) ? .update : .add
         do {
             try JSONManager.shared.write(colorTheme, to: url)
+            if event == .add {
+                post(UserColorThemeNotifications.themeHasBeenAdded)
+            } else {
+                post(UserColorThemeNotifications.themeHasBeenUpdated)
+            }
+            post(UserColorThemeNotifications.themesHaveBeenChanged)
         } catch {
             throw UserColorThemeError.writingFailed
         }
+    }
+    
+    private func post(_ notification: Notification.Name) {
+        NotificationCenter.default.post(name: notification, object: nil)
     }
     
     func createStorageIfNeeded() {
@@ -132,7 +126,6 @@ class UserColorThemeManager {
     
     enum UserColorThemeError: Error {
         case themeNotFound
-        case themeAlreadyExists
         case readingFailed
         case writingFailed
         case removingFailed
@@ -163,4 +156,12 @@ enum DefaultColorTheme: String, CaseIterable {
         }
         return colorTheme
     }
+    
+}
+
+struct UserColorThemeNotifications {
+    static let themesHaveBeenChanged = Notification.Name("themesHaveBeenChanged")
+    static let themeHasBeenAdded = Notification.Name("themeHasBeenAdded")
+    static let themeHasBeenUpdated = Notification.Name("themeHasBeenUpdated")
+    static let themeHasBeenRemoved = Notification.Name("themeHasBeenRemoved")
 }

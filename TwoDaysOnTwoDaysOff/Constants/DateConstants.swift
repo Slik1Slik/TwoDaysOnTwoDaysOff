@@ -9,7 +9,7 @@ import Foundation
 
 struct DateConstants {
     static let calendar: Calendar = getCalendar()
-    static let timeZone: TimeZone = TimeZone(abbreviation: "GMT+0:00") ?? .current
+    static let timeZone: TimeZone = TimeZone(secondsFromGMT: 0) ?? .current
     static let dateFormat = "dd-MM-yyyy"
     static let dateStyle: DateFormatter.Style = .short
     static let currentYear = Date().baseComponents().year

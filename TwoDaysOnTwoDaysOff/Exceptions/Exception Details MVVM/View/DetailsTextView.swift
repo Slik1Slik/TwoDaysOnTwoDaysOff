@@ -52,9 +52,9 @@ struct DetailsTextView: View {
     
     private var clearButton: some View {
         Button(action: { selection = "" }) {
-            Text("Clear")
-            .bold()
-            .foregroundColor(selection.isEmpty ? colorPalette.inactive : colorPalette.buttonPrimary)
+            Text("Очистить")
+                .font(.headline)
+                .foregroundColor(selection.isEmpty ? colorPalette.inactive : colorPalette.buttonPrimary)
         }
         .disabled(selection.isEmpty)
     }
@@ -65,7 +65,7 @@ struct DetailsTextView: View {
         } label: {
             Image(systemName: "chevron.left")
                 .foregroundColor(colorPalette.buttonPrimary)
-                .font(.title)
+                .font(.title2)
         }
     }
 }

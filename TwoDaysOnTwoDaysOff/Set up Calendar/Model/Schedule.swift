@@ -8,8 +8,8 @@
 import Foundation
 
 struct Schedule {
-    var startDate: Date = Date().short
-    var finalDate: Date = Date().short
+    var startDate: Date = Date().startOfDay
+    var finalDate: Date = Date().startOfDay
     
     var countOfWorkingDays: Int = 2
     var countOfRestDays: Int = 2

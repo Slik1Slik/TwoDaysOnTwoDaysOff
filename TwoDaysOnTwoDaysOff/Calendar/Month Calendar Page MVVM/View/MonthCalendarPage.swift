@@ -11,18 +11,18 @@ import SwiftUI
 struct MonthCalendarPage: View {
     var month: Date
     
-    @Environment(\.colorPalette) var colorPalette
+    private var colorPalette: ColorPalette = ApplicationColorPalette.shared
     private var calendarColorPalette: CalendarColorPalette = ApplicationColorPalette.calendar
     
-    private var calendarManager: MonthCalendarManager
+    private var calendarManager: CalendarManager
     
-    @ObservedObject private var viewModel: MonthPageDayViewModel = MonthPageDayViewModel()
+    @ObservedObject private var viewModel: MonthCalendarPageViewModel = MonthCalendarPageViewModel()
     
     var body: some View {
         monthView()
     }
     
-    init(month: Date, calendarManager: MonthCalendarManager) {
+    init(month: Date, calendarManager: CalendarManager) {
         self.month = month
         self.calendarManager = calendarManager
         self.viewModel.month = month
@@ -41,7 +41,7 @@ struct MonthCalendarPage: View {
     
     @ViewBuilder
     private func dayCell(date: Date) -> some View {
-        if let day = viewModel.day(for: date) {
+        if calendarManager.currentDate <= date, let day = viewModel.day(for: date) {
             if let exception = day.exception {
                 exceptionDateView(date: date, isWorking: exception.isWorking)
             } else {
@@ -60,7 +60,7 @@ struct MonthCalendarPage: View {
         VStack(spacing: 2) {
             DateView(date: date)
                 .font(.title3)
-                .foregroundColor(colorPalette.textSecondary)
+                .foregroundColor(colorPalette.textTertiary)
                 .frame(width: calendarManager.layoutConfiguration.item.width,
                        height: calendarManager.layoutConfiguration.item.width)
                 .disabled(true)

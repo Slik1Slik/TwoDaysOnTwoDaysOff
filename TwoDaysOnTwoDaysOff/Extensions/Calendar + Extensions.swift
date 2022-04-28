@@ -75,13 +75,19 @@ extension Calendar {
     
     private func generateDates(ofYear year: Date) -> [Date] {
         guard
-            let yearInterval = self.dateInterval(of: .year, for: year),
-            let yearFirstWeek = self.dateInterval(of: .weekOfYear, for: yearInterval.start),
-            let yearLastWeek = self.dateInterval(of: .weekOfYear, for: yearInterval.end)
+            let yearInterval = self.dateInterval(of: .year, for: year)
         else { return [] }
         return self.generateDates(
-            inside: DateInterval(start: yearFirstWeek.start, end: yearLastWeek.end),
+            inside: DateInterval(start: yearInterval.start, end: yearInterval.end),
             matching: DateComponents(hour: 0, minute: 0, second: 0)
         )
+    }
+    
+    func lastDateOf(month: Date) -> Date? {
+        return self.date(byAdding: .day, value: -1, to: self.dateInterval(of: .month, for: month)?.end ?? Date())
+    }
+    
+    func firstDateOf(month: Date) -> Date? {
+        return self.dateInterval(of: .month, for: month)?.start
     }
 }

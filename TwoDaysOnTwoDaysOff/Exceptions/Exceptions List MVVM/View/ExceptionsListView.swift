@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ExceptionsListView: View {
+    
     @ObservedObject private var exceptionListVM = ExceptionListViewModel()
+    
     @State private var isExceptionDetailsViewPresented: Bool = false
+    
     @Environment(\.colorPalette) private var colorPalette
     @Environment(\.calendarColorPalette) private var calendarColorPalette
     
@@ -17,33 +20,24 @@ struct ExceptionsListView: View {
         NavigationView {
             VStack {
                 header
-                    .background(colorPalette.backgroundDefault.ignoresSafeArea())
+                    .background(colorPalette.backgroundPrimary.ignoresSafeArea())
                     .zIndex(1.0)
-                List {
-                    ForEach(exceptionListVM.exceptions.freeze()) { exception in
-                        NavigationLink {
-                            if exceptionListVM.selection == .new {
-                                LazyView(ExceptionDetailsView(date: exception.from))
-                            } else {
-                                LazyView(ExceptionDetailsPreview(date: exception.from))
-                            }
-                        } label: {
-                            ExceptionRowLabel(title: exception.name,
-                                              subtitle: exception.from.string(format: "dd MMM"),
-                                              markerColor: exception.isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)
-                        }
-
-                    }
-                    .onDelete { indexSet in
-                        exceptionListVM.remove(at: indexSet)
+                if exceptionListVM.exceptions.count > 0 {
+                    exceptionList
+                } else {
+                    switch exceptionListVM.listMode {
+                    case .search:
+                        Spacer()
+                    case .view:
+                        exceptionListPlaceholder
+                    default:
+                        exceptionListPlaceholder
                     }
                 }
-                .id(UUID())
             }
-            .listStyle(.inset)
             .sheet(isPresented: $isExceptionDetailsViewPresented, content: {
                 NavigationView {
-                    ExceptionDetailsView(date: UserSettings.startDate)
+                    ExceptionDetailsView(date: Date().startOfDay)
                         .environment(\.colorPalette, colorPalette)
                 }
             })
@@ -72,7 +66,7 @@ struct ExceptionsListView: View {
     }
     
     private var title: some View {
-        Text("Exception")
+        Text("Исключения")
             .bold()
             .frame(maxWidth: .infinity, alignment: .center)
             .overlay(
@@ -120,7 +114,7 @@ struct ExceptionsListView: View {
     }
     
     private var cancelSearchButton: some View {
-        Button("Cancel") {
+        Button("Отмена") {
             withAnimation(.easeInOut(duration: 0.3)) {
                 exceptionListVM.listMode = .view
             }
@@ -155,6 +149,38 @@ struct ExceptionsListView: View {
         .padding(8)
         .background(Color.gray.opacity(0.1).clipShape(RoundedRectangle(cornerRadius: 10)))
     }
+    
+    private var exceptionList: some View {
+        List {
+            ForEach(exceptionListVM.exceptions.freeze()) { exception in
+                NavigationLink {
+                    if exceptionListVM.selection == .new {
+                        LazyView(ExceptionDetailsView(date: exception.from))
+                    } else {
+                        LazyView(ExceptionDetailsPreview(date: exception.from))
+                    }
+                } label: {
+                    ExceptionRowLabel(title: exception.name,
+                                      subtitle: exception.from.string(format: "dd MMM"),
+                                      markerColor: exception.isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)
+                }
+
+            }
+            .onDelete { indexSet in
+                exceptionListVM.remove(at: indexSet)
+            }
+        }
+        .listStyle(.inset)
+        .id(UUID())
+    }
+    
+    private var exceptionListPlaceholder: some View {
+        Text("Исключения не назначены")
+            .font(.title2)
+            .foregroundColor(colorPalette.textTertiary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(LayoutConstants.perfectPadding(16))
+    }
 }
 
 struct ExceptionsListView_Previews: PreviewProvider {
@@ -162,29 +188,4 @@ struct ExceptionsListView_Previews: PreviewProvider {
         ExceptionsListView()
     }
 }
-
-extension ExceptionsListView {
-    private var exceptionsList: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                searchTextField
-                VStack {
-                    ForEach(exceptionListVM.exceptions.freeze()) { exception in
-                        Text("")
-                        
-                        if exception.id != exceptionListVM.exceptions.last?.id {
-                            Divider()
-                                .padding(.leading, 40)
-                        }
-                    }
-                }
-                .padding(.vertical)
-                .background(colorPalette.backgroundDefault.clipShape(RoundedRectangle(cornerRadius: 20)))
-            }
-            .padding(.horizontal)
-        }
-        .fixGlitching()
-    }
-}
-
 
