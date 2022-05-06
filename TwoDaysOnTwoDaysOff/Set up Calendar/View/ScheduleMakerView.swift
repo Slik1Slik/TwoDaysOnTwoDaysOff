@@ -29,9 +29,9 @@ struct ScheduleMakerView: View {
                     } label: {
                         Image(systemName: "chevron.left")
                             .foregroundColor(colorPalette.buttonPrimary)
-                            .font(.headline)
+                            .font(.title2)
                     }
-
+                    
                 }
                 Spacer()
                 if (currentIndex != 1) {
@@ -58,7 +58,7 @@ struct ScheduleMakerView: View {
                            title: ScreenTitles.startDate.rawValue,
                            details: ScreenTitles.startDate.details) {
                     CompactMonthCalendarView(calendarManager: calendarManager)
-
+                    
                 }.transition(.scale)
             }
             
@@ -79,9 +79,9 @@ struct ScheduleMakerView: View {
     init() {
         let interval = DateInterval(start: Date().startOfDay, end: Date().addingTimeInterval(Double(DateConstants.dayInSeconds)*30.00))
         self.calendarManager = CalendarManager(calendar: DateConstants.calendar,
-                                                    interval: interval,
-                                                    initialDate: Date().startOfDay,
-                                                    layoutConfiguration: .alert)
+                                               interval: interval,
+                                               initialDate: Date().startOfDay,
+                                               layoutConfiguration: .alert)
     }
     
     public enum ScreenTitles: String

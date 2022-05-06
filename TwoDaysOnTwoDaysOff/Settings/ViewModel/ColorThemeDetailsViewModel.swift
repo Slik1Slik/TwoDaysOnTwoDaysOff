@@ -55,7 +55,7 @@ class ColorThemeDetailsViewModel: ObservableObject {
             }
         } catch {
             hasError = true
-            errorMessage = "Unknown error. Please try again."
+            errorMessage = "Неизвестная ошибка. Пожалуйста, повторите попытку."
         }
     }
     
@@ -64,7 +64,7 @@ class ColorThemeDetailsViewModel: ObservableObject {
             try UserColorThemeManager.shared.save(colorTheme)
         } catch {
             hasError = true
-            errorMessage = "Unknown error. Please try again."
+            errorMessage = "Неизвестная ошибка. Пожалуйста, повторите попытку."
         }
     }
     
@@ -73,7 +73,7 @@ class ColorThemeDetailsViewModel: ObservableObject {
         var colorThemeID = ""
         switch mode {
         case .add:
-            colorThemeID = UserSettings.colorThemeID!
+            colorThemeID = UserSettings.colorThemeID ?? DefaultColorTheme.monochrome.rawValue
         case .update(let id):
             colorThemeID = id
         }
@@ -86,7 +86,7 @@ class ColorThemeDetailsViewModel: ObservableObject {
         do {
             colorTheme = try UserColorThemeManager.shared.find(forID: id)
         } catch {
-            
+            UserSettings.colorThemeID = DefaultColorTheme.monochrome.rawValue
         }
     }
     

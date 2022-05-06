@@ -40,8 +40,13 @@ class UserDaysDataStorageManager
     
     func updateStorage() {
         guard let isCalendarFormed = UserSettings.isCalendarFormed,
-              isCalendarFormed == true,
-              schedule.startDate < Date().startOfDay,
+              isCalendarFormed == true else { return }
+        guard UserSettings.finalDate > Date().startOfDay else {
+            UserSettings.isCalendarFormed = false
+            try? ExceptionsDataStorageManager.shared.removeAll()
+            return
+        }
+        guard schedule.startDate < Date().startOfDay,
               let currentDay = find(by: Date()),
               currentDay.isWorking,
               let dateBefore = calendar.date(byAdding: .day, value: -1, to: Date()),
@@ -50,14 +55,14 @@ class UserDaysDataStorageManager
         else { return }
         
         UserSettings.startDate = Date().startOfDay
-        UserSettings.finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: Date().startOfDay) ?? Date().startOfDay.addingTimeInterval(Double(DateConstants.dayInSeconds)*366)
+        UserSettings.finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: Date().startOfDay) ?? Date().startOfDay.addingTimeInterval(Double(DateConstants.dayInSeconds) * 366)
     }
 
     init() {
         self.schedule = Schedule(startDate: UserSettings.startDate,
                                  finalDate: UserSettings.finalDate,
-                                 countOfWorkingDays: UserSettings.countOfWorkingDays!,
-                                 countOfRestDays: UserSettings.countOfRestDays!)
+                                 countOfWorkingDays: UserSettings.countOfWorkingDays ?? 2,
+                                 countOfRestDays: UserSettings.countOfRestDays ?? 2)
 
         self.storage = DaysDataStorageCreator.shared.generateDays(for: schedule)
         

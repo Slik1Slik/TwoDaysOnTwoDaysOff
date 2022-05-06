@@ -33,6 +33,15 @@ class UserColorThemesObserver: ObservableObject {
                 self?.onAnyChange()
             }
     }
+    
+    func stopObserving() {
+        NotificationCenter.default
+            .removeObserver(self, name: UserColorThemeNotifications.themeHasBeenAdded, object: nil)
+        NotificationCenter.default
+            .removeObserver(self, name: UserColorThemeNotifications.themeHasBeenUpdated, object: nil)
+        NotificationCenter.default
+            .removeObserver(self, name: UserColorThemeNotifications.themeHasBeenRemoved, object: nil)
+    }
 }
 
 

@@ -11,8 +11,6 @@ import Combine
 
 class RealmObserver<Element: Object>: ObservableObject {
     
-    private var cancellableSet: Set<AnyCancellable> = []
-    
     var notificationToken = NotificationToken()
     
     private var object: Element.Type

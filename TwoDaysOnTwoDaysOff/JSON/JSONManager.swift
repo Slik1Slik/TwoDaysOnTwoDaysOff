@@ -20,8 +20,8 @@ class JSONManager {
         let decoder = JSONDecoder()
         let formatter = DateConstants.dateFormatter
         
-        guard let data = try? AppFileManager().readFileIfExists(at: url) else {
-            throw AppFileManager.FileManagerError.fileReadingFailed(name: url.lastPathComponent)
+        guard let data = try? AppFileManager.shared.readFileIfExists(at: url) else {
+            throw AppFileManager.FileManagerError.failedToReadFile
         }
         
         decoder.dateDecodingStrategy = .formatted(formatter)
@@ -41,11 +41,13 @@ class JSONManager {
         encoder.dateEncodingStrategy = .formatted(formatter)
         
         guard let data = try? encoder.encode(object) else {
-            throw AppFileManager.FileManagerError.fileReadingFailed(name: url.lastPathComponent)
+            throw AppFileManager.FileManagerError.failedToReadFile
         }
         
-        if !AppFileManager().writeFile(to: url, with: data) {
-            throw AppFileManager.FileManagerError.fileWritingFailed(name: url.lastPathComponent)
+        do {
+            try AppFileManager.shared.writeFile(to: url, with: data)
+        } catch let error {
+            throw error
         }
     }
     

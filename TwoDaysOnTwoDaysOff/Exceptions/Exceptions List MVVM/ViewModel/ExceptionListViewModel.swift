@@ -18,7 +18,33 @@ class ExceptionListViewModel: ObservableObject {
     @Published var listMode = ListMode.view
     
     @Published var errorMessage: String = ""
-    @Published var isFailed: Bool = false
+    @Published var hasError: Bool = false
+    
+    @Published var selectedException: Exception?
+    
+    var nearestAvailableDate: Date? {
+        return ExceptionsDataStorageManager.shared.nearestAvailableDate()
+    }
+    
+    func dateIntervalLabelFor(_ exception: Exception) -> String {
+        guard exception.from != exception.to else { return exception.from.string(format: "d MMMM, YYYY") }
+        
+        let datesInSameMonth = exception.from.monthNumber == exception.to.monthNumber
+        let datesInSameYear = exception.from.yearNumber == exception.to.yearNumber
+        
+        var dateFromFormat = datesInSameMonth ? "d" : "d MMMM"
+        
+        if !datesInSameYear {
+            dateFromFormat += ", YYYY"
+        }
+        
+        let dateToFormat = "d MMMM, YYYY"
+        
+        let dateFrom = exception.from.string(format: dateFromFormat)
+        let dateTo = exception.to.string(format: dateToFormat)
+        
+        return dateFrom + " - " + dateTo
+    }
     
     @ObservedObject private var exceptionsObserver = RealmObserver(for: Exception.self)
     
@@ -47,8 +73,12 @@ class ExceptionListViewModel: ObservableObject {
         }
         do {
             try ExceptionsDataStorageManager.shared.remove(exceptions[index])
-        } catch {
-            fatalError()
+        } catch let error as ExceptionsDataStorageManagerErrors {
+            hasError = true
+            errorMessage = error.localizedDescription
+        } catch let anyError {
+            hasError = true
+            errorMessage = anyError.localizedDescription
         }
     }
     
@@ -68,12 +98,10 @@ class ExceptionListViewModel: ObservableObject {
         argumentArray.removeAll()
         argumentArray.append(Date().startOfDay)
         if listMode == .search {
-            format += " AND name CONTAINS %@ OR details CONTAINS %@"
-            argumentArray.append(searchText)
-            argumentArray.append(searchText)
+            format += " AND name CONTAINS[cd] %@ OR details CONTAINS[cd] %@"
+            argumentArray.append(searchText.trimmingCharacters(in: .whitespaces))
+            argumentArray.append(searchText.trimmingCharacters(in: .whitespaces))
         }
-        //print(format)
-        //print(argumentArray)
         return NSPredicate(format: format, argumentArray: argumentArray)
     }
     

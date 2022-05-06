@@ -6,89 +6,105 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct CalendarView: View {
     
     @State var index = 0
     
-    @ObservedObject private var calendarManager: CalendarManager
+    @ObservedObject private var monthCalendarManager: CalendarManager = CalendarManager()
+    @ObservedObject private var yearCalendarManager: CalendarManager = CalendarManager()
     
     @Environment(\.colorPalette) private var colorPalette
-    @Environment(\.calendarColorPalette) var calendarColorPalette
     
     @State private var calendarMode: CalendarMode = .month
     
     @State private var monthHeaderHeight: CGFloat = 0
     
-    @State private var yearCalendarPageYPoint: CGFloat = 0
-    @State private var yearCalendarPageHeight: CGFloat = 0
+    @State private var accessoryViewAnimation: Animation? = .none
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                if calendarMode == .month {
-                    monthCalendarView
-                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
-                } else {
-                    yearCalendarView
+        ZStack {
+            if calendarMode == .month {
+                monthCalendarView
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+            } else {
+                yearCalendarView
                     .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
-                }
             }
-            .navigationBarHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationBarHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        
     }
     
     private var pages: [MonthCalendarPage] = []
     
     init(calendar: Calendar, interval: DateInterval) {
-        self.calendarManager = CalendarManager(calendar: calendar,
+        self.monthCalendarManager = CalendarManager(calendar: calendar,
                                                     interval: interval,
                                                     layoutConfiguration: .expanded)
         
-        calendarManager.selectedDate = interval.start.compare(with: Date().startOfDay).oldest
+        let firstAvailableDateInIntreval = interval.start.compare(with: Date().startOfDay).oldest
         
-        calendarManager.layoutConfiguration.item.height += MonthCalendarLayoutConstants.exceptionMarkCircleSize
-        calendarManager.layoutConfiguration.calendarBody.lineSpacing = LayoutConstants.perfectPadding(8)
-        calendarManager.layoutConfiguration.calendarBody.paddingTop += LayoutConstants.perfectPadding(8)
+        let yearCalendarIntervalStart = calendar.dateInterval(of: .year, for: Date())?.start ?? firstAvailableDateInIntreval
+        let yearCalendarIntervalEnd = calendar.generateDates(of: .year, for: calendar.date(byAdding: .year, value: 1, to: yearCalendarIntervalStart)!).last ?? UserSettings.finalDate
         
-        pages = calendarManager.months.map { month in
-            MonthCalendarPage(month: month, calendarManager: calendarManager)
+        monthCalendarManager.selectedDate = firstAvailableDateInIntreval
+        
+        monthCalendarManager.layoutConfiguration.item.height += MonthCalendarLayoutConstants.exceptionMarkCircleSize
+        monthCalendarManager.layoutConfiguration.calendarBody.lineSpacing = LayoutConstants.perfectValueForCurrentDeviceScreen(8)
+        monthCalendarManager.layoutConfiguration.calendarBody.paddingTop += LayoutConstants.perfectValueForCurrentDeviceScreen(8)
+        
+        self.yearCalendarManager = CalendarManager(calendar: calendar,
+                                                   interval: DateInterval(start: yearCalendarIntervalStart, end: yearCalendarIntervalEnd),
+                                                   layoutConfiguration: .expanded)
+        
+        self.pages = monthCalendarManager.months.map { month in
+            MonthCalendarPage(month: month, calendarManager: monthCalendarManager)
         }
     }
-    
+}
+
+extension CalendarView {
     private var monthCalendarView: some View {
         VStack(spacing: 0) {
             CalendarPager(selection: $index, pages: pages)
                 .onChange(of: index) { newValue in
-                    withAnimation(.easeOut(duration: 0.3)) {
-                        let month = calendarManager.months[newValue]
-                        calendarManager.selectedMonth = month
-                        if calendarManager.selectedYear != month {
-                            calendarManager.selectedYear = month
-                        }
+                    let month = monthCalendarManager.months[newValue]
+                    monthCalendarManager.selectedMonth = month
+                    if monthCalendarManager.selectedYear != month {
+                        monthCalendarManager.selectedYear = month
                     }
                 }
                 .padding(.top, monthHeaderHeight)
-            Divider()
-                .animation(.linear)
-            MonthAccessoryView(date: calendarManager.selectedDate)
-                .animation(.linear)
-                .environment(\.colorPalette, colorPalette)
+                .simultaneousGesture(
+                    gestureToDisableAccessoryViewAnimationAfterAppearing
+                )
+            VStack(spacing: 0) {
+                Divider()
+                MonthAccessoryView(date: monthCalendarManager.selectedDate)
+                    .environment(\.colorPalette, colorPalette)
+            }
+            .animation(accessoryViewAnimation)
         }
-            .overlay(monthCalendarHeader, alignment: .top)
-            .fixPushingUp()
-            .background(colorPalette.backgroundPrimary)
+        .ifAvailable.overlay(alignment: .top, overlayContent: {
+            monthCalendarHeader
+        })
+        .fixPushingUp()
+        .background(colorPalette.backgroundPrimary)
+        .simultaneousGesture(
+            gestureToAbleAccessoryViewAnimationAfterAppearing
+        )
     }
     
     private var calendarModeButton: some View {
         Button(action: {
+            yearCalendarManager.selectedMonth = monthCalendarManager.selectedMonth
             withAnimation {
                 calendarMode.toggle()
             }
         }) {
-            Text(calendarManager.selectedMonth.yearNumber!.description)
+            Text(monthCalendarManager.selectedMonth.yearNumber!.description)
         }
         .foregroundColor(colorPalette.buttonPrimary)
         .font(.title.weight(.thin))
@@ -96,7 +112,10 @@ struct CalendarView: View {
     
     private var getToFirstMonthButton: some View {
         Button {
-            withAnimation {
+            if accessoryViewAnimation == .none {
+                accessoryViewAnimation = .default
+            }
+            withAnimation(.default) {
                 index = 0
             }
         } label: {
@@ -107,19 +126,19 @@ struct CalendarView: View {
     }
     
     private var monthLabel: some View {
-        Text(calendarManager.selectedMonth.monthSymbol(.standaloneMonthSymbol).capitalized)
+        Text(monthCalendarManager.selectedMonth.monthSymbol(.standaloneMonthSymbol).capitalized)
             .font(.largeTitle)
             .bold()
     }
     
     private var weekdaysRow: some View {
-        HStack(spacing: calendarManager.layoutConfiguration.calendarBody.interitemSpacing) {
+        HStack(spacing: monthCalendarManager.layoutConfiguration.calendarBody.interitemSpacing) {
             ForEach(MonthCalendarConfiguration().weekdaySymbols(), id: \.self) { symbol in
                 Text(symbol)
-                    .font(calendarManager.layoutConfiguration.weekdaysRow.font)
-                    .foregroundColor(Color(.gray))
+                    .font(monthCalendarManager.layoutConfiguration.weekdaysRow.font)
+                    .foregroundColor(colorPalette.textSecondary)
                     .frame(
-                        width: calendarManager.layoutConfiguration.weekdaysRow.height,
+                        width: monthCalendarManager.layoutConfiguration.weekdaysRow.height,
                         alignment: .center
                     )
             }
@@ -128,7 +147,7 @@ struct CalendarView: View {
     
     private var monthCalendarHeader: some View {
         VStack(spacing: 0) {
-            VStack(spacing: LayoutConstants.perfectPadding(16)) {
+            VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(16)) {
                 HStack {
                     monthLabel
                     Spacer()
@@ -140,21 +159,20 @@ struct CalendarView: View {
                     }
                 }
                 weekdaysRow
-                    .padding(.bottom, LayoutConstants.perfectPadding(8))
+                    .padding(.bottom, LayoutConstants.perfectValueForCurrentDeviceScreen(8))
             }
-            .padding(.horizontal, LayoutConstants.perfectPadding(16))
+            .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
             Divider()
         }
         .background(colorPalette.backgroundPrimary.ignoresSafeArea(.container, edges: [.horizontal, .top]))
-        .overlay(
+        .ifAvailable.overlay(alignment: .top) {
             GeometryReader { proxy -> Color in
                 if monthHeaderHeight == 0 {
                     monthHeaderHeight = proxy.frame(in: .global).height
                 }
                 return Color.clear
-            },
-            alignment: .top
-        )
+            }
+        }
     }
 }
 
@@ -162,57 +180,33 @@ extension CalendarView {
     
     @ViewBuilder
     private var yearCalendarView: some View {
-        VStack {
-            ScrollViewReader { proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
-                        ForEach(calendarManager.years, id: \.self) { year in
-                            YearCalendarPage(year: year, calendar: calendarManager.calendar) { selectedMonth in
-                                index = calendarManager.months.firstIndex(where: { month in
-                                    calendarManager.calendar.isDate(month, equalTo: selectedMonth, toGranularity: .month)
-                                }) ?? 0
-                                calendarManager.selectedMonth = selectedMonth
-                                withAnimation {
-                                    calendarMode = .month
-                                }
-                            }
-                            .id(year.yearNumber!)
-                        }
-                        .padding(.top, LayoutConstants.safeFrame.minY)
-                    }
-                }
-                .onAppear {
-                    withAnimation {
-                        proxy.scrollTo(calendarManager.selectedMonth.yearNumber, anchor: .top)
-                    }
-                }
+        YearCalendarView(calendarManager: yearCalendarManager, onSelect: { selectedMonth in
+            monthCalendarManager.selectedMonth = selectedMonth
+            index = monthCalendarManager.months.firstIndex(where: { month in
+                monthCalendarManager.calendar.isDate(month, equalTo: selectedMonth, toGranularity: .month)
+            }) ?? 0
+            withAnimation {
+                calendarMode.toggle()
             }
-        }
-        .overlay(yearCalendarHeader, alignment: .top)
-    }
-    
-    private var yearCalendarHeader: some View {
-        Rectangle()
-            .fill(LinearGradient(gradient: Gradient(stops: [
-                .init(color: Color(UIColor.systemBackground), location: 0.35),
-                .init(color: Color(UIColor.systemBackground).opacity(0.75), location: 0.4),
-                .init(color: Color(UIColor.systemBackground).opacity(0.5), location: 0.5),
-                .init(color: Color(UIColor.systemBackground).opacity(0.25), location: 0.6),
-                .init(color: Color(UIColor.systemBackground).opacity(0.1), location: 0.65),
-                .init(color: Color(UIColor.systemBackground).opacity(0.05), location: 0.7),
-                .init(color: Color(UIColor.systemBackground).opacity(0.01), location: 0.8),
-                .init(color: Color(UIColor.systemBackground).opacity(0.005), location: 0.9),
-                .init(color: Color(UIColor.systemBackground).opacity(0.001), location: 1)
-            ]), startPoint: .top, endPoint: .bottom))
-            .ignoresSafeArea(.all, edges: .top)
-            .frame(height: LayoutConstants.safeFrame.minY + LayoutConstants.perfectPadding(35))
+        })
     }
 }
 
-struct YearCalendarPageOffsetKey: PreferenceKey {
-    typealias Value = CGFloat
-    static var defaultValue = CGFloat.zero
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value += nextValue()
+extension CalendarView {
+    private var gestureToAbleAccessoryViewAnimationAfterAppearing: some Gesture {
+        DragGesture(minimumDistance: 10)
+            .onChanged { _ in
+                if accessoryViewAnimation == .none {
+                    accessoryViewAnimation = .default
+                }
+            }
+    }
+    private var gestureToDisableAccessoryViewAnimationAfterAppearing: some Gesture {
+        TapGesture()
+            .onEnded {
+                if accessoryViewAnimation != .none {
+                    accessoryViewAnimation = .none
+                }
+            }
     }
 }

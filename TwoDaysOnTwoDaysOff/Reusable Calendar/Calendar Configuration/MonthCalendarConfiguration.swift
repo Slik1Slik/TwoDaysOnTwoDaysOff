@@ -25,7 +25,7 @@ class MonthCalendarConfiguration {
     }
     
     func weeks() -> [[Date]] {
-        let daysForMonth = days()
+        let daysForMonth = dates()
         let numberOfWeeks = Int(daysForMonth.count / 7)
         var weeks = [[Date]]()
         
@@ -42,7 +42,7 @@ class MonthCalendarConfiguration {
         return weeks
     }
     
-    func days() -> [Date] {
+    func dates() -> [Date] {
         return calendar.generateDates(of: .month, for: month)
     }
     

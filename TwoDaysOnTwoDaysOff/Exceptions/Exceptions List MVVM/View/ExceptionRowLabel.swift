@@ -15,6 +15,8 @@ struct ExceptionRowLabel: View, Identifiable {
     private let subtitle: String
     private let markerColor: Color
     
+    @Environment(\.colorPalette) private var colorPalette
+    
     var body: some View {
         HStack {
             colorMark
@@ -32,7 +34,7 @@ struct ExceptionRowLabel: View, Identifiable {
             HStack {
                 Text(subtitle)
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(colorPalette.textTertiary)
                 Spacer()
             }
         }

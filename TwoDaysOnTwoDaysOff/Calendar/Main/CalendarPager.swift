@@ -27,11 +27,8 @@ struct CalendarPager<Content: View>: View {
     private let safeFrame = UIApplication.shared.windows[0].safeAreaLayoutGuide.layoutFrame
     
     @Binding var selection: Int
-    var pages: [Content]
     
-    var onPageMove: () -> () = {}
-    var onPageStopMove: () -> () = {}
-    var onPageChanged: () -> () = {}
+    var pages: [Content]
     
     var body: some View {
         VStack {
@@ -104,7 +101,6 @@ struct CalendarPager<Content: View>: View {
                             showPage()
                         }
                     }
-                    onPageStopMove()
                 })
     }
     

@@ -12,7 +12,6 @@ struct DateConstants {
     static let timeZone: TimeZone = TimeZone(secondsFromGMT: 0) ?? .current
     static let dateFormat = "dd-MM-yyyy"
     static let dateStyle: DateFormatter.Style = .short
-    static let currentYear = Date().baseComponents().year
     static let dayInSeconds = 86400
     static let dateFormatter = getDateFormatter()
     static let date_01_01_1970 = getFirstDate()

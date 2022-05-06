@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import TwoDaysOnTwoDaysOff
 
 class TwoDaysOnTwoDaysOffUITests: XCTestCase {
 

@@ -68,8 +68,6 @@ struct MonthView<DateView: View, Header: View, WeekdaysRow: View>: View
                 .padding(.trailing, calendarManager.layoutConfiguration.calendarBody.paddingRight)
                 .padding(.top, calendarManager.layoutConfiguration.calendarBody.paddingTop)
                 .padding(.bottom, calendarManager.layoutConfiguration.calendarBody.paddingBottom)
-                //.frame(height: calendarManager.layoutConfiguration.calendarBody.height, alignment: .top)
-                //.overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 0.4))
             }
         }
         .frame(width: calendarManager.layoutConfiguration.width)
@@ -90,8 +88,8 @@ struct MonthView<DateView: View, Header: View, WeekdaysRow: View>: View
     }
 }
 
-//struct MonthView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MonthView(calendarManager: MonthCalendarManager())
-//    }
-//}
+struct MonthView_Previews: PreviewProvider {
+    static var previews: some View {
+        MonthView(month: Date(), calendarManager: CalendarManager())
+    }
+}

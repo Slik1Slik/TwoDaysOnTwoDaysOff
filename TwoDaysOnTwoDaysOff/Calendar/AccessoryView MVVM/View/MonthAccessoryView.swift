@@ -6,23 +6,25 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MonthAccessoryView: View {
-    private var date: Date
+    
     @ObservedObject private var viewModel: AccessoryViewExceptionViewModel = AccessoryViewExceptionViewModel()
     
     @State private var isExceptionDetailsViewPresented: Bool = false
     @State private var isRemoveMessageAlertPresented: Bool = false
     
-    @ObservedObject private var appObserver = ApplicationObserver()
-    
     @Environment(\.colorPalette) var colorPalette
     
     var body: some View {
-        VStack(spacing: LayoutConstants.perfectPadding(16)) {
-            if viewModel.isValid {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(10)) {
+            if viewModel.isValid && viewModel.exists {
                 exceptionHeader
-                exceptionDetails
+                exceptionDateLabel
+                if !viewModel.details.isEmpty {
+                    exceptionDetails
+                }
                 Spacer()
             } else {
                 Spacer()
@@ -30,33 +32,34 @@ struct MonthAccessoryView: View {
                 Spacer()
             }
         }
-        .padding(LayoutConstants.perfectPadding(16))
+        .padding(LayoutConstants.perfectValueForCurrentDeviceScreen(16))
         .frame(maxWidth: .infinity)
         .background(colorPalette.backgroundPrimary.ignoresSafeArea(.all, edges: [.bottom,.horizontal]))
         .sheet(isPresented: $isExceptionDetailsViewPresented) {
             NavigationView {
-                ExceptionDetailsView(date: date)
+                ExceptionDetailsView(date: viewModel.date)
                 .environment(\.colorPalette, colorPalette)
             }
         }
-        .alert(isPresented: $viewModel.isFailed) {
-            Alert(title: Text(""), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK")))
-        }
-        .alert(isPresented: $isRemoveMessageAlertPresented) {
-            Alert(title: Text("Предупреждение"),
-                  message: Text("Вы уверены, что хотите удалить исключение? Отменить это действие будет невозможно."),
-                  primaryButton: .destructive(Text("Удалить"), action: { viewModel.remove() }),
-                  secondaryButton: .cancel(Text("Отмена")))
-        }
+        .ifAvailable.alert(title: "Ошибка",
+                           message: Text(viewModel.errorMessage),
+                           isPresented: $viewModel.hasError,
+                           defaultButtonTitle: Text("OK"))
+        .ifAvailable.alert(title: "Предупреждение",
+                           message: Text("Вы уверены, что хотите удалить исключение? Отменить это действие будет невозможно."),
+                           isPresented: $isRemoveMessageAlertPresented,
+                           primaryButtonTitle: Text("Отмена"),
+                           secondaryButtonTitle: Text("Удалить"),
+                           primaryButtonAction: { },
+                           secondaryButtonAction: { viewModel.remove() })
     }
     
-    private var updateExceptionLink: some View {
-        NavigationLink {
-            ExceptionDetailsView(date: date)
-            .environment(\.colorPalette, colorPalette)
-        } label: {
+    private var updateExceptionButton: some View {
+        Button(action: {
+            isExceptionDetailsViewPresented = true
+        }, label: {
             Image(systemName: "square.and.pencil")
-        }
+        })
         .foregroundColor(colorPalette.buttonPrimary)
         .font(.title3)
     }
@@ -76,43 +79,45 @@ struct MonthAccessoryView: View {
             Image(systemName: "plus")
                 .renderingMode(.template)
                 .foregroundColor(colorPalette.buttonTertiary)
-                .font(.system(size: LayoutConstants.perfectPadding(36)).weight(.thin))
-        }
-    }
-    
-    private var controlBox: some View {
-        HStack(spacing: LayoutConstants.perfectPadding(5)) {
-            removeExceptionButton
-            updateExceptionLink
+                .font(.system(size: LayoutConstants.perfectValueForCurrentDeviceScreen(36)).weight(.thin))
         }
     }
     
     private var exceptionHeader: some View {
         HStack {
-            Text(viewModel.name)
-                .font(.title3)
-                .bold()
-                .lineLimit(2)
+            exceptionNameLabel
             Spacer()
             controlBox
         }
     }
     
-    private var exceptionDateLabel: String {
-        guard viewModel.dateFrom != viewModel.dateTo else { return viewModel.dateFrom.string(format: "dd MMM") }
-        
-        let dateFromFormat = viewModel.dateFrom.monthNumber == viewModel.dateTo.monthNumber ? "dd" : "dd MMM"
-        
-        let dateFrom = viewModel.dateFrom.string(format: dateFromFormat)
-        let dateTo = viewModel.dateTo.string(format: "dd MMM")
-        
-        return dateFrom + " - " + dateTo
+    private var exceptionNameLabel: some View {
+        Text(viewModel.name)
+            .font(.title3)
+            .bold()
+            .lineLimit(2)
+    }
+    
+    private var controlBox: some View {
+        HStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(5)) {
+            removeExceptionButton
+            updateExceptionButton
+        }
+    }
+    
+    private var exceptionDateLabel: some View {
+        return HStack {
+            Text(viewModel.exceptionDateIntervalLabel)
+                .foregroundColor(colorPalette.textSecondary)
+            Spacer()
+        }
     }
     
     private var exceptionDetails: some View {
         return HStack {
             Text(viewModel.details)
                 .lineLimit(4)
+                .font(.caption)
                 .foregroundColor(colorPalette.textSecondary)
             Spacer()
         }
@@ -128,7 +133,6 @@ struct MonthAccessoryView: View {
     }
     
     init(date: Date) {
-        self.date = date
         viewModel.date = date
     }
 }
@@ -138,10 +142,3 @@ struct MonthAccessoryView_Previews: PreviewProvider {
         MonthAccessoryView(date: Date())
     }
 }
-
-//    .padding(LayoutConstants.perfectPadding(16))
-//    .frame(width: UIScreen.main.bounds.width)
-//    .background(Color.white.ignoresSafeArea(.all, edges: [.bottom,.horizontal]))
-
-
-//.background(Color.white.ignoresSafeArea(.all, edges: [.bottom,.horizontal]).clipShape(RoundedRectangle(cornerRadius: 30)).shadow(color: .gray, radius: 0.3))

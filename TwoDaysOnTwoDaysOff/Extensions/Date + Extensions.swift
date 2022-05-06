@@ -99,6 +99,20 @@ extension Date {
         }
     }
     
+    var endOfDay: Date
+    {
+        get {
+            var components = self.allComponents()
+            
+            components.day = self.dayNumber
+            components.hour = 23
+            components.minute = 59
+            components.second = 59
+            
+            return Calendar.current.date(from: components) ?? Calendar.current.startOfDay(for: self)
+        }
+    }
+    
     func monthSymbol(_ type: MonthSymbolType) -> String {
         let calendar = DateConstants.calendar
         switch type {
@@ -180,12 +194,5 @@ extension Date
                 return a
             }
         }
-    }
-}
-
-extension Date {
-    func addingDateComponent(_ dateComponent: Calendar.Component, value: Int) -> Date {
-        let calendar = Calendar(identifier: .gregorian)
-        return calendar.date(bySetting: dateComponent, value: value, of: self) ?? self
     }
 }

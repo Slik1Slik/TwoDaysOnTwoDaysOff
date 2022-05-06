@@ -27,9 +27,12 @@ class DaysDataStorageCreator
     private func createDays()
     {
         storage = DateConstants.calendar
-            .generateDates(inside: DateInterval(start: schedule.startDate, end: schedule.finalDate),
+            .generateDates(inside: DateInterval(start: schedule.startDate, end: schedule.finalDate.endOfDay),
                                       matching: DateComponents(hour: 0, minute: 0, second: 0))
             .map { Day(date: $0, isWorking: false, exception: nil) }
+        if storage.isEmpty {
+            createDays()
+        }
     }
 
     private func mapDays()

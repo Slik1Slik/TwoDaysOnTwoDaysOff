@@ -9,35 +9,42 @@ import Foundation
 
 class AppFileManager {
     
-    func readFile(at url: URL) -> Data
-    {
-        if !AppFileStatusChecker().exists(file: url) {
-            let _ = writeFile(to: url, with: Data())
+    static var shared: AppFileManager {
+        get {
+            return AppFileManager()
         }
-        return FileManager.default.contents(atPath: url.path)!
     }
     
-    func readFileIfExists(at url: URL) throws -> Data
+    func readFile(at url: URL) -> Data?
     {
-        if !AppFileStatusChecker().exists(file: url) {
-            throw FileManagerError.fileNotFound(name: url.lastPathComponent)
+        if !AppFileStatusChecker.shared.exists(file: url) {
+            try? writeFile(to: url, with: Data())
         }
-        return FileManager.default.contents(atPath: url.path)!
+        return FileManager.default.contents(atPath: url.path)
     }
     
-    func writeFile(to url: URL, with data: Data) -> Bool
+    func readFileIfExists(at url: URL) throws -> Data?
     {
-        return FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
+        if !AppFileStatusChecker.shared.exists(file: url) {
+            throw FileManagerError.fileNotFound
+        }
+        return FileManager.default.contents(atPath: url.path)
     }
     
-    func deleteFile(at url: URL) -> Bool
+    func writeFile(to url: URL, with data: Data) throws
+    {
+        if !FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil) {
+            throw FileManagerError.failedToWriteFile
+        }
+    }
+    
+    func deleteFile(at url: URL) throws
     {
         do {
             try FileManager.default.removeItem(at: url)
         } catch {
-            return false
+            throw FileManagerError.failedToRemoveFile
         }
-        return true
     }
     
     
@@ -54,16 +61,19 @@ class AppFileManager {
     func loadBundledContent(fromFileNamed name: String, withExtension fileExtension: String) throws -> Data {
         guard let url = Bundle.main.url(
             forResource: name,
-            withExtension: fileExtension
-        ) else {
-            throw FileManagerError.fileNotFound(name: name)
+            withExtension: fileExtension),
+            let data = readFile(at: url)
+        else {
+            throw FileManagerError.fileNotFound
         }
-        return readFile(at: url)
+        return data
     }
     
     enum FileManagerError: Error {
-        case fileNotFound(name: String)
-        case fileReadingFailed(name: String)
-        case fileWritingFailed(name: String)
+        case fileNotFound
+        case failedToReadFile
+        case failedToWriteFile
+        case failedToRemoveFile
+        case failedToLoadBundledContent
     }
 }

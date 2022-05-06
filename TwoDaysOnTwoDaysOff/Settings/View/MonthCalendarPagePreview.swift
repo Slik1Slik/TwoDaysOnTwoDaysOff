@@ -53,8 +53,8 @@ struct MonthCalendarPagePreview: View {
     }
 }
 
-//struct MonthCalendarPagePreview_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MonthCalendarPagePreview()
-//    }
-//}
+struct MonthCalendarPagePreview_Previews: PreviewProvider {
+    static var previews: some View {
+        MonthCalendarPagePreview()
+    }
+}

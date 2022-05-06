@@ -16,7 +16,7 @@ struct ScreenView<Content: View>: View {
     var details: String
     
     var body: some View {
-        VStack(spacing: LayoutConstants.perfectPadding(25)) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(25)) {
             Text(title)
                 .font(.title)
                 .multilineTextAlignment(.center)
@@ -27,7 +27,7 @@ struct ScreenView<Content: View>: View {
                 .foregroundColor(.gray)
                 .padding(.horizontal)
         }
-        .padding(LayoutConstants.perfectPadding(16))
+        .padding(LayoutConstants.perfectValueForCurrentDeviceScreen(16))
         Spacer()
     }
     
@@ -42,9 +42,7 @@ struct ScreenView<Content: View>: View {
 struct ScreenView_Previews: PreviewProvider {
     static var previews: some View {
         ScreenView(currentIndex: 0, title: "", details: "") {
-            DaysColorsView(.reversed) { _ in
-                
-            }
+            
         }
     }
 }

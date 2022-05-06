@@ -70,14 +70,19 @@ struct MonthCalendarPage: View {
     
     @ViewBuilder
     private func dateView(date: Date, isWorking: Bool) -> some View {
+        let isSelected = isDateViewSelected(date: date)
+        let backgroundColor = isSelected ? Color.clear : (isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)
+        let textColor = isSelected ? colorPalette.textPrimary : (isWorking ? calendarColorPalette.workingDayText : calendarColorPalette.restDayText)
         DateView(date: date)
             .font(.title3)
-            .foregroundColor(isWorking ? calendarColorPalette.workingDayText : calendarColorPalette.restDayText)
+            .foregroundColor(textColor)
             .frame(width: calendarManager.layoutConfiguration.item.width,
                    height: calendarManager.layoutConfiguration.item.width)
-            .background(isWorking ? calendarColorPalette.workingDayBackground : calendarColorPalette.restDayBackground)
+            .background(backgroundColor)
             .clipShape(Circle())
-            .opacity(isDateViewSelected(date: date) ? 0.8 : 1)
+            .ifAvailable.overlay({
+                Circle().stroke(colorPalette.textPrimary, lineWidth: isSelected ? 1 : 0)
+            })
             .onTapGesture {
                 calendarManager.selectedDate = date
             }
@@ -87,6 +92,9 @@ struct MonthCalendarPage: View {
     private func exceptionDateView(date: Date, isWorking: Bool) -> some View {
         VStack(spacing: 2) {
             dateView(date: date, isWorking: isWorking)
+            Spacer()
+        }
+        .ifAvailable.overlay(alignment: .bottom) {
             Color.gray
                 .frame(width: MonthCalendarLayoutConstants.exceptionMarkCircleSize, height: MonthCalendarLayoutConstants.exceptionMarkCircleSize)
                 .clipShape(Circle())

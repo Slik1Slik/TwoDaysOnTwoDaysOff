@@ -11,7 +11,7 @@ struct DaysCountPicker: View {
     @Binding var workingDays: Int
     @Binding var restDays: Int
     var body: some View {
-        HStack(spacing: LayoutConstants.perfectPadding(40)) {
+        HStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(40)) {
             NumberPicker(selection: $workingDays, range: 1...30)
             NumberPicker(selection: $restDays, range: 1...30)
         }
@@ -27,7 +27,7 @@ struct NumberPicker: View {
     @Environment(\.colorPalette) private var colorPalette
     
     var body: some View {
-        VStack(spacing: LayoutConstants.perfectPadding(16)) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(16)) {
             increaseSelectionButton(value: 1, iconName: "arrowtriangle.up.fill")
                 .opacity(selection < range.upperBound ? 1 : 0)
             selectionLabel
@@ -39,7 +39,7 @@ struct NumberPicker: View {
     private var selectionLabel: some View {
         Text(selection.description)
             .font(.largeTitle)
-            .padding(.vertical, LayoutConstants.perfectPadding(25))
+            .padding(.vertical, LayoutConstants.perfectValueForCurrentDeviceScreen(25))
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .fill(colorPalette.backgroundTertiary)

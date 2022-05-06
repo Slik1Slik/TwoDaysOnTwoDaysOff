@@ -26,7 +26,7 @@ struct DatePickerAlert: View {
         Button(action: {
             onAccept(calendarManager.selectedDate)
         }) {
-            Text("Accept")
+            Text("Принять")
                 .bold()
                 .foregroundColor(colorPalette.buttonPrimary)
                 .padding()
@@ -41,6 +41,7 @@ struct DatePickerAlert: View {
                                                     initialDate: initialDate,
                                                     layoutConfiguration: .alert)
         self.calendarManager.selectedDate = initialDate
+        self.calendarManager.selectedMonth = initialDate
         self.onAccept = onAccept
     }
 }

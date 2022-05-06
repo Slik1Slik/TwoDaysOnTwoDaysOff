@@ -29,23 +29,37 @@ struct CompactMonthCalendarView: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .foregroundColor(Color(.white))
+                .foregroundColor(colorPalette.backgroundPrimary)
         )
         .padding(.horizontal)
+    }
+    
+    init(calendarManager: CalendarManager, onSelect: @escaping (Date) -> () = { _ in }) {
+        self.calendarManager = calendarManager
+        self.onSelect = onSelect
+        
+        let currentMonthDaysCount = calendarManager.calendar.generateDates(of: .month, for: calendarManager.selectedMonth).count
+        let rowsCount = currentMonthDaysCount == 42 ? 6 : 5
+        adjustContent(rowsCount: rowsCount)
     }
 }
 
 extension CompactMonthCalendarView {
+    
+    @ViewBuilder
     private func header(date: Date) -> some View {
+        let isCurrentMonthFirst = isCurrentMonthFirst()
+        let isCurrentMonthLast = isCurrentMonthLast()
         HStack {
             Button {
                 changeMonth(to: .previous)
             } label: {
                 Image(systemName: "arrowtriangle.left.fill")
                     .renderingMode(.template)
-                    .foregroundColor(isCurrentMonthFirst() ? Color(.systemGray5) : Color(.systemGray2))
+                    .foregroundColor(colorPalette.buttonTertiary)
             }
-            .disabled(isCurrentMonthFirst())
+            .disabled(isCurrentMonthFirst)
+            .opacity(isCurrentMonthFirst ? 0 : 1)
             Spacer()
             Text(DateConstants.monthSymbols[date.monthNumber! - 1])
                 .bold()
@@ -55,9 +69,10 @@ extension CompactMonthCalendarView {
             } label: {
                 Image(systemName: "arrowtriangle.right.fill")
                     .renderingMode(.template)
-                    .foregroundColor(isCurrentMonthLast() ? Color(.systemGray5) : Color(.systemGray2))
+                    .foregroundColor(colorPalette.buttonTertiary)
             }
-            .disabled(isCurrentMonthLast())
+            .disabled(isCurrentMonthLast)
+            .opacity(isCurrentMonthLast ? 0 : 1)
         }
     }
 }
@@ -132,6 +147,7 @@ extension CompactMonthCalendarView {
         let paddingDifference = defaultLineSpacing / 2 + ((defaultItemSize / 6) / 2)
         
         let isCurrentLayoutMatchedWithDefault = calendarManager.layoutConfiguration.calendarBody.lineSpacing == defaultLineSpacing
+        
         if rowsCount == 6 {
             if isCurrentLayoutMatchedWithDefault {
                 calendarManager.layoutConfiguration.calendarBody.lineSpacing -= lineSpacingDifference
@@ -152,7 +168,7 @@ extension CompactMonthCalendarView {
     }
 }
 
-struct WheelDatePickerAlert_Previews: PreviewProvider {
+struct CompactMonthCalendarView_Previews: PreviewProvider {
     static var previews: some View {
         CompactMonthCalendarView(calendarManager: CalendarManager())
     }

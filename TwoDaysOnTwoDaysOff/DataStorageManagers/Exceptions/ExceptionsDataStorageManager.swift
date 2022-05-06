@@ -129,14 +129,35 @@ class ExceptionsDataStorageManager
         return realm.objects(Exception.self).count
     }
     
-    func updateStorage()
+    func nearestAvailableDate() -> Date? {
+        let firstDateInAvailableInterval = Date().startOfDay.compare(with: UserSettings.startDate).oldest
+        guard let _ = readAll().first else {
+            return firstDateInAvailableInterval
+        }
+        
+        let daysInterval = DateInterval(start: firstDateInAvailableInterval, end: UserSettings.finalDate)
+        
+        for availableDate in DateConstants.calendar.generateDates(inside: daysInterval, matching: .init(hour: 0, minute: 0, second: 0)) {
+            if !ExceptionsDataStorageManager.shared.exists(date: availableDate) {
+                return availableDate
+            }
+        }
+        
+        return nil
+    }
+    
+    func updateStorage() throws
     {
-        try! realm.write {
-            realm.objects(Exception.self).forEach { (exception) in
-                if exception.from < Date().startOfDay {
-                    realm.delete(exception)
+        do {
+            try realm.write {
+                realm.objects(Exception.self).forEach { (exception) in
+                    if exception.from < Date().startOfDay {
+                        realm.delete(exception)
+                    }
                 }
             }
+        } catch {
+            throw ExceptionsDataStorageManagerErrors.attemptToRemoveWasFailure
         }
     }
 }
@@ -151,9 +172,9 @@ enum ExceptionsDataStorageManagerErrors: Error, LocalizedError
     public var localizedDescription: String {
         switch self {
         case .attemptToWriteWasFailure:
-            return "Ошибка при записи исключения. Пожалуйста, попробуйте еще раз."
+            return "Возникла ошибка при записи исключения. Пожалуйста, проверьте введенные данные и попробуйте еще раз."
         case .attemptToRemoveWasFailure:
-            return "Ошибка при удалении исключения. Пожалуйста, попробуйте еще раз."
+            return "Возникла ошибка при удалении исключения. Пожалуйста, попробуйте еще раз."
         case .appendingExceptionConflictsWithCurrent:
             return "На выбранный период уже назначено исключение."
         case .exceptionNotFound:

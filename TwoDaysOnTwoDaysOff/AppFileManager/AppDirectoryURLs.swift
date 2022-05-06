@@ -15,8 +15,13 @@ enum AppDirectories : String
 
 class AppDirectoryURLs {
     
+    static var shared: AppDirectoryURLs {
+        get {
+            return AppDirectoryURLs()
+        }
+    }
+    
     func documentsDirectoryURL() -> URL {
-        
         return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     }
     

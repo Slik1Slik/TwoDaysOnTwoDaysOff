@@ -9,6 +9,12 @@ import Foundation
 
 class AppFileStatusChecker {
     
+    static var shared: AppFileStatusChecker {
+        get {
+            return AppFileStatusChecker()
+        }
+    }
+    
     func isReadable(file at: URL) -> Bool {
         return FileManager.default.isReadableFile(atPath: at.path)
     }

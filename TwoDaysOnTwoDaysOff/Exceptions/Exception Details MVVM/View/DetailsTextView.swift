@@ -24,7 +24,7 @@ struct DetailsTextView: View {
                 view.autocapitalizationType = .sentences
                 view.autocorrectionType = .default
             }
-            .padding(.horizontal, LayoutConstants.perfectPadding(16))
+            .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .onReceive(Just(selection)) { _ in
@@ -39,13 +39,13 @@ struct DetailsTextView: View {
         Text(selection.count.description + "/" + "400")
             .bold()
             .frame(maxWidth: .infinity, alignment: .center)
-            .overlay(
+            .ifAvailable.overlay({
                 HStack{
                     backButton
                     Spacer()
                     clearButton
                 }
-            )
+            })
             .padding()
         
     }

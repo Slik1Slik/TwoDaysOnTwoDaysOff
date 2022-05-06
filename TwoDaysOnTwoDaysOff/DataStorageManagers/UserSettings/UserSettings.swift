@@ -113,10 +113,7 @@ final class UserSettings
         
         userDefaults.register(defaults: [SettingsKeys.colorThemeID.rawValue : "Монохром"])
         
-        userDefaults.register(defaults: [SettingsKeys.wasApplicationEverLaunched.rawValue : true])
         userDefaults.register(defaults: [SettingsKeys.isCalendarFormed.rawValue : false])
-        
-        userDefaults.register(defaults: [SettingsKeys.countOfAppLaunches.rawValue : 1])
     }
     
     enum SettingsKeys: String
@@ -127,25 +124,8 @@ final class UserSettings
         case countOfWorkingDays
         case countOfRestDays
         
-        case wasApplicationEverLaunched
-        case countOfAppLaunches
         case isCalendarFormed
         
         case colorThemeID
     }
-}
-
-enum UserSettingsErrors: Error
-{
-    case UnableToGetStartDate
-    case UnableToSetStartDate
-    
-    case UnableToGetFinalDate
-    case UnableToSetFinalDate
-    
-    case UnableToGetCountOfWorkingDays
-    case UnableToSetCountOfWorkingDays
-    
-    case UnableToGetCountOfRestDays
-    case UnableToSetCountOfRestDays
 }

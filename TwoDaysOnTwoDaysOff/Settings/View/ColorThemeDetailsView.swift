@@ -15,35 +15,35 @@ struct ColorThemeDetailsView: View {
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
-        VStack(spacing: 0) {
-            colorThemeComponentPicker
-                .padding()
-            MonthCalendarPagePreview()
-                .environmentObject(viewModel)
-            Divider()
-                .padding(.horizontal)
-            ZStack {
-                CustomColorPicker(selection: $viewModel.restDayBackground)
-                    .opacity(viewModel.currentColorThemeComponentToChange == .restDayBackground ? 1 : 0)
-                CustomColorPicker(selection: $viewModel.workingDayBackground)
-                    .opacity(viewModel.currentColorThemeComponentToChange == .workingDayBackground ? 1 : 0)
-                CustomColorPicker(selection: $viewModel.accent, minOpacity: 30/255)
-                    .opacity(viewModel.currentColorThemeComponentToChange == .accent ? 1 : 0)
-            }
-            Spacer()
-        }
-        .navigationTitle("Цвета")
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
-                    doneButton
-                    Text("")
+        NavigationViewWrapper(title: Text("Цвета").bold(),
+                              leadingItem: nil,
+                              trailingItem: (Content: doneButton, DismissOnTap: false),
+                              content: {
+            VStack(spacing: 0) {
+                Divider()
+                colorThemeComponentPicker
+                    .padding()
+                MonthCalendarPagePreview()
+                    .environmentObject(viewModel)
+                Divider()
+                    .padding(.horizontal)
+                ZStack {
+                    CustomColorPicker(selection: $viewModel.restDayBackground)
+                        .opacity(viewModel.currentColorThemeComponentToChange == .restDayBackground ? 1 : 0)
+                        .environment(\.colorPalette, colorPalette)
+                    CustomColorPicker(selection: $viewModel.workingDayBackground)
+                        .opacity(viewModel.currentColorThemeComponentToChange == .workingDayBackground ? 1 : 0)
+                        .environment(\.colorPalette, colorPalette)
+                    CustomColorPicker(selection: $viewModel.accent, minOpacity: 50/255)
+                        .opacity(viewModel.currentColorThemeComponentToChange == .accent ? 1 : 0)
+                        .environment(\.colorPalette, colorPalette)
                 }
+                Spacer()
             }
-        }
-        .background(colorPalette.backgroundSecondary.ignoresSafeArea())
+            .background(colorPalette.backgroundSecondary.ignoresSafeArea())
+        })
+        .navigationBarHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private var colorThemeComponentPicker: some View {

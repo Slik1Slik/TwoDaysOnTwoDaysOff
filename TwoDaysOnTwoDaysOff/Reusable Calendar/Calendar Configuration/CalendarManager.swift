@@ -36,21 +36,6 @@ class CalendarManager: ObservableObject {
         )
     }
     
-    var quarters: [[Date]] {
-        var result: [[Date]] = [[]]
-        let months = self.months
-        var monthIndex = 0
-        for _ in 0..<4 {
-            var quarter: [Date] = []
-            for _ in 0..<3 {
-                quarter.append(months[monthIndex])
-                monthIndex += 1
-            }
-            result.append(quarter)
-        }
-        return result
-    }
-    
     var years: [Date] {
         calendar.generateDates(
             inside: interval,
@@ -73,8 +58,6 @@ class CalendarManager: ObservableObject {
     func isYearCurrent(_ date: Date) -> Bool {
         return calendar.isDate(date, equalTo: currentDate, toGranularity: .year)
     }
-    
-    private var cancellableSet: Set<AnyCancellable> = []
     
     init() {
         self.calendar = Calendar(identifier: .gregorian)
@@ -140,10 +123,10 @@ class CalendarManager: ObservableObject {
        switch interval {
        case .month(let date):
            let dates = calendar.generateDates(of: .month, for: date)
-           dateInterval = DateInterval(start: dates.first!, end: dates.last!)
+           dateInterval = DateInterval(start: dates.first ?? Date().startOfDay, end: dates.last ?? Date().startOfDay)
        case .year(let date):
            let dates = calendar.generateDates(of: .year, for: date)
-           dateInterval = DateInterval(start: dates.first!, end: dates.last!)
+           dateInterval = DateInterval(start: dates.first ?? Date().startOfDay, end: dates.last ?? Date().startOfDay)
        }
        
        self.init(calendar: calendar,
@@ -156,10 +139,6 @@ class CalendarManager: ObservableObject {
 extension CalendarManager {
     func calendarConfiguration(for month: Date) -> MonthCalendarConfiguration {
         return MonthCalendarConfiguration(calendar: self.calendar, month: month)
-    }
-    
-    func calendarConfigurationForCurrentMonth() -> MonthCalendarConfiguration {
-        return calendarConfiguration(for: self.currentDate)
     }
 }
 

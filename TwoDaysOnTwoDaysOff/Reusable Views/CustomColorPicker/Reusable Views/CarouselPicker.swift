@@ -26,8 +26,10 @@ struct CarouselPicker<SelectionValue: Hashable, Content: View>: View {
                 ForEach(values, id: \.self) { value in
                     content(value)
                         .onTapGesture {
-                            selection = value
-                            onSelect(value)
+                            if selection != value {
+                                selection = value
+                                onSelect(value)
+                            }
                         }
                 }
             }

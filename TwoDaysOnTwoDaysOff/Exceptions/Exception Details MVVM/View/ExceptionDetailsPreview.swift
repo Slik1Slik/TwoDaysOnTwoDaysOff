@@ -9,71 +9,46 @@ import SwiftUI
 
 struct ExceptionDetailsPreview: View {
     
-    //private var viewModel: ExceptionDetailsViewModel
+    private var viewModel: ExceptionDetailsPreviewViewModel = ExceptionDetailsPreviewViewModel()
     
     @Environment(\.colorPalette) private var colorPalette
-    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         VStack(spacing: 16) {
             titleLabel
             dayKindLabel
             dateIntervalLabel
-            detailsLabel
+            if !viewModel.details.isEmpty {
+                detailsLabel
+            }
             Spacer()
         }
-        .padding()
-        .navigationBarHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    private var navigationBar: some View {
-        Text("Детали")
-            .bold()
-            .frame(maxWidth: .infinity, alignment: .center)
-            .overlay(
-                HStack{
-                    backButton
-                    Spacer()
-                }
-            )
-            .padding()
-        
-    }
-    
-    private var backButton: some View {
-        Button {
-            presentationMode.wrappedValue.dismiss()
-        } label: {
-            Image(systemName: "chevron.left")
-                .foregroundColor(colorPalette.buttonPrimary)
-                .font(.title2)
-        }
+        .padding(LayoutConstants.perfectValueForCurrentDeviceScreen(16))
     }
     
     private var titleLabel: some View {
         HStack {
-            Text("Замена")
+            Text(viewModel.name)
                 .font(.title2.bold())
+                .lineLimit(2)
             Spacer()
         }
     }
     
     private var dayKindLabel: some View {
-        //"Внеплановый \(viewModel.isWorking ? "рабочий" : "выходной") день"
         HStack {
-            Text("Внеплановый выходной день")
+            Text("Внеплановый \(viewModel.isWorking ? "рабочий" : "выходной") день")
                 .font(.body)
             Spacer()
         }
     }
     
+    @ViewBuilder
     private var dateIntervalLabel: some View {
-        //"Внеплановый \(viewModel.isWorking ? "рабочий" : "выходной") день"
         HStack {
-            Text("вторник, 27 окт. 2022 г.")
+            Text(viewModel.exceptionDateIntervalLabel)
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(colorPalette.textTertiary)
             Spacer()
         }
     }
@@ -81,22 +56,22 @@ struct ExceptionDetailsPreview: View {
     private var detailsLabel: some View {
         VStack(spacing: 10) {
             HStack {
-                Text("Детали:")
+                Text("Описание:")
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(colorPalette.textTertiary)
                 Spacer()
             }
             HStack {
-                Text("Вот так вот в жизни бывает")
+                Text(viewModel.details)
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(colorPalette.textTertiary)
                 Spacer()
             }
         }
     }
     
     init(date: Date) {
-        //self.viewModel = ExceptionViewModelFactory(date: date).viewModel()
+        self.viewModel.date = date
     }
 }
 

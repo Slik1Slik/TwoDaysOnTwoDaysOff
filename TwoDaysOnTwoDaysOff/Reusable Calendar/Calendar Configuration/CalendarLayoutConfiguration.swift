@@ -46,15 +46,9 @@ class CalendarLayoutConfiguration {
     
     private let iPhone8Width: CGFloat = 375.00
     
-    private let basicPadding: CGFloat = 16
-    
     private func perfectPadding(_ input: CGFloat) -> CGFloat {
         let ratio = input / iPhone8Width
         return width * ratio
-    }
-    
-    private func defaultPadding() -> CGFloat {
-        return perfectPadding(basicPadding)
     }
     
     private func calculateHorizontalPadding() {

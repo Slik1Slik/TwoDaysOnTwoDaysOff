@@ -23,75 +23,75 @@ struct SettingsView: View {
     @State private var animation: Animation? = .none
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                header
-                    .background(colorPalette.backgroundPrimary.ignoresSafeArea())
-                    .zIndex(1.0)
-                Divider()
-                Form {
-                    Section {
-                        List {
-                            colorThemesCarousel
-                            if colorThemeSettingsViewModel.colorThemes.count < 15 {
-                                addNewThemeButton
-                            }
-                            if !DefaultColorTheme.allCases.map { $0.theme.id }.contains(colorThemeSettingsViewModel.currentColorTheme.id) {
-                                updateCurrentThemeButton
-                                removeCurrentThemeButton
-                                    .alert(isPresented: $isRemoveCurrentThemeAlertPresented) {
-                                        Alert(title: Text("Предупреждение"),
-                                              message: Text("Вы уверены, что хотите удалить выбранную тему? Отменить это действие будет невозможно."),
-                                              primaryButton: .cancel(Text("Отмена")),
-                                              secondaryButton: .destructive(Text("Удалить"), action: {
-                                            withAnimation {
-                                                colorThemeSettingsViewModel.remove()
-                                            }
-                                        }))
+        VStack(spacing: 0) {
+            navigationBar
+                .background(colorPalette.backgroundPrimary.ignoresSafeArea())
+                .zIndex(1.0)
+            Divider()
+            Form {
+                Section {
+                    List {
+                        colorThemesCarousel
+                        addNewThemeButton
+                        if !colorThemeSettingsViewModel.isCurrentColorThemeDefault {
+                            updateCurrentThemeButton
+                            removeCurrentThemeButton
+                                .ifAvailable.alert(title: "Предупреждение",
+                                                   message: Text("Вы уверены, что хотите удалить выбранную тему? Отменить это действие будет невозможно."),
+                                                   isPresented: $isRemoveCurrentThemeAlertPresented,
+                                                   primaryButtonTitle: Text("Отмена"),
+                                                   secondaryButtonTitle: Text("Удалить"),
+                                                   primaryButtonAction: { }) {
+                                    withAnimation {
+                                        colorThemeSettingsViewModel.remove()
                                     }
+                                }
+                        }
+                    }
+                } header: {
+                    sectionTitle("ОФОРМЛЕНИЕ")
+                        .transaction { transaction in
+                            transaction.animation = nil
+                        }
+                }
+                Section {
+                    changeScheduleButton
+                        .ifAvailable.alert(title: "Предупреждение",
+                                           message: Text("Вы уверены, что хотите изменить график? Все исключения будут безвозвратно удалены."),
+                                           isPresented: $isScheduleChangingAlertPresented,
+                                           primaryButtonTitle: Text("Отмена"),
+                                           secondaryButtonTitle: Text("Изменить"),
+                                           primaryButtonAction: {}) {
+                            withAnimation {
+                                userSettingsViewModel.dropCurrentUserSettings()
                             }
                         }
-                    } header: {
-                        sectionTitle("ОФОРМЛЕНИЕ")
-                    }
-                    
-                    Section {
-                        changeScheduleButton
-                            .alert(isPresented: $isScheduleChangingAlertPresented) {
-                                Alert(title: Text("Предупреждение"),
-                                      message: Text("Вы уверены, что хотите изменить график? Все исключения будут безвозвратно удалены."),
-                                      primaryButton: .cancel(Text("Отмена")),
-                                      secondaryButton: .destructive(Text("Изменить"), action: {
-                                    withAnimation {
-                                        userSettingsViewModel.dropCurrentUserSettings()
-                                    }
-                                }))
-                            }
-                    } header: {
-                        sectionTitle("ГРАФИК")
-                    }
+                } header: {
+                    sectionTitle("ГРАФИК")
+                        .transaction { transaction in
+                            transaction.animation = nil
+                        }
                 }
-                .animation(animation)
             }
-            .background(colorPalette.backgroundSecondary.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarHidden(true)
-            .alert(isPresented: $colorThemeSettingsViewModel.hasError) {
-                Alert(title: Text("Error"), message: Text(colorThemeSettingsViewModel.errorMessage), dismissButton: .default(Text("OK"), action: {
-                    colorThemeSettingsViewModel.hasError = false
-                }))
-            }
-            .sheet(isPresented: $isThemeDetailsSheetPresented) {
-                NavigationView {
-                    SaveColorThemeView()
-                        .environment(\.colorPalette, colorPalette)
-                        .environmentObject(colorThemeSettingsViewModel.colorThemeDetailsViewModel)
-                }
+            .animation(animation)
+        }
+        .background(colorPalette.backgroundSecondary.ignoresSafeArea())
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
+        .ifAvailable.alert(title: "Ошибка",
+                           message: Text(colorThemeSettingsViewModel.errorMessage),
+                           isPresented: $colorThemeSettingsViewModel.hasError,
+                           defaultButtonTitle: Text("OK"))
+        .sheet(isPresented: $isThemeDetailsSheetPresented) {
+            NavigationView {
+                SaveColorThemeView()
+                    .environment(\.colorPalette, colorPalette)
+                    .environmentObject(colorThemeSettingsViewModel.colorThemeDetailsViewModel)
             }
         }
     }
     
-    private var header: some View {
+    private var navigationBar: some View {
         Text("Настройки")
             .bold()
             .frame(maxWidth: .infinity, alignment: .center)
@@ -100,7 +100,6 @@ struct SettingsView: View {
     
     private func sectionTitle(_ title: String) -> some View {
         Text(title)
-            .foregroundColor(.secondary)
     }
     
     private var colorThemesCarousel: some View {
@@ -116,7 +115,6 @@ struct SettingsView: View {
             })
             .padding(.top)
         } onSelect: { value in
-            colorThemeSettingsViewModel.currentColorTheme = value
             colorThemeSettingsViewModel.setCurrentTheme()
         }
     }
@@ -150,7 +148,9 @@ struct SettingsView: View {
     private var updateCurrentThemeButton: some View {
         Button("Изменить текущую тему", action: {
             colorThemeSettingsViewModel.updateTheme()
-            isThemeDetailsSheetPresented = true
+            if !colorThemeSettingsViewModel.hasError {
+                isThemeDetailsSheetPresented = true
+            }
         })
             .foregroundColor(colorPalette.buttonPrimary)
     }

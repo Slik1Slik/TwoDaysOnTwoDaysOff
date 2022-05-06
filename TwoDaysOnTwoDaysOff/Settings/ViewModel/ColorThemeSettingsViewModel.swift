@@ -29,7 +29,7 @@ class ColorThemeSettingsViewModel: ObservableObject {
             try UserColorThemeManager.shared.remove(forID: currentColorTheme.id)
         } catch {
             hasError = true
-            errorMessage = "Removing theme failed. Please try again"
+            errorMessage = "Удаление темы оказалось неуспешным. Пожалуйста, повторите попытку или перезапустите приложение."
             currentColorTheme = colorThemes.last ?? DefaultColorTheme.monochrome.theme
             setCurrentTheme()
         }
@@ -44,6 +44,11 @@ class ColorThemeSettingsViewModel: ObservableObject {
     }
     
     func updateTheme() {
+        guard !isCurrentColorThemeDefault else {
+            hasError = true
+            errorMessage = "Системные темы не подлежат редактированию."
+            return
+        }
         colorThemeDetailsViewModel = ColorThemeDetailsViewModel(mode: .update(currentColorTheme.id))
     }
     
@@ -54,11 +59,17 @@ class ColorThemeSettingsViewModel: ObservableObject {
         setSubscriptions()
     }
     
+    deinit {
+        userColorThemesObserver.stopObserving()
+    }
+    
     private func observeThemes() {
         userColorThemesObserver.onAnyChange = { [unowned self] in
-            fetchThemes()
-            getCurrentTheme()
-            setCurrentTheme()
+            DispatchQueue.main.async {
+                fetchThemes()
+                getCurrentTheme()
+                setCurrentTheme()
+            }
         }
         userColorThemesObserver.startObserving()
     }
@@ -74,12 +85,6 @@ class ColorThemeSettingsViewModel: ObservableObject {
         } catch {
             currentColorTheme = colorThemes.last ?? DefaultColorTheme.monochrome.theme
         }
-    }
-    
-    private func onDirectoryHasChanged() {
-        fetchThemes()
-        getCurrentTheme()
-        setCurrentTheme()
     }
     
     private func setSubscriptions() {

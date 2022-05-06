@@ -17,21 +17,24 @@ struct SaveColorThemeView: View {
     @State private var isColorThemeDetailsViewPresented = false
     
     var body: some View {
-        Form {
-            Section {
-                HStack {
-                    TextField("Название", text: $viewModel.name)
-                    if !viewModel.name.isEmpty {
-                        withAnimation {
-                            clearTextButton
+        VStack(spacing: 0) {
+            Divider()
+            Form {
+                Section {
+                    HStack {
+                        TextField("Название", text: $viewModel.name)
+                        if !viewModel.name.isEmpty {
+                            withAnimation {
+                                clearTextButton
+                            }
                         }
                     }
                 }
-            }
-            Section {
-                changeColorsButton
-                if viewModel.mode == .add {
-                    Toggle("Установить тему как текущую", isOn: $viewModel.setThemeAsCurrent)
+                Section {
+                    changeColorsButton
+                    if viewModel.mode == .add {
+                        Toggle("Установить тему как текущую", isOn: $viewModel.setThemeAsCurrent)
+                    }
                 }
             }
         }
@@ -52,16 +55,15 @@ struct SaveColorThemeView: View {
                     .environmentObject(viewModel)
             }
         }
-        .alert(isPresented: $viewModel.hasError) {
-            Alert(title: Text("Error"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("OK"), action: {
-                viewModel.hasError = false
-            }))
-        }
+        .ifAvailable.alert(title: "Ошибка",
+                           message: Text(viewModel.errorMessage),
+                           isPresented: $viewModel.hasError,
+                           defaultButtonTitle: Text("OK"))
     }
     
     private var clearTextButton: some View {
         Image(systemName: "xmark.circle.fill")
-            .foregroundColor(.gray)
+            .foregroundColor(colorPalette.textSecondary)
             .onTapGesture {
                 viewModel.name.removeAll()
             }
@@ -88,8 +90,10 @@ struct SaveColorThemeView: View {
             endPoint: .bottomTrailing
         )
             .clipShape(Circle())
-            .background(Circle().stroke(viewModel.accent, lineWidth: 3))
             .frame(width: 25, height: 25)
+            .ifAvailable.overlay {
+                Circle().stroke(viewModel.accent, lineWidth: 3)
+            }
     }
     
     private var doneButton: some View {
@@ -107,8 +111,8 @@ struct SaveColorThemeView: View {
     }
 }
 
-//struct SaveColorThemeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SaveColorThemeView()
-//    }
-//}
+struct SaveColorThemeView_Previews: PreviewProvider {
+    static var previews: some View {
+        SaveColorThemeView()
+    }
+}

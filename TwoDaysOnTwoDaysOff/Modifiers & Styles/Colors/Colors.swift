@@ -14,7 +14,10 @@ class ApplicationColorPalette {
         var colorTheme = ColorTheme()
         let colorPalette = ColorPalette()
         do {
-            colorTheme = try UserColorThemeManager.shared.find(forID: UserSettings.colorThemeID!)
+            guard let userThemeID = UserSettings.colorThemeID else {
+                return colorPalette
+            }
+            colorTheme = try UserColorThemeManager.shared.find(forID: userThemeID)
         } catch {
             return colorPalette
         }
@@ -26,7 +29,10 @@ class ApplicationColorPalette {
         var colorTheme = ColorTheme()
         let colorPalette = CalendarColorPalette()
         do {
-            colorTheme = try UserColorThemeManager.shared.find(forID: UserSettings.colorThemeID!)
+            guard let userThemeID = UserSettings.colorThemeID else {
+                return colorPalette
+            }
+            colorTheme = try UserColorThemeManager.shared.find(forID: userThemeID)
         } catch {
             return colorPalette
         }
@@ -52,6 +58,7 @@ class ColorPalette {
     
     var inactive: Color
     var highlighted: Color
+    var destructive: Color
     
     var buttonPrimary: Color
     var buttonSecondary: Color
@@ -70,6 +77,7 @@ class ColorPalette {
     init() {
         inactive = baseColor.inactive
         highlighted = baseColor.highlighted
+        destructive = baseColor.destructive
         
         buttonPrimary = baseColor.accentPrimary
         buttonSecondary = baseColor.accentSecondary
@@ -107,6 +115,7 @@ class CalendarColorPalette {
 struct BaseColor {
     let inactive: Color = Color("inactive")
     let highlighted: Color = Color("highlighted")
+    let destructive: Color = Color("destructive")
     
     let accentPrimary: Color = Color("accentPrimary")
     let accentSecondary: Color = Color("accentSecondary")

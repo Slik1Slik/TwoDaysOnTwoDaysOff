@@ -34,6 +34,8 @@ struct CustomColorPicker: View {
     
     @State private var recentColors: [Color]
     
+    @Environment(\.colorPalette) private var colorPalette
+    
     var body: some View {
         VStack(spacing: 15) {
             baseColorPicker
@@ -103,9 +105,9 @@ extension CustomColorPicker {
                 (value as Color)
                     .clipShape(Circle())
                     .frame(width: 35, height: 35)
-                    .overlay(
+                    .ifAvailable.overlay {
                         selectedColorMark(isSelected: (selectedColor == value) || (selectedBaseColor == value))
-                    )
+                    }
             } onSelect: { value in
                 let hsba = value.uiColor.hsbaComponents
                 let brightness = supportsBrightness ? selectedColorBrightness : hsba.brightness
@@ -131,7 +133,7 @@ extension CustomColorPicker {
             Slider(value: $selectedColorBrightness, in: minBrightness...maxBrightness, step: minHSBAUnit)
         } header: {
             Text("ЯРКОСТЬ")
-                .foregroundColor(.secondary)
+                .foregroundColor(colorPalette.inactive)
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -142,7 +144,7 @@ extension CustomColorPicker {
             Slider(value: $selectedColorOpacity, in: minOpacity...maxOpacity, step: minHSBAUnit)
         } header: {
             Text("НЕПРОЗРАЧНОСТЬ")
-                .foregroundColor(.secondary)
+                .foregroundColor(colorPalette.inactive)
                 .font(.footnote)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -175,7 +177,7 @@ extension CustomColorPicker {
         } label: {
             Image(systemName: "plus.circle.fill")
                 .font(.title)
-                .foregroundColor(.gray.opacity(0.5))
+                .foregroundColor(colorPalette.textTertiary)
         }
         .disabled(recentColors.count > 10)
     }
@@ -186,7 +188,7 @@ extension CustomColorPicker {
         } label: {
             Image(systemName: "xmark.circle.fill")
                 .font(.title)
-                .foregroundColor(.gray.opacity(0.5))
+                .foregroundColor(colorPalette.textTertiary)
         }
     }
     
@@ -195,7 +197,9 @@ extension CustomColorPicker {
             (value as Color)
                 .clipShape(Circle())
                 .frame(width: 35, height: 35)
-                .overlay(selectedColorMark(isSelected: selectedColor == value))
+                .ifAvailable.overlay({
+                    selectedColorMark(isSelected: selectedColor == value)
+                })
                 .background(colorBackground.clipShape(Circle()))
         } onSelect: { value in
             updateHSBAValues()
@@ -240,11 +244,11 @@ extension CustomColorPicker {
             ForEach(colors, id: \.self) { color in
                 color
                     .frame(width: 30, height: 30)
-                    .overlay(
+                    .ifAvailable.overlay({
                         Rectangle()
                             .stroke(color.isDark ? .white : .black.opacity(0.7),
                                     lineWidth:  (selectedColor == color || selectedBaseColor == color) ? 2 : 0)
-                    )
+                    })
                     .onTapGesture {
                         let hsba = color.uiColor.hsbaComponents
                         let brightness = supportsBrightness ? selectedColorBrightness : hsba.brightness

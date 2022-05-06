@@ -11,14 +11,22 @@ import Combine
 class UpdateExceptionViewModel: ExceptionDetailsViewModel {
     var exception: Exception
     override var areDatesAvailable: AnyPublisher<Bool, Never> {
-        Publishers.Merge($from, $to)
-            .debounce(for: 0.8, scheduler: RunLoop.main)
-            .map { [weak self] value in
-                guard let foundException = ExceptionsDataStorageManager.shared.find(by: value) else {
-                    return true
+        Publishers.CombineLatest($from, $to)
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .map { [unowned self] from, to in
+                
+                if (from == exception.from) && (to == exception.to) { return true }
+                
+                let interval = DateInterval(start: from, end: to.endOfDay)
+                for date in DateConstants.calendar.generateDates(inside: interval, matching: .init(hour: 0, minute: 0, second: 0)) {
+                    if let foundException = ExceptionsDataStorageManager.shared.find(by: date) {
+                        if foundException != exception {
+                            return false
+                        }
+                    }
                 }
-                let isFoundExceptionSameToEditedException = (foundException.from == self!.exception.from) && (foundException.to == self!.exception.to)
-                return isFoundExceptionSameToEditedException
+                
+                return true
             }
             .eraseToAnyPublisher()
     }
@@ -31,14 +39,19 @@ class UpdateExceptionViewModel: ExceptionDetailsViewModel {
         name = exception.name
         details = exception.details
         isWorking = exception.isWorking
-        isPeriod = exception.from != exception.to
+        isPeriod = exception.from < exception.to
     }
     
     override func save() {
-        do {
-            try ExceptionsDataStorageManager.shared.update(&exception, with: newException)
-        } catch let error {
-            self.errorMessage = (error as! ExceptionsDataStorageManagerErrors).localizedDescription
+        lastCheckBeforeSaving()
+        if !hasError {
+            do {
+                try ExceptionsDataStorageManager.shared.update(&exception, with: newException)
+            } catch let error as ExceptionsDataStorageManagerErrors {
+                self.anyErrorMessage = error.localizedDescription
+            } catch let anyError {
+                self.anyErrorMessage = anyError.localizedDescription
+            }
         }
     }
 }

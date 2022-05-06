@@ -19,7 +19,7 @@ struct DayKindPicker: View {
         VStack {
             row(dayKind: .dayOff)
             Divider()
-                .padding(.trailing, -LayoutConstants.perfectPadding(16))
+                .padding(.trailing, -LayoutConstants.perfectValueForCurrentDeviceScreen(16))
             row(dayKind: .working)
         }
         .onChange(of: dayKind) { kind in

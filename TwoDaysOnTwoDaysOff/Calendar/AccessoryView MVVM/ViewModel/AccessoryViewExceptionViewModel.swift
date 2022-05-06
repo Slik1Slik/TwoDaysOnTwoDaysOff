@@ -20,14 +20,37 @@ class AccessoryViewExceptionViewModel: ObservableObject {
     @Published var date: Date = Date()
     
     @Published var errorMessage: String = ""
-    @Published var isFailed: Bool = false
+    @Published var hasError: Bool = false
     
     @Published var exception = Exception()
+    
+    @Published var exists: Bool = false
     
     @ObservedObject private var exceptionsObserver = RealmObserver(for: Exception.self)
     
     var isValid: Bool {
-        !exception.isInvalidated && ExceptionsDataStorageManager.shared.exists(exception)
+        !exception.isInvalidated
+    }
+    
+    var exceptionDateIntervalLabel: String {
+        guard isValid else { return "" }
+        guard exception.from != exception.to else { return exception.from.string(format: "d MMMM, YYYY") }
+        
+        let datesInSameMonth = exception.from.monthNumber == exception.to.monthNumber
+        let datesInSameYear = exception.from.yearNumber == exception.to.yearNumber
+        
+        var dateFromFormat = datesInSameMonth ? "d" : "d MMMM"
+        
+        if !datesInSameYear {
+            dateFromFormat += ", YYYY"
+        }
+        
+        let dateToFormat = "d MMMM, YYYY"
+        
+        let dateFrom = exception.from.string(format: dateFromFormat)
+        let dateTo = exception.to.string(format: dateToFormat)
+        
+        return dateFrom + " - " + dateTo
     }
     
     private var cancellableSet: Set<AnyCancellable> = []
@@ -35,18 +58,25 @@ class AccessoryViewExceptionViewModel: ObservableObject {
     func remove() {
         do {
             try ExceptionsDataStorageManager.shared.remove(exception)
-        } catch let error as NSError {
-            isFailed = true
-            errorMessage = (error as! ExceptionsDataStorageManagerErrors).localizedDescription
+        } catch let error as ExceptionsDataStorageManagerErrors {
+            hasError = true
+            errorMessage = error.localizedDescription
+        } catch let anyError {
+            hasError = true
+            errorMessage = anyError.localizedDescription
         }
     }
     
     init() {
         $date
             .sink { [unowned self] date in
-                guard let foundException = ExceptionsDataStorageManager.shared.find(by: date) else {
+                guard let foundException = ExceptionsDataStorageManager.shared.find(by: date), !foundException.isInvalidated else {
+                    self.exists = false
                     return
                 }
+                
+                self.exists = true
+                
                 self.exception = foundException
                 
                 self.name = exception.name
@@ -56,11 +86,22 @@ class AccessoryViewExceptionViewModel: ObservableObject {
             }
             .store(in: &cancellableSet)
         
-        exceptionsObserver.onObjectHasBeenInserted = { exception in
-            self.date = exception.from
+        exceptionsObserver.onObjectHasBeenInserted = { [unowned self] exception in
+            if (exception.from...exception.to).contains(self.date) {
+                self.date = exception.from
+            } else {
+                self.exists = false
+            }
         }
-        exceptionsObserver.onObjectHasBeenModified = { exception in
-            self.date = exception.from
+        exceptionsObserver.onObjectHasBeenModified = { [unowned self] exception in
+            if (exception.from...exception.to).contains(self.date) {
+                self.date = exception.from
+            } else {
+                self.exists = false
+            }
+        }
+        exceptionsObserver.onObjectsHaveBeenDeleted = { [unowned self] _ in
+            self.exists = false
         }
     }
 }
