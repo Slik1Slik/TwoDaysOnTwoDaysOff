@@ -103,17 +103,21 @@ struct SettingsView: View {
     }
     
     private var colorThemesCarousel: some View {
-        CarouselPicker(selection: $colorThemeSettingsViewModel.currentColorTheme, values: colorThemeSettingsViewModel.colorThemes, spacing: 15) { value in
-            VStack(spacing: 15) {
+        CarouselPicker(selection: $colorThemeSettingsViewModel.currentColorTheme,
+                       values: colorThemeSettingsViewModel.colorThemes,
+                       spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(15)) { value in
+            VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(15)) {
                 colorThemeLabel(restDayBackground: value.restDayBackground.color, workingDayBackground: value.workingDayBackground.color)
                     .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 0.3))
                 colorThemeLabelMarker(isSelected: value.hashValue == colorThemeSettingsViewModel.currentColorTheme.hashValue)
             }
             .animation(.none)
             .onReceive(Just(colorThemeSettingsViewModel.isCurrentColorThemeDefault), perform: { _ in
-                animation = .linear
+                if animation == .none {
+                    animation = .linear
+                }
             })
-            .padding(.top)
+            .padding(.top, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
         } onSelect: { value in
             colorThemeSettingsViewModel.setCurrentTheme()
         }

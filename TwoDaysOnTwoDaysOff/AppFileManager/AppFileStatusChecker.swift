@@ -9,21 +9,15 @@ import Foundation
 
 class AppFileStatusChecker {
     
-    static var shared: AppFileStatusChecker {
-        get {
-            return AppFileStatusChecker()
-        }
-    }
-    
-    func isReadable(file at: URL) -> Bool {
+    static func isReadable(file at: URL) -> Bool {
         return FileManager.default.isReadableFile(atPath: at.path)
     }
     
-    func isWritable(file at: URL) -> Bool {
+    static func isWritable(file at: URL) -> Bool {
         return FileManager.default.isReadableFile(atPath: at.path)
     }
     
-    func exists(file at: URL) -> Bool {
+    static func exists(file at: URL) -> Bool {
         return FileManager.default.fileExists(atPath: at.path)
     }
 }

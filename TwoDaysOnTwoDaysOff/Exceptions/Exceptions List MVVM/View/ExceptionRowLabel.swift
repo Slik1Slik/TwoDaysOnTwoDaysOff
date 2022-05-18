@@ -25,7 +25,7 @@ struct ExceptionRowLabel: View, Identifiable {
     }
     
     private var header: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(10)) {
             HStack {
                 Text(title)
                     .bold()

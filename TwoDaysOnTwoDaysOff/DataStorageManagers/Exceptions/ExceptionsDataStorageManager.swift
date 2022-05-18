@@ -8,15 +8,9 @@
 import Foundation
 import RealmSwift
 
-let realm = try! Realm(queue: .main)
-
 class ExceptionsDataStorageManager
 {
-    class var shared: ExceptionsDataStorageManager {
-        get {
-            return ExceptionsDataStorageManager()
-        }
-    }
+    static let shared: ExceptionsDataStorageManager = ExceptionsDataStorageManager()
     
     func save(_ exception: Exception) throws
     {
@@ -159,6 +153,9 @@ class ExceptionsDataStorageManager
         } catch {
             throw ExceptionsDataStorageManagerErrors.attemptToRemoveWasFailure
         }
+    }
+    
+    private init() {
     }
 }
 

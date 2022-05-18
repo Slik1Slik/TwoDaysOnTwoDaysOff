@@ -27,7 +27,6 @@ struct Defaults<T> {
 
 final class UserSettings
 {
-    
     private static let userDefaults = UserDefaults.standard
     
     static var schedule: Schedule

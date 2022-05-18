@@ -33,7 +33,7 @@ struct CarouselPicker<SelectionValue: Hashable, Content: View>: View {
                         }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
         }
     }
 }

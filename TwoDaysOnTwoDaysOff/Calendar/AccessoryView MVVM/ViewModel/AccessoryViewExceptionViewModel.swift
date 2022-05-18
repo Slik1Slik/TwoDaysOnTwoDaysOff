@@ -86,21 +86,21 @@ class AccessoryViewExceptionViewModel: ObservableObject {
             }
             .store(in: &cancellableSet)
         
-        exceptionsObserver.onObjectHasBeenInserted = { [unowned self] exception in
+        exceptionsObserver.onObjectInserted = { [unowned self] exception in
             if (exception.from...exception.to).contains(self.date) {
                 self.date = exception.from
             } else {
                 self.exists = false
             }
         }
-        exceptionsObserver.onObjectHasBeenModified = { [unowned self] exception in
+        exceptionsObserver.onObjectModified = { [unowned self] exception in
             if (exception.from...exception.to).contains(self.date) {
                 self.date = exception.from
             } else {
                 self.exists = false
             }
         }
-        exceptionsObserver.onObjectsHaveBeenDeleted = { [unowned self] _ in
+        exceptionsObserver.onObjectsRemoved = { [unowned self] _ in
             self.exists = false
         }
     }

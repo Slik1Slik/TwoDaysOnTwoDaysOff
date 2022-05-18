@@ -25,7 +25,7 @@ struct ScreenView<Content: View>: View {
                 .font(.caption)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.gray)
-                .padding(.horizontal)
+                .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
         }
         .padding(LayoutConstants.perfectValueForCurrentDeviceScreen(16))
         Spacer()

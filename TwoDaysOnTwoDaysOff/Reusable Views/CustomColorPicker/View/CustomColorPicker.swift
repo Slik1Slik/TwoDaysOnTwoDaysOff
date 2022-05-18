@@ -37,18 +37,18 @@ struct CustomColorPicker: View {
     @Environment(\.colorPalette) private var colorPalette
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(15)) {
             baseColorPicker
-                .padding(.horizontal, -16)
+                .padding(.horizontal, -LayoutConstants.perfectValueForCurrentDeviceScreen(16))
             Divider()
             sliders
             if showsRecentColors {
                 HStack(spacing: 0) {
                     selectedColorLabel
-                    VStack(spacing: 10) {
+                    VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(10)) {
                         recentColorsControlBar
                         recentColorPicker
-                            .padding(.trailing, -16)
+                            .padding(.trailing, -LayoutConstants.perfectValueForCurrentDeviceScreen(16))
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 85, alignment: .leading)

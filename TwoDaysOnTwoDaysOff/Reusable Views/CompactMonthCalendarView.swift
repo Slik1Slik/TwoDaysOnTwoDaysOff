@@ -31,7 +31,7 @@ struct CompactMonthCalendarView: View {
             RoundedRectangle(cornerRadius: 8)
                 .foregroundColor(colorPalette.backgroundPrimary)
         )
-        .padding(.horizontal)
+        .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
     }
     
     init(calendarManager: CalendarManager, onSelect: @escaping (Date) -> () = { _ in }) {

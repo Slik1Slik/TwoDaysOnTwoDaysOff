@@ -69,7 +69,7 @@ struct ExceptionsListView: View {
     
     @ViewBuilder
     private var navigationBar: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(16)) {
             if viewModel.listMode != .search {
                 title
                     .transition(.move(edge: .top).combined(with: .opacity))
@@ -82,8 +82,8 @@ struct ExceptionsListView: View {
                 }
             }
         }
-        .padding(.horizontal)
-        .padding(.top)
+        .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
+        .padding(.top, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
     }
     
     private var title: some View {

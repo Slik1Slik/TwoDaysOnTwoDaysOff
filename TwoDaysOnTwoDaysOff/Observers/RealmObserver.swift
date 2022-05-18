@@ -21,19 +21,19 @@ class RealmObserver<Element: Object>: ObservableObject {
         }
     }
     
-    var onObjectsHaveBeenChanged: () -> () = { }
+    var onObjectsDidChange: () -> () = { }
     
-    var onObjectsHaveBeenDeleted: ([Int]) -> () = { _ in } {
+    var onObjectsRemoved: ([Int]) -> () = { _ in } {
         didSet {
             activateToken()
         }
     }
-    var onObjectHasBeenInserted: (Element) -> () = { _ in }{
+    var onObjectInserted: (Element) -> () = { _ in } {
         didSet {
             activateToken()
         }
     }
-    var onObjectHasBeenModified: (Element) -> () = { _ in }{
+    var onObjectModified: (Element) -> () = { _ in } {
         didSet {
             activateToken()
         }
@@ -57,15 +57,15 @@ class RealmObserver<Element: Object>: ObservableObject {
                 onRealmDidInitialize()
             case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
                 if !deletions.isEmpty {
-                    onObjectsHaveBeenDeleted(deletions)
+                    onObjectsRemoved(deletions)
                 }
                 if !insertions.isEmpty {
-                    onObjectHasBeenInserted(realm.objects(object).last!)
+                    onObjectInserted(realm.objects(object).last!)
                 }
                 if !modifications.isEmpty {
-                    onObjectHasBeenModified(realm.objects(object)[modifications.last!])
+                    onObjectModified(realm.objects(object)[modifications.last!])
                 }
-                onObjectsHaveBeenChanged()
+                onObjectsDidChange()
             case .error(_):
                 break
             }

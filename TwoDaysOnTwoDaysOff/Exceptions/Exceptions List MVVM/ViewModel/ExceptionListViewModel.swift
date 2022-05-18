@@ -60,7 +60,7 @@ class ExceptionListViewModel: ObservableObject {
             }
             .store(in: &cancellableSet)
         
-        exceptionsObserver.onObjectsHaveBeenChanged = { [weak self] in
+        exceptionsObserver.onObjectsDidChange = { [weak self] in
             DispatchQueue.main.async {
                 self?.queryExceptions()
             }

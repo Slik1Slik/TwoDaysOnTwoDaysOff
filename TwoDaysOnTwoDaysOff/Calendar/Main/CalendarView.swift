@@ -100,6 +100,9 @@ extension CalendarView {
     private var calendarModeButton: some View {
         Button(action: {
             yearCalendarManager.selectedMonth = monthCalendarManager.selectedMonth
+            if accessoryViewAnimation == .none {
+                accessoryViewAnimation = .default
+            }
             withAnimation {
                 calendarMode.toggle()
             }

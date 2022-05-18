@@ -9,18 +9,12 @@ import Foundation
 
 class JSONManager {
     
-    class var shared: JSONManager {
-        get {
-            return JSONManager()
-        }
-    }
-    
-    func read<T>(for type: T.Type, from url: URL) throws -> T where T: Decodable
+    static func read<T>(for type: T.Type, from url: URL) throws -> T where T: Decodable
     {
         let decoder = JSONDecoder()
         let formatter = DateConstants.dateFormatter
         
-        guard let data = try? AppFileManager.shared.readFileIfExists(at: url) else {
+        guard let data = try? AppFileManager.readFileIfExists(at: url) else {
             throw AppFileManager.FileManagerError.failedToReadFile
         }
         
@@ -33,7 +27,7 @@ class JSONManager {
         }
     }
     
-    func write<T>(_ object: T, to url: URL) throws where T: Encodable
+    static func write<T>(_ object: T, to url: URL) throws where T: Encodable
     {
         let encoder = JSONEncoder()
         let formatter = DateConstants.dateFormatter
@@ -45,13 +39,13 @@ class JSONManager {
         }
         
         do {
-            try AppFileManager.shared.writeFile(to: url, with: data)
+            try AppFileManager.writeFile(to: url, with: data)
         } catch let error {
             throw error
         }
     }
     
-    func read<T>(for type: T.Type, from data: Data) throws -> T where T: Decodable
+    static func read<T>(for type: T.Type, from data: Data) throws -> T where T: Decodable
     {
         let decoder = JSONDecoder()
         let formatter = DateConstants.dateFormatter

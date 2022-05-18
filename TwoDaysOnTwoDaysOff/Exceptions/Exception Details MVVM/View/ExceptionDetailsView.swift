@@ -30,7 +30,7 @@ struct ExceptionDetailsView: View {
                 navigationBar
                 Divider()
                 ScrollView {
-                    VStack(spacing: 16) {
+                    VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(16)) {
                         nameSection
                         periodSection
                         if viewModel.isDayKindChangable {
@@ -184,7 +184,7 @@ extension ExceptionDetailsView {
     
     private var periodSection: some View {
         Section(header: header("ПЕРИОД"), footer: periodFooter()) {
-            VStack(spacing: 10) {
+            VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(10)) {
                 dateRow(
                     title: viewModel.isPeriod ? "Начало" : "Дата",
                     selection: $viewModel.from) {

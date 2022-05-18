@@ -124,7 +124,7 @@ struct MonthAccessoryView: View {
     }
     
     private var exceptionDetailsPlaceholder: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(10)) {
             Text("Исключение еще не назначено")
                 .font(.title3)
                 .foregroundColor(colorPalette.textTertiary)

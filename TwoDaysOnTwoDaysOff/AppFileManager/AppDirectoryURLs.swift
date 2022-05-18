@@ -15,21 +15,15 @@ enum AppDirectories : String
 
 class AppDirectoryURLs {
     
-    static var shared: AppDirectoryURLs {
-        get {
-            return AppDirectoryURLs()
-        }
-    }
-    
-    func documentsDirectoryURL() -> URL {
+    static func documentsDirectoryURL() -> URL {
         return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
     }
     
-    func tempDirectoryURL() -> URL {
+    static func tempDirectoryURL() -> URL {
         return FileManager.default.temporaryDirectory
     }
     
-    func getURL(for directory: AppDirectories) -> URL {
+    static func getURL(for directory: AppDirectories) -> URL {
         switch directory
         {
         case .documents:
@@ -40,7 +34,7 @@ class AppDirectoryURLs {
         }
     }
     
-    func getFullPath(forFileName name: String, inDirectory directory: AppDirectories) -> URL {
+    static func getFullPath(forFileName name: String, inDirectory directory: AppDirectories) -> URL {
         return getURL(for: directory).appendingPathComponent(name)
     }
 }

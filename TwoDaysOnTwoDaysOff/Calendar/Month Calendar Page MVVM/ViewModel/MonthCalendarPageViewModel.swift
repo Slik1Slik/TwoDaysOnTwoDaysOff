@@ -32,7 +32,7 @@ class MonthCalendarPageViewModel: ObservableObject {
             .assign(to: \.days, on: self)
             .store(in: &cancellableSet)
         
-        exceptionsObserver.onObjectsHaveBeenChanged = { [unowned self] in
+        exceptionsObserver.onObjectsDidChange = { [unowned self] in
             self.month = self.month
         }
     }

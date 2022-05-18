@@ -10,13 +10,9 @@ import UIKit
 
 class UserColorThemeManager {
     
-    static var shared: UserColorThemeManager {
-        get {
-            return UserColorThemeManager()
-        }
-    }
+    static let shared: UserColorThemeManager = UserColorThemeManager()
     
-    var colorThemesDirectory: URL = AppDirectoryURLs.shared.documentsDirectoryURL()
+    var colorThemesDirectory: URL = AppDirectoryURLs.documentsDirectoryURL()
     
     func readAll() throws -> [ColorTheme] {
         var colorThemes: [ColorTheme] = []
@@ -34,7 +30,7 @@ class UserColorThemeManager {
         for url in urls {
             if url.pathExtension == "json" {
                 do {
-                    let theme = try JSONManager.shared.read(for: ColorTheme.self, from: url)
+                    let theme = try JSONManager.read(for: ColorTheme.self, from: url)
                     colorThemes.append(theme)
                 } catch {
                     throw UserColorThemeError.readingFailed
@@ -55,11 +51,11 @@ class UserColorThemeManager {
     
     func find(forID id: String) throws -> ColorTheme {
         let url = colorThemesDirectory.appendingPathComponent("\(id).json")
-        guard AppFileStatusChecker.shared.exists(file: url) else {
+        guard AppFileStatusChecker.exists(file: url) else {
             throw UserColorThemeError.themeNotFound
         }
         do {
-            return try JSONManager.shared.read(for: ColorTheme.self, from: url)
+            return try JSONManager.read(for: ColorTheme.self, from: url)
         } catch {
             throw UserColorThemeError.readingFailed
         }
@@ -67,11 +63,11 @@ class UserColorThemeManager {
     
     func remove(forID id: String) throws {
         let url = colorThemesDirectory.appendingPathComponent("\(id).json")
-        guard AppFileStatusChecker.shared.exists(file: url) else {
+        guard AppFileStatusChecker.exists(file: url) else {
             throw UserColorThemeError.themeNotFound
         }
         do {
-            try AppFileManager.shared.deleteFile(at: url)
+            try AppFileManager.deleteFile(at: url)
             post(UserColorThemeNotifications.themeHasBeenRemoved)
             post(UserColorThemeNotifications.themesHaveBeenChanged)
         } catch {
@@ -81,9 +77,9 @@ class UserColorThemeManager {
     
     func save(_ colorTheme: ColorTheme) throws {
         let url = colorThemesDirectory.appendingPathComponent("\(colorTheme.id).json")
-        let event: StorageEvent = AppFileStatusChecker.shared.exists(file: url) ? .update : .add
+        let event: StorageEvent = AppFileStatusChecker.exists(file: url) ? .update : .add
         do {
-            try JSONManager.shared.write(colorTheme, to: url)
+            try JSONManager.write(colorTheme, to: url)
             if event == .add {
                 post(UserColorThemeNotifications.themeHasBeenAdded)
             } else {
@@ -99,22 +95,22 @@ class UserColorThemeManager {
         NotificationCenter.default.post(name: notification, object: nil)
     }
     
-    func createStorageIfNeeded() {
+    private func createStorageIfNeeded() {
         createDefaultColorThemesDirectoryIfNeeded()
         storeDefaultColorThemesIfNeeded()
     }
     
     private func createDefaultColorThemesDirectoryIfNeeded() {
         
-        guard !AppFileStatusChecker.shared.exists(file: colorThemesDirectory) else { return }
+        guard !AppFileStatusChecker.exists(file: colorThemesDirectory) else { return }
         
-        if AppFileManager.shared.createFolder(at: colorThemesDirectory) == false {
-            let _ = AppFileManager.shared.createFolder(at: colorThemesDirectory)
+        if AppFileManager.createFolder(at: colorThemesDirectory) == false {
+            let _ = AppFileManager.createFolder(at: colorThemesDirectory)
         }
     }
     
     private func storeDefaultColorThemesIfNeeded() {
-        guard !AppFileStatusChecker.shared.exists(file: colorThemesDirectory.appendingPathComponent(DefaultColorTheme.monochrome.rawValue + ".json"))
+        guard !AppFileStatusChecker.exists(file: colorThemesDirectory.appendingPathComponent(DefaultColorTheme.monochrome.rawValue + ".json"))
         else { return }
         
         for colorTheme in DefaultColorTheme.allCases {
@@ -122,8 +118,9 @@ class UserColorThemeManager {
         }
     }
     
-    init() {
-        self.colorThemesDirectory = AppDirectoryURLs.shared.documentsDirectoryURL().appendingPathComponent("Themes", isDirectory: true)
+    private init() {
+        createStorageIfNeeded()
+        self.colorThemesDirectory = AppDirectoryURLs.documentsDirectoryURL().appendingPathComponent("Themes", isDirectory: true)
     }
     
     enum UserColorThemeError: Error {

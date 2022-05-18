@@ -11,9 +11,7 @@ class DaysDataStorageCreator
 {
     var schedule: Schedule!
 
-    class var shared: DaysDataStorageCreator {
-         DaysDataStorageCreator()
-    }
+    static let shared: DaysDataStorageCreator = DaysDataStorageCreator()
 
     private var storage: [Day] = []
 
@@ -60,6 +58,6 @@ class DaysDataStorageCreator
         }
     }
 
-    init() {
+    private init() {
     }
 }

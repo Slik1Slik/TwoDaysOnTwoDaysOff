@@ -14,7 +14,7 @@ struct ExceptionDetailsPreview: View {
     @Environment(\.colorPalette) private var colorPalette
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(16)) {
             titleLabel
             dayKindLabel
             dateIntervalLabel
@@ -54,7 +54,7 @@ struct ExceptionDetailsPreview: View {
     }
     
     private var detailsLabel: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(10)) {
             HStack {
                 Text("Описание:")
                     .font(.caption)

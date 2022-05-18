@@ -17,10 +17,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool
     {
-        RealmManager.shared.updateSchema(with: 7)
+        RealmManager.updateSchema(with: 7)
         UserSettings.registerUserSettings()
         UserDaysDataStorageManager.shared.updateStorage()
-        UserColorThemeManager.shared.createStorageIfNeeded()
         
         return true
     }

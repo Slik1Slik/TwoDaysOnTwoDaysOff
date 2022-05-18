@@ -64,14 +64,37 @@ class ColorThemeSettingsViewModel: ObservableObject {
     }
     
     private func observeThemes() {
-        userColorThemesObserver.onAnyChange = { [unowned self] in
-            DispatchQueue.main.async {
-                fetchThemes()
-                getCurrentTheme()
-                setCurrentTheme()
+        userColorThemesObserver.onThemeAdded = { [unowned self] in
+            DispatchQueue.main.async { [unowned self] in
+                onThemesModified()
+            }
+        }
+        userColorThemesObserver.onThemeUpdated = { [unowned self] in
+            DispatchQueue.main.async { [unowned self] in
+                onThemesModified()
+            }
+        }
+        userColorThemesObserver.onThemeRemoved = { [unowned self] in
+            DispatchQueue.main.async { [unowned self] in
+                onThemeRemoved()
             }
         }
         userColorThemesObserver.startObserving()
+    }
+    
+    private func onThemesModified() {
+        fetchThemes()
+        getCurrentTheme()
+        setCurrentTheme()
+    }
+    
+    private func onThemeRemoved() {
+        let preLastTheme = colorThemes[colorThemes.count - 2]
+        colorThemes.removeAll { colorTheme in
+            colorTheme.id == currentColorTheme.id
+        }
+        currentColorTheme = preLastTheme
+        setCurrentTheme()
     }
     
     private func fetchThemes() {

@@ -12,11 +12,7 @@ class UserDaysDataStorageManager
     private let schedule: Schedule
     private let calendar = DateConstants.calendar
 
-    class var shared: UserDaysDataStorageManager {
-        get {
-            return UserDaysDataStorageManager()
-        }
-    }
+    static let shared: UserDaysDataStorageManager = UserDaysDataStorageManager()
 
     private(set) var storage: [Day]
 
@@ -58,7 +54,7 @@ class UserDaysDataStorageManager
         UserSettings.finalDate = DateConstants.calendar.date(byAdding: .year, value: 1, to: Date().startOfDay) ?? Date().startOfDay.addingTimeInterval(Double(DateConstants.dayInSeconds) * 366)
     }
 
-    init() {
+    private init() {
         self.schedule = Schedule(startDate: UserSettings.startDate,
                                  finalDate: UserSettings.finalDate,
                                  countOfWorkingDays: UserSettings.countOfWorkingDays ?? 2,

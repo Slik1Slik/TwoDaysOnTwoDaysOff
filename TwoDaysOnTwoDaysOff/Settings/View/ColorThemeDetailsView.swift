@@ -26,7 +26,7 @@ struct ColorThemeDetailsView: View {
                 MonthCalendarPagePreview()
                     .environmentObject(viewModel)
                 Divider()
-                    .padding(.horizontal)
+                    .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
                 ZStack {
                     CustomColorPicker(selection: $viewModel.restDayBackground)
                         .opacity(viewModel.currentColorThemeComponentToChange == .restDayBackground ? 1 : 0)
