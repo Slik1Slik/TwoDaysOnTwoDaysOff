@@ -12,7 +12,9 @@ class UserDaysDataStorageManager
     private let schedule: Schedule
     private let calendar = DateConstants.calendar
 
-    static let shared: UserDaysDataStorageManager = UserDaysDataStorageManager()
+    static var shared: UserDaysDataStorageManager {
+        return UserDaysDataStorageManager()
+    }
 
     private(set) var storage: [Day]
 

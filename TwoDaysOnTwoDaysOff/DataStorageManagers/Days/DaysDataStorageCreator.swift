@@ -35,26 +35,17 @@ class DaysDataStorageCreator
 
     private func mapDays()
     {
-        var indexOfEachDay = 0
-        var indexOfWorkingDay = 0
+        var eachDayIndex = 0
+        var workingDayIndex = schedule.countOfWorkingDays
         
-        var index = 0
-        
-        while indexOfEachDay < storage.count
-        {
-            index = indexOfEachDay
-            
-            while indexOfWorkingDay < schedule.countOfWorkingDays
-            {
-                guard index < storage.count else { return }
-                
-                storage[index].isWorking.toggle()
-                indexOfWorkingDay += 1
-                index += 1
+        while eachDayIndex < storage.count {
+            if eachDayIndex < workingDayIndex {
+                storage[eachDayIndex].isWorking.toggle()
+                eachDayIndex += 1
+            } else {
+                workingDayIndex += schedule.countOfWorkingDays + schedule.countOfRestDays
+                eachDayIndex += schedule.countOfRestDays
             }
-            
-            indexOfWorkingDay = 0
-            indexOfEachDay += schedule.countOfWorkingDays + schedule.countOfRestDays
         }
     }
 

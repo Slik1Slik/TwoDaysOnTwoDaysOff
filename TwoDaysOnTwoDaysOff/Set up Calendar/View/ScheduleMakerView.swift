@@ -19,7 +19,7 @@ struct ScheduleMakerView: View {
     private var completion = {}
     
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: LayoutConstants.perfectValueForCurrentDeviceScreen(35)) {
             HStack {
                 if currentIndex != 0 {
                     Button {
@@ -31,7 +31,6 @@ struct ScheduleMakerView: View {
                             .foregroundColor(colorPalette.buttonPrimary)
                             .font(.title2)
                     }
-                    
                 }
                 Spacer()
                 if (currentIndex != 1) {
@@ -51,8 +50,10 @@ struct ScheduleMakerView: View {
                     .foregroundColor(colorPalette.buttonPrimary)
                 }
             }
-            .padding()
-            
+            .padding(LayoutConstants.perfectValueForCurrentDeviceScreen(16))
+            .transaction { transaction in
+                transaction.animation = nil
+            }
             if currentIndex == 0 {
                 ScreenView(currentIndex: 0,
                            title: ScreenTitles.startDate.rawValue,
@@ -70,6 +71,7 @@ struct ScheduleMakerView: View {
                     
                 }.transition(.scale)
             }
+            Spacer()
         }
         .onChange(of: calendarManager.selectedDate) { newValue in
             userSettingsVM.startDate = newValue
@@ -87,7 +89,7 @@ struct ScheduleMakerView: View {
     public enum ScreenTitles: String
     {
         case startDate = "Когда у вас ближайшая смена?"
-        case schedule = "Какой у вас рабочий график?"
+        case schedule = "Какой у вас график?"
         
         var details: String {
             switch self {
