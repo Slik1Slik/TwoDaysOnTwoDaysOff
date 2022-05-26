@@ -31,7 +31,6 @@ struct ScheduleMakerView: View {
                             .foregroundColor(colorPalette.buttonPrimary)
                             .font(.title2)
                     }
-                    
                 }
                 Spacer()
                 if (currentIndex != 1) {
@@ -52,7 +51,9 @@ struct ScheduleMakerView: View {
                 }
             }
             .padding(LayoutConstants.perfectValueForCurrentDeviceScreen(16))
-            
+            .transaction { transaction in
+                transaction.animation = nil
+            }
             if currentIndex == 0 {
                 ScreenView(currentIndex: 0,
                            title: ScreenTitles.startDate.rawValue,

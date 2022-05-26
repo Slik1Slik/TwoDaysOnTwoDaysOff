@@ -32,9 +32,6 @@ struct CalendarView: View {
                     .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
             }
         }
-        .navigationBarHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        
     }
     
     private var pages: [MonthCalendarPage] = []

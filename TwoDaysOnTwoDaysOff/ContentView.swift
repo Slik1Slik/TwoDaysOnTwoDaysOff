@@ -20,40 +20,37 @@ struct ContentView: View {
     var body: some View
     {
         if isCalendarFormed {
-            NavigationView {
-                TabView {
-                    CalendarView(calendar: DateConstants.calendar,
-                                 interval: DateInterval(start: UserSettings.startDate.compare(with: Date().startOfDay).oldest,
-                                                        end: UserSettings.finalDate))
-                        .tabItem {
-                            Image(systemName: AppScreen.schedule.iconName)
-                            Text(AppScreen.schedule.title)
-                        }
-                        .environment(\.colorPalette, colorPalette)
-                        .environment(\.calendarColorPalette, calendarColorPalette)
-                    ExceptionsListView()
-                        .tabItem {
-                            Image(systemName: AppScreen.exceptions.iconName)
-                            Text(AppScreen.exceptions.title)
-                        }
-                        .environment(\.colorPalette, colorPalette)
-                        .environment(\.calendarColorPalette, calendarColorPalette)
-                    SettingsView()
-                        .tabItem {
-                            Image(systemName: AppScreen.settings.iconName)
-                            Text(AppScreen.settings.title)
-                        }
-                        .environment(\.colorPalette, colorPalette)
-                }
-                .ifAvailable.tint(colorPalette.buttonPrimary)
-                .onChange(of: colorThemeID) { _ in
-                    setUpColorPalette()
-                }
-                .onAppear {
-                    setUpColorPalette()
-                    observeColorThemes()
-                }
-                .navigationBarTitleDisplayMode(.inline)
+            TabView {
+                CalendarView(calendar: DateConstants.calendar,
+                             interval: DateInterval(start: UserSettings.startDate.compare(with: Date().startOfDay).oldest,
+                                                    end: UserSettings.finalDate))
+                    .tabItem {
+                        Image(systemName: AppScreen.schedule.iconName)
+                        Text(AppScreen.schedule.title)
+                    }
+                    .environment(\.colorPalette, colorPalette)
+                    .environment(\.calendarColorPalette, calendarColorPalette)
+                ExceptionsListView()
+                    .tabItem {
+                        Image(systemName: AppScreen.exceptions.iconName)
+                        Text(AppScreen.exceptions.title)
+                    }
+                    .environment(\.colorPalette, colorPalette)
+                    .environment(\.calendarColorPalette, calendarColorPalette)
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: AppScreen.settings.iconName)
+                        Text(AppScreen.settings.title)
+                    }
+                    .environment(\.colorPalette, colorPalette)
+            }
+            .ifAvailable.tint(colorPalette.buttonPrimary)
+            .onChange(of: colorThemeID) { _ in
+                setUpColorPalette()
+            }
+            .onAppear {
+                setUpColorPalette()
+                observeColorThemes()
             }
         } else {
             ScheduleMakerView()

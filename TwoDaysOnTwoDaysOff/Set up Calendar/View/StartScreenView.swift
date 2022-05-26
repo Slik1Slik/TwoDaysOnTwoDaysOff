@@ -25,10 +25,10 @@ struct ScreenView<Content: View>: View {
             Text(details)
                 .font(.caption)
                 .multilineTextAlignment(.center)
-                .lineLimit(2)
+                .lineLimit(nil)
                 .foregroundColor(.gray)
         }
-        .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(8))
+        .padding(.horizontal, LayoutConstants.perfectValueForCurrentDeviceScreen(16))
     }
     
     init(currentIndex: Int, title: String, details: String, @ViewBuilder content: @escaping () -> Content) {

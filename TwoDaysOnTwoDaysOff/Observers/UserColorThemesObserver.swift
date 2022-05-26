@@ -18,17 +18,17 @@ class UserColorThemesObserver: ObservableObject {
     
     func startObserving() {
         NotificationCenter.default
-            .addObserver(forName: UserColorThemeNotifications.themeHasBeenAdded, object: nil, queue: .main) { [weak self] _ in
+            .addObserver(forName: UserColorThemeNotifications.themeDidBecomeAdded, object: nil, queue: .main) { [weak self] _ in
                 self?.onThemeAdded()
                 self?.onAnyChange()
             }
         NotificationCenter.default
-            .addObserver(forName: UserColorThemeNotifications.themeHasBeenUpdated, object: nil, queue: .main) { [weak self] _ in
+            .addObserver(forName: UserColorThemeNotifications.themeDidUpdate, object: nil, queue: .main) { [weak self] _ in
                 self?.onThemeUpdated()
                 self?.onAnyChange()
             }
         NotificationCenter.default
-            .addObserver(forName: UserColorThemeNotifications.themeHasBeenRemoved, object: nil, queue: .main) { [weak self] _ in
+            .addObserver(forName: UserColorThemeNotifications.themeDidBecomeRemove, object: nil, queue: .main) { [weak self] _ in
                 self?.onThemeRemoved()
                 self?.onAnyChange()
             }
@@ -36,11 +36,11 @@ class UserColorThemesObserver: ObservableObject {
     
     func stopObserving() {
         NotificationCenter.default
-            .removeObserver(self, name: UserColorThemeNotifications.themeHasBeenAdded, object: nil)
+            .removeObserver(self, name: UserColorThemeNotifications.themeDidBecomeAdded, object: nil)
         NotificationCenter.default
-            .removeObserver(self, name: UserColorThemeNotifications.themeHasBeenUpdated, object: nil)
+            .removeObserver(self, name: UserColorThemeNotifications.themeDidUpdate, object: nil)
         NotificationCenter.default
-            .removeObserver(self, name: UserColorThemeNotifications.themeHasBeenRemoved, object: nil)
+            .removeObserver(self, name: UserColorThemeNotifications.themeDidBecomeRemove, object: nil)
     }
 }
 

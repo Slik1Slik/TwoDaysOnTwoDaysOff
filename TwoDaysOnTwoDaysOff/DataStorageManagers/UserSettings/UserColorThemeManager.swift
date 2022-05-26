@@ -21,7 +21,7 @@ class UserColorThemeManager {
                                                         includingPropertiesForKeys: nil,
                                                   options: [.skipsHiddenFiles])?.allObjects as? [URL]
         
-        guard var urls = urls else {
+        guard var urls = urls, !urls.isEmpty else {
             return DefaultColorTheme.allCases.map { $0.theme }
         }
         
@@ -68,8 +68,8 @@ class UserColorThemeManager {
         }
         do {
             try AppFileManager.deleteFile(at: url)
-            post(UserColorThemeNotifications.themeHasBeenRemoved)
-            post(UserColorThemeNotifications.themesHaveBeenChanged)
+            post(UserColorThemeNotifications.themeDidBecomeRemove)
+            post(UserColorThemeNotifications.themesDidChange)
         } catch {
             throw UserColorThemeError.removingFailed
         }
@@ -81,11 +81,11 @@ class UserColorThemeManager {
         do {
             try JSONManager.write(colorTheme, to: url)
             if event == .add {
-                post(UserColorThemeNotifications.themeHasBeenAdded)
+                post(UserColorThemeNotifications.themeDidBecomeAdded)
             } else {
-                post(UserColorThemeNotifications.themeHasBeenUpdated)
+                post(UserColorThemeNotifications.themeDidUpdate)
             }
-            post(UserColorThemeNotifications.themesHaveBeenChanged)
+            post(UserColorThemeNotifications.themesDidChange)
         } catch {
             throw UserColorThemeError.writingFailed
         }
@@ -119,8 +119,8 @@ class UserColorThemeManager {
     }
     
     private init() {
-        createStorageIfNeeded()
         self.colorThemesDirectory = AppDirectoryURLs.documentsDirectoryURL().appendingPathComponent("Themes", isDirectory: true)
+        createStorageIfNeeded()
     }
     
     enum UserColorThemeError: Error {
@@ -159,8 +159,8 @@ enum DefaultColorTheme: String, CaseIterable {
 }
 
 struct UserColorThemeNotifications {
-    static let themesHaveBeenChanged = Notification.Name("themesHaveBeenChanged")
-    static let themeHasBeenAdded = Notification.Name("themeHasBeenAdded")
-    static let themeHasBeenUpdated = Notification.Name("themeHasBeenUpdated")
-    static let themeHasBeenRemoved = Notification.Name("themeHasBeenRemoved")
+    static let themesDidChange = Notification.Name("themesDidChange")
+    static let themeDidBecomeAdded = Notification.Name("themeDidBecomeAdded")
+    static let themeDidUpdate = Notification.Name("themeDidUpdate")
+    static let themeDidBecomeRemove = Notification.Name("themeDidBecomeRemove")
 }
